@@ -29,7 +29,6 @@ namespace AddressBook
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<AddressService>();
         }
 

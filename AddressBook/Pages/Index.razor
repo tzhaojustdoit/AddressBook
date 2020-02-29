@@ -1,11 +1,6 @@
-﻿@page "/"
+﻿@page "/Index"
 @using AddressBook.Data
 @inject AddressService objAddressService
-
-<NavLink class="nav-link" href="AddAddress">
-    <span class="oi oi-plus" aria-hidden="true"></span>Add New
-
-</NavLink>
 
 <h2>Address Information</h2>
 @if (objAddresses == null)
@@ -26,8 +21,6 @@ else
                 <th>Locality</th>
                 <th>Sublocality</th>
                 <th>PostalCode</th>
-                <th></th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -43,7 +36,7 @@ else
                 <td>@address.Locality</td>
                 <td>@address.Sublocality</td>
                 <td>@address.PostalCode</td>
-                <td>
+                @*<td>
 
                     <a class="nav-link" href="EditAddress/@address.Id">
                         <span class="oi oi-pencil" aria-hidden="true"></span>Edit
@@ -54,7 +47,7 @@ else
                     <a class="nav-link" href="DeleteAddress/@address.Id">
                         <span class="oi oi-trash" aria-hidden="true"></span>Delete
                     </a>
-                </td>
+                </td>*@
             </tr>
             }
         </tbody>
