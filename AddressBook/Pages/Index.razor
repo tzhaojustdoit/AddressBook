@@ -15,12 +15,12 @@ else
                 <th>Line1</th>
                 <th>Line2</th>
                 <th>Line3</th>
-                <th>Extra Data</th>
                 <th>Country</th>
                 <th>Administrative Area</th>
                 <th>Locality</th>
                 <th>Sublocality</th>
                 <th>Postal Code</th>
+                <th>Extra Data</th>
             </tr>
         </thead>
         <tbody>
@@ -30,24 +30,24 @@ else
                 <td>@address.AddressLine1</td>
                 <td>@address.AddressLine2</td>
                 <td>@address.AddressLine3</td>
-                <td>@address.ExtraData</td>
                 <td>@address.Country</td>
                 <td>@address.AdminArea</td>
                 <td>@address.Locality</td>
                 <td>@address.Sublocality</td>
                 <td>@address.PostalCode</td>
+                <td>@address.ExtraData</td>
                 @*<td>
 
-                    <a class="nav-link" href="EditAddress/@address.Id">
-                        <span class="oi oi-pencil" aria-hidden="true"></span>Edit
-                    </a>
+            <a class="nav-link" href="EditAddress/@address.Id">
+                <span class="oi oi-pencil" aria-hidden="true"></span>Edit
+            </a>
 
-                </td>
-                <td>
-                    <a class="nav-link" href="DeleteAddress/@address.Id">
-                        <span class="oi oi-trash" aria-hidden="true"></span>Delete
-                    </a>
-                </td>*@
+        </td>
+        <td>
+            <a class="nav-link" href="DeleteAddress/@address.Id">
+                <span class="oi oi-trash" aria-hidden="true"></span>Delete
+            </a>
+        </td>*@
             </tr>
             }
         </tbody>
