@@ -18,5 +18,24 @@ namespace AddressBook.Data
         // List of administrative areas.
         [BsonElement("AdminAreas")]
         public List<string> AdminAreas { get; set; }
+
+
+        #region format
+
+        public bool HasAddressLine3 { get; set; } = false;
+
+        public bool HasExtraData { get; set; } = false;
+
+        public string AdminAreaDisplayName { get; set; } = "State";
+
+        public string LocalityDisplayName { get; set; } = "City";
+
+        public bool HasLocality { get; set; } = true;
+
+        public string SublocalityDisplayName { get; set; } = "District";
+
+        public bool HasSublocality { get; set; } = false;
+
+        #endregion format
     }
 }

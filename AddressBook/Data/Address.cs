@@ -34,7 +34,7 @@ namespace AddressBook.Data
 
         // Top-level administrative subdivision of this country.
         [BsonElement("adminArea")]
-        public string AdministrativeArea { get; set; }
+        public string AdminArea { get; set; }
 
         // Generally refers to the city/town portion of an address.
         [BsonElement("locality")]
