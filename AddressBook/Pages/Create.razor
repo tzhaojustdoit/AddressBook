@@ -5,7 +5,7 @@
 
 <h2>Add Address</h2>
 <hr />
-
+@*Dynamic Form*@
 <form>
     <div class="row">
         <div class="col-md-8">
@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <label for="Country" class="control-label">Country</label>
                     <select class="form-control" @onchange="@UpdateFormFormat">
-                        <option value="">--Select Country--</option>
+                        <option value=""></option>
                         @if (countryList != null)
                         {
                             foreach (var country in countryList)
