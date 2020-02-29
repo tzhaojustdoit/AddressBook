@@ -2,7 +2,7 @@
 @using AddressBook.Data
 @inject AddressService objAddressService
 
-<h2>Address Information</h2>
+<h2>Address Index</h2>
 @if (objAddresses == null)
 {
     <p><em>Loading....</em></p>
@@ -12,15 +12,15 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>AddressLine1</th>
-                <th>AddressLine2</th>
-                <th>AddressLine3</th>
-                <th>ExtraData</th>
+                <th>Line1</th>
+                <th>Line2</th>
+                <th>Line3</th>
+                <th>Extra Data</th>
                 <th>Country</th>
-                <th>AdministrativeArea</th>
+                <th>Administrative Area</th>
                 <th>Locality</th>
                 <th>Sublocality</th>
-                <th>PostalCode</th>
+                <th>Postal Code</th>
             </tr>
         </thead>
         <tbody>
