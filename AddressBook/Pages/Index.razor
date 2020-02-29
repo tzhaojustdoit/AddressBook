@@ -3,12 +3,14 @@
 @inject AddressService objAddressService
 
 <h2>Address Index</h2>
+<hr />
 @if (objAddresses == null)
 {
     <p><em>Loading....</em></p>
 }
 else
 {
+    <p>Found @objAddresses.Count Addresses</p>
     <table class="table">
         <thead>
             <tr>

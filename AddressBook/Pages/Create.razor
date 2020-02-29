@@ -48,13 +48,6 @@
                     </div>
                 }
 
-                @if (selectedCountry.HasExtraData)
-                {
-                    <div class="form-group">
-                        <label for="ExtraData" class="control-label">Extra Data</label>
-                        <input for="ExtraData" class="form-control" @bind="@objAddress.ExtraData" />
-                    </div>
-                }
 
                 @if (selectedCountry.AdminAreas == null)
                 {
@@ -97,6 +90,14 @@
                     <label for="PostalCode" class="control-label">Postal Code</label>
                     <input for="PostalCode" class="form-control" @bind="@objAddress.PostalCode" />
                 </div>
+
+                @if (selectedCountry.HasExtraData)
+                {
+                    <div class="form-group">
+                        <label for="ExtraData" class="control-label">Extra Data</label>
+                        <input for="ExtraData" class="form-control" @bind="@objAddress.ExtraData" />
+                    </div>
+                }
             }
 
         </div>
