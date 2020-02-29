@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace AddressBook.Data
 {
@@ -13,5 +14,9 @@ namespace AddressBook.Data
         // Country name.
         [BsonElement("Name")]
         public string Name { get; set; }
+
+        // List of administrative areas.
+        [BsonElement("AdminAreas")]
+        public List<string> AdminAreas { get; set; }
     }
 }

@@ -11,14 +11,13 @@
         <div class="col-md-8">
             <div class="form-group">
                 <label for="Country" class="control-label">Country</label>
-                <select @bind="@objAddress.Country" class="form-control">
+                <select class="form-control" @onchange="@UpdateFormFormat">
                     <option value="">--Select Country--</option>
                     @if (countryList != null)
                     {
-
                         foreach (var country in countryList)
                         {
-                            <option value="@country.Name">@country.Name</option>
+                            <option value="@country.Id">@country.Name</option>
                         }
 
                     }
@@ -39,15 +38,16 @@
 @code {
     Address objAddress = new Address();
     List<Country> countryList;
+    Country selectedCountry;
 
     protected override async Task OnInitializedAsync()
     {
-        countryList = await Task.Run(() => objAddressService.GetCountryData());
+        countryList = await Task.Run(() => objAddressService.GetAllCountries());
     }
 
     protected void CreateAddress()
     {
-        objAddressService.AddAddress(objAddress);
+        objAddressService.CreateAddress(objAddress);
         NavigationManager.NavigateTo("/");
     }
 
@@ -55,4 +55,13 @@
     {
         NavigationManager.NavigateTo("/");
     }
+    void UpdateFormFormat(ChangeEventArgs e)
+    {
+        var countryId = e.Value.ToString();
+        selectedCountry = objAddressService.GetCountry(countryId);
+        objAddress.Country = selectedCountry.Name;
+    }
+
 }
+
+
