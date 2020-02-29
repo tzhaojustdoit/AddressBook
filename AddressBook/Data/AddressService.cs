@@ -25,7 +25,7 @@ namespace AddressBook.Data
         }
 
         //To Add new address record      
-        public void AddAddress(Address address)
+        public void CreateAddress(Address address)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace AddressBook.Data
 
 
         //Get the details of a particular address     
-        public Address GetAddressData(string id)
+        public Address ReadAddress(string id)
         {
             try
             {
@@ -80,11 +80,26 @@ namespace AddressBook.Data
             }
         }
         // To get the list of Countries 
-        public List<Country> GetCountryData()
+        public List<Country> GetAllCountries()
         {
             try
             {
                 return db.CountryRecord.Find(_ => true).ToList();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        // Get country by it
+        public Country GetCountry(string id)
+        {
+            try
+            {
+                FilterDefinition<Country> filterCountryData = Builders<Country>.Filter.Eq("Id", id);
+
+                return db.CountryRecord.Find(filterCountryData).FirstOrDefault();
             }
             catch
             {
