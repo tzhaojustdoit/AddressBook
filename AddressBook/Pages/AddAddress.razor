@@ -1,0 +1,58 @@
+﻿@page "/AddAddress"
+@using AddressBook.Data
+@inject AddressService objAddressService
+@inject NavigationManager NavigationManager
+
+<h2>Add Address</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Country" class="control-label">Country</label>
+                <select @bind="@objAddress.Country" class="form-control">
+                    <option value="">--Select Country--</option>
+                    @if (countryList != null)
+                    {
+
+                        foreach (var country in countryList)
+                        {
+                            <option value="@country.Name">@country.Name</option>
+                        }
+
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateAddress" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    Address objAddress = new Address();
+    List<Country> countryList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        countryList = await Task.Run(() => objAddressService.GetCountryData());
+    }
+
+    protected void CreateAddress()
+    {
+        objAddressService.AddAddress(objAddress);
+        NavigationManager.NavigateTo("/");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}
