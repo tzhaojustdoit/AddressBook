@@ -17,7 +17,7 @@ namespace AddressBook.Data
         {
             var datalist = new List<Address>();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000000; i++)
             {
                 datalist.Add(GetRandomAddress());
             }
@@ -45,7 +45,8 @@ namespace AddressBook.Data
             if (country.AdminAreas == null)
             {
                 res.AdminArea = rand.Next(1, 9999).ToString();
-            } else
+            }
+            else
             {
                 res.AdminArea = country.AdminAreas[rand.Next(0, country.AdminAreas.Count)];
             }
@@ -113,7 +114,15 @@ namespace AddressBook.Data
 
             new Country
             {
-                Name = "China"
+                Name = "China",
+                AdminAreaDisplayName = "Province",
+                AdminAreas = new List<string>
+                {
+                    "Liaoning",
+                    "Guandong",
+                    "Hunan"
+                }
+
             },
 
             new Country
@@ -358,7 +367,15 @@ namespace AddressBook.Data
 
             new Country
             {
-                Name = "United States"
+                Name = "United States",
+                AdminAreaDisplayName = "State",
+                AdminAreas = new List<string>
+                {
+                    "Alaska",
+                    "Washington",
+                    "California"
+                }
+               
             },
 
             new Country

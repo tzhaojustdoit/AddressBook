@@ -10,7 +10,7 @@
 }
 else
 {
-    <p>Found @objAddresses.Count Addresses</p>
+    <p>Found @numAddresses Addresses</p>
     <table class="table">
         <thead>
             <tr>
@@ -59,8 +59,10 @@ else
 
 @code {
     List<Address> objAddresses;
+    long numAddresses;
     protected override async Task OnInitializedAsync()
     {
         objAddresses = await Task.Run(() => objAddressService.GetAllAddresses());
+        numAddresses = await Task.Run(() => objAddressService.GetNumOfAddresses());
     }
 }

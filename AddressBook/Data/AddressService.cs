@@ -11,12 +11,26 @@ namespace AddressBook.Data
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
+        //To Get number of addresses     
+        public long GetNumOfAddresses()
+        {
+            try
+            {
+                return db.AddressRecord.CountDocuments(_ => true);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         //To Get all address details      
         public List<Address> GetAllAddresses()
         {
             try
             {
-                return db.AddressRecord.Find(_ => true).ToList();
+                return db.AddressRecord.Find(_ => true).Limit(1000).ToList();
             }
             catch
             {
