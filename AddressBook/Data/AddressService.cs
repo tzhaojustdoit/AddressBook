@@ -106,5 +106,64 @@ namespace AddressBook.Data
                 throw;
             }
         }
+
+        //To Delete all addresses
+        public void DeleteAllAddresses()
+        {
+            try
+            {
+                db.AddressRecord.DeleteManyAsync(_ => true);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        //To load all default addresses
+        public void LoadDefaultAddresses()
+        {
+            try
+            {
+                var addressList = DefaultData.GetDefaultAddressList();
+                foreach (var item in addressList)
+                {
+                    db.AddressRecord.InsertOne(item);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        //To Delete all Countries
+        public void DeleteAllCountries()
+        {
+            try
+            {
+                db.CountryRecord.DeleteManyAsync(_ => true);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        //To load all default countries
+        public void LoadDefaultCountries()
+        {
+            try
+            {
+                foreach (var item in DefaultData.DefaultCountryList)
+                {
+                    db.CountryRecord.InsertOne(item);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }
