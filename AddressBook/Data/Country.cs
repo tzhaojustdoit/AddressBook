@@ -26,7 +26,7 @@ namespace AddressBook.Data
 
         public bool HasExtraData { get; set; } = false;
 
-        public string AdminAreaDisplayName { get; set; } = "State";
+        public string AdminAreaDisplayName { get; set; } = "State/Province/Region";
 
         public string LocalityDisplayName { get; set; } = "City";
 
