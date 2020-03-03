@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AddressBook.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace AddressBook
@@ -35,7 +33,16 @@ namespace AddressBook
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AddressBook API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {
+                    Title = "AddressBook API", 
+                    Version = "v1",
+                    Description = "5200 Addresses Project",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Tianhua Zhao, Yijing Wang, Qiaofang Deng, Ruoyang Qiu",
+                        Url = new Uri("https://github.com/tzhaojustdoit/AddressBook")
+                    }
+                });
             });
         }
 
