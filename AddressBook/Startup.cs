@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AddressBook.Data;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
 
 namespace AddressBook
 {
@@ -43,6 +45,11 @@ namespace AddressBook
                         Url = new Uri("https://github.com/tzhaojustdoit/AddressBook")
                     }
                 });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
