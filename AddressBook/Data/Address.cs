@@ -1,5 +1,5 @@
-﻿
-
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -14,6 +14,7 @@ namespace AddressBook.Data
 
         // Country name.
         [BsonElement("country")]
+        [Required]
         public string Country { get; set; }
 
         // The address lines represent the most specific part of any address.
