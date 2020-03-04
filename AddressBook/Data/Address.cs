@@ -41,7 +41,7 @@ namespace AddressBook.Data
         [BsonElement("locality")]
         public string Locality { get; set; }
 
-        // Generally refers to the city/town portion of an address.
+        // Generally refers to the sub-city portion of an address.
         [BsonElement("sublocality")]
         public string Sublocality { get; set; }
 

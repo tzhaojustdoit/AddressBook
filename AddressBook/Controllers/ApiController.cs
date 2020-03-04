@@ -38,5 +38,19 @@ namespace AddressBook.Controllers
             _addressService.CreateAddress(address);
             return address;
         }
+
+        /// <summary>
+        /// Add a new country with its country-specific address format info
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
+        [HttpPost("addcountry")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Country> CreateCountry([FromBody] Country country)
+        {
+            _addressService.CreateCountry(country);
+            return country;
+        }
     }
 }

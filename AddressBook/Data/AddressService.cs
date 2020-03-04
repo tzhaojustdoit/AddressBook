@@ -106,6 +106,19 @@ namespace AddressBook.Data
             }
         }
 
+        // To add a new country record
+        internal void CreateCountry(Country country)
+        {
+            try
+            {
+                db.CountryRecord.InsertOne(country);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         // Get country by it
         public Country GetCountry(string id)
         {
