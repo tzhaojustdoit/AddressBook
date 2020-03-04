@@ -40,7 +40,7 @@ namespace AddressBook.Controllers
         }
 
         /// <summary>
-        /// Add a new country with its country-specific address format info
+        /// Add a new country
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
