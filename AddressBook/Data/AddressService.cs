@@ -9,7 +9,7 @@ namespace AddressBook.Data
 {
     public class AddressService
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
 
         //To Get number of addresses     
@@ -93,6 +93,7 @@ namespace AddressBook.Data
                 throw;
             }
         }
+
         // To get the list of Countries 
         public List<Country> GetAllCountries()
         {
@@ -119,7 +120,7 @@ namespace AddressBook.Data
             }
         }
 
-        // Get country by it
+        // Get country by id
         public Country GetCountry(string id)
         {
             try
