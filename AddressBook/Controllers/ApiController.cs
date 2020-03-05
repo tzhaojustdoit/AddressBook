@@ -55,7 +55,7 @@ namespace AddressBook.Controllers
         }
 
         /// <summary>
-        /// Add a new country format
+        /// Search an address with a given address
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
@@ -71,6 +71,38 @@ namespace AddressBook.Controllers
                 return NotFound();
             }
             return SearchResult[0];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="addresslines"></param>
+        /// <returns></returns>
+        [HttpPost("partialsearch")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<List<Address>> PartialSearch([FromBody] AddressLine addresslines)
+        {
+
+            var addressline1 = addresslines.AddressLine1;
+            var addressline2 = addresslines.AddressLine2;
+            if(String.IsNullOrEmpty(addressline1) || String.IsNullOrEmpty(addressline2))
+            {
+                return BadRequest();
+            }
+            var SearchResult = _addressService.GetAddressByPartialAddress(addressline1, addressline2);
+            if (SearchResult.Count == 0)
+            {
+                return NotFound();
+            }
+            return SearchResult;
+        }
+
+        public class AddressLine
+        {
+            public string AddressLine1 { get; set; }
+            public string AddressLine2 { get; set; }
         }
     }
 }
