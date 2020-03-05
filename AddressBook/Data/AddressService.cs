@@ -193,5 +193,32 @@ namespace AddressBook.Data
                 throw;
             }
         }
+
+        // Find if the given address exist in database
+        public List<Address> GetAddressByWholeAddress(Address data)
+        {
+            FilterDefinition<Address> addrline1 = Builders<Address>.Filter.Eq(x => x.AddressLine1, data.AddressLine1);
+            FilterDefinition<Address> addrline2 = Builders<Address>.Filter.Eq(x => x.AddressLine2, data.AddressLine2);
+            FilterDefinition<Address> addrline3 = Builders<Address>.Filter.Eq(x => x.AddressLine3, data.AddressLine3);
+            FilterDefinition<Address> extradata = Builders<Address>.Filter.Eq(x => x.ExtraData, data.ExtraData);
+            FilterDefinition<Address> combineAddr = Builders<Address>.Filter.And(addrline1, addrline2, addrline3, extradata);
+            FilterDefinition<Address> country = Builders<Address>.Filter.Eq(x => x.Country, data.Country);
+            FilterDefinition<Address> adminArea = Builders<Address>.Filter.Eq(x => x.AdminArea, data.AdminArea);
+            FilterDefinition<Address> city = Builders<Address>.Filter.Eq(x => x.Locality, data.Locality);
+            FilterDefinition<Address> town = Builders<Address>.Filter.Eq(x => x.Sublocality, data.Sublocality);
+            FilterDefinition<Address> region = Builders<Address>.Filter.And(country, adminArea, city, town);
+            FilterDefinition<Address> postcode = Builders<Address>.Filter.Eq(x => x.PostalCode, data.PostalCode);
+            FilterDefinition<Address> allMatch = Builders<Address>.Filter.And(combineAddr, region, postcode);
+            return db.AddressRecord.Find(allMatch).ToList();
+        }
+
+        // Find all addresses mathing the given addressline1 and addressline2
+        public List<Address> GetAddressByPartialAddress(string addressLine1, string addressLine2)
+        {
+            FilterDefinition<Address> addrline1 = Builders<Address>.Filter.Eq(x => x.AddressLine1, addressLine1);
+            FilterDefinition<Address> addrline2 = Builders<Address>.Filter.Eq(x => x.AddressLine2, addressLine2);
+            FilterDefinition<Address> combineAddr = Builders<Address>.Filter.And(addrline1, addrline2);
+            return db.AddressRecord.Find(combineAddr).ToList();
+        }
     }
 }
