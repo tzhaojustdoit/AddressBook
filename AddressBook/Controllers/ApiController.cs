@@ -40,16 +40,16 @@ namespace AddressBook.Controllers
         }
 
         /// <summary>
-        /// Add a new country
+        /// Add a new country format
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
-        [HttpPost("addcountry")]
+        [HttpPost("addcountryformat")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Country> CreateCountry([FromBody] Country country)
+        public ActionResult<CountryFormat> CreateCountryFormat([FromBody] CountryFormat country)
         {
-            _addressService.CreateCountry(country);
+            _addressService.CreateCountryFormat(country);
             return country;
         }
     }

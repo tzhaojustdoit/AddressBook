@@ -70,9 +70,9 @@ namespace AddressBook.Data
         }
 
         // Default country list
-        public static List<Country> DefaultCountryList = new List<Country>
+        public static List<CountryFormat> DefaultCountryList = new List<CountryFormat>
         {
-            new Country
+            new CountryFormat
             {
                 Name = "Argentina",
                 AdminAreaDisplayName = "Province",
@@ -105,42 +105,42 @@ namespace AddressBook.Data
                 }
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Australia"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Belgium"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Brazil"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Britain"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Canada"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Channel Islands"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Chile"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "China",
                 AdminAreaDisplayName = "Province",
@@ -153,237 +153,237 @@ namespace AddressBook.Data
 
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Costa Rica",
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Crimea"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Czech Republic"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Denmark"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Estonia"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Fiji"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Finland"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Formosa"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "France"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Germany"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Great Britain"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Greenland"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Iceland"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "India"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Indonesia"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Ireland"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Isle of Man"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Israel"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Italy"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Japan"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Korea"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Latvia"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Luxembourg"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Malaysia"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Mexico"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Miscellaneous/Other"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Netherlands"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "New Zealand"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Northern Ireland"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Norway"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Oman"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Pakistan"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Poland"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Portugal"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Puerto Rico"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Romania"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Russia"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Scotland"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Singapore"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "South Africa"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "South Korea"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Spain"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Sweden"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Switzerland"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "United Kingdom"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Ukraine"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "United States",
                 AdminAreaDisplayName = "State",
@@ -443,17 +443,17 @@ namespace AddressBook.Data
                
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Uruguay"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Venezuela"
             },
 
-            new Country
+            new CountryFormat
             {
                 Name = "Wales"
             },

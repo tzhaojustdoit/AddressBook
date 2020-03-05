@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AddressBook.Data
 {
-    public class Country
+    public class CountryFormat
     {
         // Unique id, primary key.
         [BsonId]

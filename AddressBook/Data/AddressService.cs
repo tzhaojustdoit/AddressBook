@@ -95,7 +95,7 @@ namespace AddressBook.Data
         }
 
         // To get the list of Countries 
-        public List<Country> GetAllCountries()
+        public List<CountryFormat> GetAllCountryFormats()
         {
             try
             {
@@ -108,7 +108,7 @@ namespace AddressBook.Data
         }
 
         // To add a new country record
-        internal void CreateCountry(Country country)
+        internal void CreateCountryFormat(CountryFormat country)
         {
             try
             {
@@ -121,11 +121,11 @@ namespace AddressBook.Data
         }
 
         // Get country by id
-        public Country GetCountry(string id)
+        public CountryFormat GetCountryFormat(string id)
         {
             try
             {
-                FilterDefinition<Country> filterCountryData = Builders<Country>.Filter.Eq("Id", id);
+                FilterDefinition<CountryFormat> filterCountryData = Builders<CountryFormat>.Filter.Eq("Id", id);
 
                 return db.CountryRecord.Find(filterCountryData).FirstOrDefault();
             }
@@ -166,7 +166,7 @@ namespace AddressBook.Data
         }
 
         //To Delete all Countries
-        public void DeleteAllCountries()
+        public void DeleteAllCountryFormats()
         {
             try
             {
@@ -179,7 +179,7 @@ namespace AddressBook.Data
         }
 
         //To load all default countries
-        public void LoadDefaultCountries()
+        public void LoadDefaultCountryFormats()
         {
             try
             {
