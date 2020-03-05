@@ -1,0 +1,29 @@
+﻿@page "/About"
+@using AddressBook.Data
+@inject AddressService objAddressService
+<h3>About</h3>
+<a class="btn btn-primary" @onclick="@WipeAddresses">Wipe Addresses</a>
+<a class="btn btn-primary" @onclick="@LoadDefaultAddresses">Load Default Addresses</a>
+<a class="btn btn-primary" @onclick="@WipeCountries">Wipe Countries</a>
+<a class="btn btn-primary" @onclick="@LoadDefaultCountries">Load Default Countries</a>
+@code {
+    void WipeAddresses()
+    {
+        objAddressService.DeleteAllAddresses();
+    }
+
+    void LoadDefaultAddresses()
+    {
+        objAddressService.LoadDefaultAddresses();
+    }
+
+    void WipeCountries()
+    {
+        objAddressService.DeleteAllCountries();
+    }
+
+    void LoadDefaultCountries()
+    {
+        objAddressService.LoadDefaultCountries();
+    }
+}

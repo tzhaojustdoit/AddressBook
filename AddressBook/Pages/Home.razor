@@ -1,0 +1,52 @@
+﻿@page "/"
+<h2>Welcome to AddressBook</h2>
+<hr />
+
+<div class="card-deck">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Index</h5>
+                <p class="card-text">
+                    List of Address currently in the Address Book
+                </p>
+                <a href="/index" class="btn btn-primary">Index</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Add</h5>
+                <p class="card-text">
+                    Add a new address by completing the dynamically adjusting form
+                </p>
+                <a href="/create" class="btn btn-primary">Add</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Search</h5>
+                <p class="card-text">
+                    Search for a given address based on the country-specific format
+                </p>
+                <a href="/search" class="btn btn-primary">Search</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Partial Search
+                </h5>
+                <p class="card-text">
+                    Search across countries to find matching addresses
+                </p>
+                <a href="/psearch" class="btn btn-primary">Partial Search</a>
+            </div>
+        </div>
+</div>
+
+<hr />
+
+@code {
+
+}
