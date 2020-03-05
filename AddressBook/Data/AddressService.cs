@@ -51,49 +51,6 @@ namespace AddressBook.Data
             }
         }
 
-
-        //Get the details of a particular address     
-        public Address ReadAddress(string id)
-        {
-            try
-            {
-                FilterDefinition<Address> filterAddressData = Builders<Address>.Filter.Eq("Id", id);
-
-                return db.AddressRecord.Find(filterAddressData).FirstOrDefault();
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        //To Update the records of a particluar address     
-        public void UpdateAddress(Address address)
-        {
-            try
-            {
-                db.AddressRecord.ReplaceOne(filter: g => g.Id == address.Id, replacement: address);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        //To Delete the record of a particular address     
-        public void DeleteAddress(string id)
-        {
-            try
-            {
-                FilterDefinition<Address> addressData = Builders<Address>.Filter.Eq("Id", id);
-                db.AddressRecord.DeleteOne(addressData);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
         // To get the list of Countries 
         public List<CountryFormat> GetAllCountryFormats()
         {
