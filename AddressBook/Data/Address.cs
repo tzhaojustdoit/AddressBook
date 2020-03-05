@@ -49,7 +49,6 @@ namespace AddressBook.Data
 
         // Values are frequently alphanumeric.
         [BsonElement("postalCode")]
-        [Required]
         public string PostalCode { get; set; }
     }
 }
