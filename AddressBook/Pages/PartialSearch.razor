@@ -24,73 +24,82 @@
             </div>
         </div>
     </div>
-
-    @for (var i = 0; i < resList.Count; i++)
+    @if (SearchButtonClicked)
     {
-        foreach(var countryFormat in countryFormatList)
+        @if (resList.Count == 0)
         {
-            if(countryFormat.Name == resList[i].Country)
+            <div class="form-group">
+                <label for="NotFound" class="control-label">Address Not Found</label>
+            </div>
+        }
+        @for (var i = 0; i < resList.Count; i++)
+        {
+            foreach (var countryFormat in countryFormatList)
             {
-                selectedCountryFormat = countryFormat;
+                if (countryFormat.Name == resList[i].Country)
+                {
+                    selectedCountryFormat = countryFormat;
+                }
             }
-        }
-        <div class="form-group">
-            <label for="AddressLine1" class="control-label">Address Line 1: </label>
-            <label for="AddressLine1" class="control-label">@resList[i].AddressLine1</label>
-        </div>
-
-        <div class="form-group">
-            <label for="AddressLine2" class="control-label">Address Line 2: </label>
-            <label for="AddressLine2" class="control-label">@resList[i].AddressLine2</label>
-        </div>
-
-        @if (selectedCountryFormat.HasAddressLine3)
-        {
             <div class="form-group">
-                <label for="AddressLine3" class="control-label">Address Line 3</label>
-                <label for="AddressLine3" class="control-label">"@resList[i].AddressLine3" </label>
+                <label for="AddressLine1" class="control-label">Address Line 1: </label>
+                <label for="AddressLine1" class="control-label">@resList[i].AddressLine1</label>
             </div>
-        }
 
-        <div class="form-group">
-            <label for="Country" class="control-label">Country: </label>
-            <label for="AdminArea" class="control-label">@resList[i].Country</label>
-        </div>
-
-        <div class="form-group">
-            <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName: </label>
-            <label for="AdminArea" class="control-label">@resList[i].AdminArea</label>
-        </div>
-
-
-
-        @if (selectedCountryFormat.HasLocality)
-        {
             <div class="form-group">
-                <label for="Locality" class="control-label">@selectedCountryFormat.LocalityDisplayName: </label>
-                <label for="Locality" class="control-label">@resList[i].Locality</label>
+                <label for="AddressLine2" class="control-label">Address Line 2: </label>
+                <label for="AddressLine2" class="control-label">@resList[i].AddressLine2</label>
             </div>
-        }
 
-        @if (selectedCountryFormat.HasSublocality)
-        {
+            @if (selectedCountryFormat.HasAddressLine3)
+            {
+                <div class="form-group">
+                    <label for="AddressLine3" class="control-label">Address Line 3</label>
+                    <label for="AddressLine3" class="control-label">"@resList[i].AddressLine3" </label>
+                </div>
+            }
+
             <div class="form-group">
-                <label for="Sublocality" class="control-label">@selectedCountryFormat.SublocalityDisplayName: </label>
-                <label for="Sublocality" class="control-label" @bind="@resList[i].Sublocality" />
+                <label for="Country" class="control-label">Country: </label>
+                <label for="AdminArea" class="control-label">@resList[i].Country</label>
             </div>
-        }
 
-        <div class="form-group">
-            <label for="PostalCode" class="control-label">Postal Code: </label>
-            <label for="PostalCode" class="control-label">@resList[i].PostalCode</label>
-        </div>
-
-        @if (selectedCountryFormat.HasExtraData)
-        {
             <div class="form-group">
-                <label for="ExtraData" class="control-label">Extra Data: </label>
-                <label for="ExtraData" class="control-label">@resList[i].ExtraData</label>
+                <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName: </label>
+                <label for="AdminArea" class="control-label">@resList[i].AdminArea</label>
             </div>
+
+
+
+            @if (selectedCountryFormat.HasLocality)
+            {
+                <div class="form-group">
+                    <label for="Locality" class="control-label">@selectedCountryFormat.LocalityDisplayName: </label>
+                    <label for="Locality" class="control-label">@resList[i].Locality</label>
+                </div>
+            }
+
+            @if (selectedCountryFormat.HasSublocality)
+            {
+                <div class="form-group">
+                    <label for="Sublocality" class="control-label">@selectedCountryFormat.SublocalityDisplayName: </label>
+                    <label for="Sublocality" class="control-label" @bind="@resList[i].Sublocality" />
+                </div>
+            }
+
+            <div class="form-group">
+                <label for="PostalCode" class="control-label">Postal Code: </label>
+                <label for="PostalCode" class="control-label">@resList[i].PostalCode</label>
+            </div>
+
+            @if (selectedCountryFormat.HasExtraData)
+            {
+                <div class="form-group">
+                    <label for="ExtraData" class="control-label">Extra Data: </label>
+                    <label for="ExtraData" class="control-label">@resList[i].ExtraData</label>
+                </div>
+            }
+
         }
     }
 </form>
@@ -100,6 +109,7 @@
     List<Address> resList = new List<Address>();
     List<CountryFormat> countryFormatList;
     CountryFormat selectedCountryFormat;
+    bool SearchButtonClicked = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -110,6 +120,7 @@
     protected void SearchAddress()
     {
         resList = objAddressService.GetAddressByPartialAddress(objAddressLine.AddressLine1, objAddressLine.AddressLine2);
+        SearchButtonClicked = true;
     }
 
     void OKClicked()
