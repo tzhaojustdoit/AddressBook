@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AddressBook.Data;
 using Microsoft.AspNetCore.Http;
@@ -54,17 +55,54 @@ namespace AddressBook.Controllers
         }
 
         /// <summary>
-        /// Whole search address
+        /// Search an address with a given address
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
         [HttpPost("search")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<List<Address>> Search([FromBody] Address address)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Address> Search([FromBody] Address address)
         {
-            var res = _addressService.GetAddressByWholeAddress(address);
-            return res;
+            var SearchResult = _addressService.GetAddressByWholeAddress(address);
+            if(SearchResult.Count == 0)
+            {
+                return NotFound();
+            }
+            return SearchResult[0];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="addresslines"></param>
+        /// <returns></returns>
+        [HttpPost("partialsearch")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<List<Address>> PartialSearch([FromBody] AddressLine addresslines)
+        {
+
+            var addressline1 = addresslines.AddressLine1;
+            var addressline2 = addresslines.AddressLine2;
+            if(String.IsNullOrEmpty(addressline1) || String.IsNullOrEmpty(addressline2))
+            {
+                return BadRequest();
+            }
+            var SearchResult = _addressService.GetAddressByPartialAddress(addressline1, addressline2);
+            if (SearchResult.Count == 0)
+            {
+                return NotFound();
+            }
+            return SearchResult;
+        }
+
+        public class AddressLine
+        {
+            public string AddressLine1 { get; set; }
+            public string AddressLine2 { get; set; }
         }
     }
 }
