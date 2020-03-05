@@ -52,5 +52,19 @@ namespace AddressBook.Controllers
             _addressService.CreateCountryFormat(country);
             return country;
         }
+
+        /// <summary>
+        /// Whole search address
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        [HttpPost("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<List<Address>> Search([FromBody] Address address)
+        {
+            var res = _addressService.GetAddressByWholeAddress(address);
+            return res;
+        }
     }
 }
