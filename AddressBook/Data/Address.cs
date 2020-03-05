@@ -19,6 +19,7 @@ namespace AddressBook.Data
 
         // The address lines represent the most specific part of any address.
         [BsonElement("addressLine1")]
+        [Required]
         public string AddressLine1 { get; set; }
 
         // Address line 2.
@@ -35,6 +36,7 @@ namespace AddressBook.Data
 
         // Top-level administrative subdivision of this country.
         [BsonElement("adminArea")]
+        [Required]
         public string AdminArea { get; set; }
 
         // Generally refers to the city/town portion of an address.
@@ -47,6 +49,7 @@ namespace AddressBook.Data
 
         // Values are frequently alphanumeric.
         [BsonElement("postalCode")]
+        [Required]
         public string PostalCode { get; set; }
     }
 }
