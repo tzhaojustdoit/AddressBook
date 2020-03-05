@@ -193,5 +193,12 @@ namespace AddressBook.Data
                 throw;
             }
         }
+
+        // Find if the given address exist in database
+        public Address GetAddressByWholeAddress(Address data)
+        {
+            
+            return null;
+        }
     }
 }
