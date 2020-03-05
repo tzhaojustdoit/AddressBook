@@ -119,7 +119,7 @@
 
     protected void SearchAddress()
     {
-        resList = objAddressService.GetAddressByPartialAddress(objAddressLine.AddressLine1, objAddressLine.AddressLine2);
+        resList = objAddressService.GetAddressByPartialAddress(objAddressLine);
         SearchButtonClicked = true;
     }
 

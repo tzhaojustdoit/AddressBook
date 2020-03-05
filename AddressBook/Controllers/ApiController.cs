@@ -84,14 +84,13 @@ namespace AddressBook.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<Address>> PartialSearch([FromBody] AddressLine addresslines)
         {
-
-            var addressline1 = addresslines.AddressLine1;
-            var addressline2 = addresslines.AddressLine2;
-            if(String.IsNullOrEmpty(addressline1) || String.IsNullOrEmpty(addressline2))
+            if(String.IsNullOrEmpty(addresslines.AddressLine1))
             {
                 return BadRequest();
             }
-            var SearchResult = _addressService.GetAddressByPartialAddress(addressline1, addressline2);
+
+            var SearchResult = _addressService.GetAddressByPartialAddress(addresslines);
+
             if (SearchResult.Count == 0)
             {
                 return NotFound();

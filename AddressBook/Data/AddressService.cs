@@ -213,10 +213,10 @@ namespace AddressBook.Data
         }
 
         // Find all addresses mathing the given addressline1 and addressline2
-        public List<Address> GetAddressByPartialAddress(string addressLine1, string addressLine2)
+        public List<Address> GetAddressByPartialAddress(AddressLine data)
         {
-            FilterDefinition<Address> addrline1 = Builders<Address>.Filter.Eq(x => x.AddressLine1, addressLine1);
-            FilterDefinition<Address> addrline2 = Builders<Address>.Filter.Eq(x => x.AddressLine2, addressLine2);
+            FilterDefinition<Address> addrline1 = Builders<Address>.Filter.Eq(x => x.AddressLine1, data.AddressLine1);
+            FilterDefinition<Address> addrline2 = Builders<Address>.Filter.Eq(x => x.AddressLine2, data.AddressLine2);
             FilterDefinition<Address> combineAddr = Builders<Address>.Filter.And(addrline1, addrline2);
             return db.AddressRecord.Find(combineAddr).ToList();
         }
