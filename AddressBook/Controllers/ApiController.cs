@@ -99,10 +99,6 @@ namespace AddressBook.Controllers
             return SearchResult;
         }
 
-        public class AddressLine
-        {
-            public string AddressLine1 { get; set; }
-            public string AddressLine2 { get; set; }
-        }
+        
     }
 }
