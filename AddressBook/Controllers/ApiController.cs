@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AddressBook.Data;
 using Microsoft.AspNetCore.Http;
@@ -51,6 +52,25 @@ namespace AddressBook.Controllers
         {
             _addressService.CreateCountryFormat(country);
             return country;
+        }
+
+        /// <summary>
+        /// Add a new country format
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        [HttpPost("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Address> Search([FromBody] Address address)
+        {
+            var SearchResult = _addressService.GetAddressByWholeAddress(address);
+            if(SearchResult.Count == 0)
+            {
+                return NotFound();
+            }
+            return SearchResult[0];
         }
     }
 }
