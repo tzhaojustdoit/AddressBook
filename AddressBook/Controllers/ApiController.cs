@@ -55,7 +55,7 @@ namespace AddressBook.Controllers
         }
 
         /// <summary>
-        /// Search an address with a given address
+        /// Search an address that matches exactly
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
