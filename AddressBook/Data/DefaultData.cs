@@ -75,6 +75,34 @@ namespace AddressBook.Data
             new Country
             {
                 Name = "Argentina",
+                AdminAreaDisplayName = "Province",
+                AdminAreas = new List<string>
+                {
+                    "BA",
+                    "CA",
+                    "CB",
+                    "CC",
+                    "CH",
+                    "CN",
+                    "CT",
+                    "ER",
+                    "FM",
+                    "JY",
+                    "LP",
+                    "LR",
+                    "MN",
+                    "MZ",
+                    "NQ",
+                    "RN",
+                    "SA",
+                    "SC",
+                    "SE",
+                    "SF",
+                    "SJ",
+                    "SL",
+                    "TF",
+                    "TM"
+                }
             },
 
             new Country
@@ -123,11 +151,6 @@ namespace AddressBook.Data
                     "Hunan"
                 }
 
-            },
-
-            new Country
-            {
-                Name = "Taiwan"
             },
 
             new Country
@@ -188,11 +211,6 @@ namespace AddressBook.Data
             new Country
             {
                 Name = "Greenland"
-            },
-
-            new Country
-            {
-                Name = "Hong Kong"
             },
 
             new Country
@@ -371,9 +389,56 @@ namespace AddressBook.Data
                 AdminAreaDisplayName = "State",
                 AdminAreas = new List<string>
                 {
-                    "Alaska",
-                    "Washington",
-                    "California"
+                    "AL",
+                    "AK",
+                    "AZ",
+                    "AR",
+                    "CA",
+                    "CO",
+                    "CT",
+                    "DE",
+                    "FL",
+                    "GA",
+                    "HI",
+                    "ID",
+                    "IL",
+                    "IN",
+                    "IA",
+                    "KS",
+                    "KY",
+                    "LA",
+                    "ME",
+                    "MD",
+                    "MA",
+                    "MI",
+                    "MN",
+                    "MS",
+                    "MO",
+                    "MT",
+                    "NE",
+                    "NV",
+                    "NH",
+                    "NJ",
+                    "NM",
+                    "NY",
+                    "NC",
+                    "ND",
+                    "OH",
+                    "OK",
+                    "OR",
+                    "PA",
+                    "RI",
+                    "SC",
+                    "SD",
+                    "TN",
+                    "TX",
+                    "UT",
+                    "VT",
+                    "VA",
+                    "WA",
+                    "WV",
+                    "WI",
+                    "WY"
                 }
                
             },
