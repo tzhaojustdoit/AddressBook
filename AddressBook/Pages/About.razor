@@ -4,8 +4,8 @@
 <h3>About</h3>
 <a class="btn btn-primary" @onclick="@WipeAddresses">Wipe Addresses</a>
 <a class="btn btn-primary" @onclick="@LoadDefaultAddresses">Load Default Addresses</a>
-<a class="btn btn-primary" @onclick="@WipeCountries">Wipe Countries</a>
-<a class="btn btn-primary" @onclick="@LoadDefaultCountries">Load Default Countries</a>
+<a class="btn btn-primary" @onclick="@WipeCountries">Wipe Country Formats</a>
+<a class="btn btn-primary" @onclick="@LoadDefaultCountries">Load Default Country Formats</a>
 @code {
     void WipeAddresses()
     {
@@ -19,11 +19,11 @@
 
     void WipeCountries()
     {
-        objAddressService.DeleteAllCountries();
+        objAddressService.DeleteAllCountryFormats();
     }
 
     void LoadDefaultCountries()
     {
-        objAddressService.LoadDefaultCountries();
+        objAddressService.LoadDefaultCountryFormats();
     }
 }

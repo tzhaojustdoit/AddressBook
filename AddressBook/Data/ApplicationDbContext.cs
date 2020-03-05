@@ -25,11 +25,11 @@ namespace AddressBook.Data
             }
         }
 
-        public IMongoCollection<Country> CountryRecord
+        public IMongoCollection<CountryFormat> CountryRecord
         {
             get
             {
-                return _mongoDatabase.GetCollection<Country>("Countries");
+                return _mongoDatabase.GetCollection<CountryFormat>("Countries");
             }
         }
     }

@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 namespace AddressBook.Data
 {
-    public class Country
+    /// <summary>
+    /// Country-specific format information. Controls what do display on web UI
+    /// </summary>
+    public class CountryFormat
     {
         // Unique id, primary key.
         [BsonId]
