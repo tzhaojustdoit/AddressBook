@@ -127,11 +127,6 @@ namespace AddressBook.Data
 
             new Country
             {
-                Name = "Taiwan"
-            },
-
-            new Country
-            {
                 Name = "Costa Rica",
             },
 
