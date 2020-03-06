@@ -100,10 +100,17 @@
                         <input for="ExtraData" class="form-control" @bind="@objAddress.ExtraData" />
                     </div>
                 }
+
             }
 
+            <input name="checkBox"
+                   type="checkbox"
+                   @onchange="@OnCheckBoxChanged"
+                   value="true" />Only show exact matches
         </div>
     </div>
+    
+
 
     <div class="row">
         <div class="col-md-4">
@@ -186,7 +193,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <input type="button" class="btn btn-primary" @onclick="@OKClicked" value="OK" />
+                    <input type="button" class="btn btn-primary" @onclick="@OKClicked" value="Clear" />
                 </div>
             </div>
         </div>
@@ -204,6 +211,7 @@
     CountryFormat selectedCountryFormat;
     bool SearchButtonClicked = false;
     bool FoundAddress = false;
+    bool isWholeSearch = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -213,7 +221,15 @@
 
     protected void SearchAddress()
     {
-        var resList = objAddressService.GetAddressByWholeAddress(objAddress);
+        List<Address> resList;
+        if (isWholeSearch)
+        {
+            resList = objAddressService.GetAddressByWholeAddress(objAddress);
+        } else
+        {
+            resList = objAddressService.GetAddressByPartialAddress(objAddress);
+        }
+
         if(resList.Count != 0)
         {
             FoundAddress = true;
@@ -228,7 +244,7 @@
 
     void OKClicked()
     {
-        NavigationManager.NavigateTo("/index");
+        SearchButtonClicked = false;
     }
     void Cancel()
     {
@@ -242,6 +258,12 @@
             return;
         }
         selectedCountryFormat = objAddressService.GetCountryFormat(countryFormatId);
+        objAddress = new Address(); // reset the address data
         objAddress.Country = selectedCountryFormat.Name;
+    }
+
+    void OnCheckBoxChanged(ChangeEventArgs e)
+    {
+        isWholeSearch = (bool) e.Value;
     }
 }
