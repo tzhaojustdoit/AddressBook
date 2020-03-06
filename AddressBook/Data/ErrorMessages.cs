@@ -6,27 +6,27 @@ using System.Threading.Tasks;
 namespace AddressBook.Data
 {
     
-    public class EmptyCountryErrror
+    public class EmptyCountryError
     {
         public int ErrorCode { get => 100; }
 
         public string Message { get => "Country input is empty"; }
     }
 
-    public class EmptyAddrLineErrror
+    public class EmptyAddrLineError
     {
         public int ErrorCode { get => 100; }
 
         public string Message { get => "Address Line 1 is empty"; }
     }
 
-    public class EmptyAdminAreaErrror
+    public class EmptyAdminAreaError
     {
         public int ErrorCode { get => 100; }
 
         public string admin { get; set; }
 
-        public string Message { get => admin + " is empty"; }
+        public string Message { get => "AdminArea is empty"; }
     }
 
 }
