@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AddressBook.Data.AddressEnum;
 
 namespace AddressBook.Data
 {
@@ -69,65 +70,66 @@ namespace AddressBook.Data
             return res;
         }
 
-        // Default country list
+        // Default Argentina address data
+        // Province is not included in the common format
         public static List<CountryFormat> DefaultCountryList = new List<CountryFormat>
         {
             new CountryFormat
             {
                 Name = "Argentina",
                 AdminAreaDisplayName = "Province",
-                AdminAreas = new List<string>
-                {
-                    "BA",
-                    "CA",
-                    "CB",
-                    "CC",
-                    "CH",
-                    "CN",
-                    "CT",
-                    "ER",
-                    "FM",
-                    "JY",
-                    "LP",
-                    "LR",
-                    "MN",
-                    "MZ",
-                    "NQ",
-                    "RN",
-                    "SA",
-                    "SC",
-                    "SE",
-                    "SF",
-                    "SJ",
-                    "SL",
-                    "TF",
-                    "TM"
-                }
+                AdminAreas = Enum.GetValues(typeof(ArgentinaProvince))
+                .Cast<ArgentinaProvince>()
+                .Select(v => v.ToString())
+                .ToList(),
+                HasAdminArea = false
             },
 
             new CountryFormat
             {
-                Name = "Australia"
+                Name = "Australia",
+                AdminAreaDisplayName = "State",
+                AdminAreas = Enum.GetValues(typeof(AustraliaState))
+                .Cast<AustraliaState>()
+                .Select(v => v.ToString())
+                .ToList()
             },
 
             new CountryFormat
             {
-                Name = "Belgium"
+                Name = "Austria",
+                HasAdminArea = false
             },
 
             new CountryFormat
             {
-                Name = "Brazil"
+                Name = "Belgium",
+                HasAdminArea = false
             },
 
             new CountryFormat
             {
-                Name = "Britain"
+                Name = "Brazil",
+                AdminAreaDisplayName = "Province",
+                AdminAreas = Enum.GetValues(typeof(BrazilProvince))
+                .Cast<BrazilProvince>()
+                .Select(v => v.ToString())
+                .ToList()
             },
+
+            // new CountryFormat
+            // {
+            //     Name = "Britain"
+            // },
 
             new CountryFormat
             {
-                Name = "Canada"
+                Name = "Canada",
+                AdminAreaDisplayName = "Province",
+                AdminAreas = Enum.GetValues(typeof(CanadaProvince))
+                .Cast<CanadaProvince>()
+                .Select(v => v.ToString())
+                .ToList()
             },
 
             new CountryFormat
@@ -135,27 +137,37 @@ namespace AddressBook.Data
                 Name = "Channel Islands"
             },
 
+            // use region code outside capital santiago
+            // postcode not required
             new CountryFormat
             {
-                Name = "Chile"
+                Name = "Chile",
+                AdminAreaDisplayName = "Region",
+                AdminAreas = Enum.GetValues(typeof(ChileRegion))
+                .Cast<ChileRegion>()
+                .Select(v => v.ToString())
+                .ToList(),
+                PostalCodeOptional = true
             },
 
             new CountryFormat
             {
                 Name = "China",
                 AdminAreaDisplayName = "Province",
-                AdminAreas = new List<string>
-                {
-                    "Liaoning",
-                    "Guandong",
-                    "Hunan"
-                }
-
+                AdminAreas = Enum.GetValues(typeof(ChinaProvince))
+                .Cast<ChinaProvince>()
+                .Select(v => v.ToString())
+                .ToList(),
             },
 
             new CountryFormat
             {
                 Name = "Costa Rica",
+                AdminAreaDisplayName = "Province",
+                AdminAreas = Enum.GetValues(typeof(CostaRicaProvince))
+                .Cast<CostaRicaProvince>()
+                .Select(v => v.ToString())
+                .ToList(),
             },
 
             new CountryFormat
@@ -165,97 +177,157 @@ namespace AddressBook.Data
 
             new CountryFormat
             {
-                Name = "Czech Republic"
+                Name = "Czech Republic",
+                HasAdminArea = false
             },
 
             new CountryFormat
             {
-                Name = "Denmark"
+                Name = "Denmark",
+                HasAdminArea = false,
+                LocalityDisplayName = "City/Town"
+
             },
 
             new CountryFormat
             {
-                Name = "Estonia"
+                Name = "Estonia",
+                HasAdminArea = false
             },
 
             new CountryFormat
             {
-                Name = "Fiji"
+                Name = "Fiji",
+                HasAdminArea = false
             },
 
             new CountryFormat
             {
-                Name = "Finland"
+                Name = "Finland",
+                HasAdminArea = false
+            },
+
+            // new CountryFormat
+            // {
+            //     Name = "Formosa"
+            // },
+
+            new CountryFormat
+            {
+                Name = "France",
+                HasAdminArea = false
             },
 
             new CountryFormat
             {
-                Name = "Formosa"
+                Name = "Germany",
+                HasAdminArea = false
             },
 
             new CountryFormat
             {
-                Name = "France"
+                Name = "Great Britain",
+                HasAdminArea = false,
+                LocalityDisplayName = "City/Town"
             },
 
             new CountryFormat
             {
-                Name = "Germany"
+                Name = "Greenland",
+                HasAdminArea = false,
+                LocalityDisplayName = "City/Town"
             },
 
             new CountryFormat
             {
-                Name = "Great Britain"
+                Name = "HongKong, China",
+                HasAdminArea = false,
+                LocalityDisplayName = "District"
             },
 
             new CountryFormat
             {
-                Name = "Greenland"
+                Name = "Taiwan, China",
+                HasAdminArea = false,
+                LocalityDisplayName = "City"
             },
 
             new CountryFormat
             {
-                Name = "Iceland"
+                Name = "Iceland",
+                HasAdminArea = false,
+                LocalityDisplayName = "Locality"              
             },
 
             new CountryFormat
             {
-                Name = "India"
+                Name = "India",
+                HasAdminArea = false,
+                LocalityDisplayName = "City/Town/Locality"   
             },
 
             new CountryFormat
             {
-                Name = "Indonesia"
+                Name = "Indonesia",
+                HasAdminArea = false,
+                LocalityDisplayName = "City/Town/Locality" 
             },
 
             new CountryFormat
             {
-                Name = "Ireland"
+                Name = "Ireland",
+                HasAdminArea = false,
+                LocalityDisplayName = "City/Town" 
             },
 
             new CountryFormat
             {
-                Name = "Isle of Man"
+                Name = "Isle of Man",
+                HasAdminArea = false,
+                LocalityDisplayName = "City/Town"
             },
 
             new CountryFormat
             {
-                Name = "Israel"
+                Name = "Israel",
+                HasAdminArea = false,
+                LocalityDisplayName = "City/Town"
             },
 
             new CountryFormat
             {
-                Name = "Italy"
+                Name = "Italy",
+                LocalityDisplayName = "City",
+                AdminAreas = Enum.GetValues(typeof(ItalyProvince))
+                .Cast<ItalyProvince>()
+                .Select(v => v.ToString())
+                .ToList(),
+                AdminAreaDisplayName = "Province"
             },
 
             new CountryFormat
             {
-                Name = "Japan"
+                Name = "Japan",
+                AdminAreaDisplayName = "Prefecture",
+                AdminAreas = Enum.GetValues(typeof(JapanPrefecture))
+                .Cast<JapanPrefecture>()
+                .Select(v => v.ToString())
+                .ToList(),
+                LocalityDisplayName = "City/Village/City ward",
+                HasSublocality = true,
+                SublocalityDisplayName = "Subarea"
             },
 
             new CountryFormat
             {
-                Name = "Korea"
+                Name = "Korea",
+                AdminAreaDisplayName = "Province",
+                AdminAreas = Enum.GetValues(typeof(KoreaProvince))
+                .Cast<KoreaProvince>()
+                .Select(v => v.ToString())
+                .ToList(),
+                HasSublocality = true,
+                SublocalityDisplayName = "Subdivision/Precinct"
             },
 
             new CountryFormat
@@ -387,59 +459,10 @@ namespace AddressBook.Data
             {
                 Name = "United States",
                 AdminAreaDisplayName = "State",
-                AdminAreas = new List<string>
-                {
-                    "AL",
-                    "AK",
-                    "AZ",
-                    "AR",
-                    "CA",
-                    "CO",
-                    "CT",
-                    "DE",
-                    "FL",
-                    "GA",
-                    "HI",
-                    "ID",
-                    "IL",
-                    "IN",
-                    "IA",
-                    "KS",
-                    "KY",
-                    "LA",
-                    "ME",
-                    "MD",
-                    "MA",
-                    "MI",
-                    "MN",
-                    "MS",
-                    "MO",
-                    "MT",
-                    "NE",
-                    "NV",
-                    "NH",
-                    "NJ",
-                    "NM",
-                    "NY",
-                    "NC",
-                    "ND",
-                    "OH",
-                    "OK",
-                    "OR",
-                    "PA",
-                    "RI",
-                    "SC",
-                    "SD",
-                    "TN",
-                    "TX",
-                    "UT",
-                    "VT",
-                    "VA",
-                    "WA",
-                    "WV",
-                    "WI",
-                    "WY"
-                }
+                AdminAreas = Enum.GetValues(typeof(UsState))
+                .Cast<UsState>()
+                .Select(v => v.ToString())
+                .ToList(),
                
             },
 

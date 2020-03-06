@@ -39,6 +39,10 @@ namespace AddressBook.Data
 
         public bool HasSublocality { get; set; } = false;
 
+        public bool HasAdminArea { get; set; } = true;
+
+        public bool PostalCodeOptional { get; set; } = false;
+
         #endregion format
     }
 }

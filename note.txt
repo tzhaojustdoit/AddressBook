@@ -1,0 +1,41 @@
+Argentina:
+Sr/Sra Person NAME
+Company ABC S.L
+Av. Rivadavia 2403
+C1473GTH Buenos Aires
+
+
+
+chile:   region code outside santiago
+         postcode not required
+
+Joe Schmo Gringo
+Av Chile 666
+Dpto 000
+NameofCommunity, San Antonio
+V Región (when I lived in Santiago years ago I used "Santiago RM" or "RM")
+CHILE
+
+
+
+
+Costa Rica: 
+Jason S
+
+Apdo 1234-1234
+
+Curridabat, San Jose
+
+Costa Rica
+
+
+
+
+Cremia:
+    Ivan Kottovich Kuluchovskiy        recipient (given name first in this example, but family name can also be first)
+    ul. Astronomicheskaya 22, kv. 33   'ul.'(=street) + house number, 'kv.'(=apt.) + apartment number
+    Kharkov                            town/city/locality
+    12345                              postal code
+    UKRAINE                            country name
+
+
