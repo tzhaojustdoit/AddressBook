@@ -29,7 +29,7 @@ namespace AddressBook.Services
         {
             try
             {
-                return db.AddressRecord.Find(_ => true).Limit(1000).ToList();
+                return db.AddressRecord.Find(_ => true).Limit(1000).ToList(); // impossible to display 1 million addresses on a single page, limit to 1000 addresses
             }
             catch
             {
@@ -43,6 +43,48 @@ namespace AddressBook.Services
             try
             {
                 db.AddressRecord.InsertOne(address);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        // Get the details of a particular address     
+        public Address ReadAddress(string id)
+        {
+            try
+            {
+                FilterDefinition<Address> filterAddressData = Builders<Address>.Filter.Eq("Id", id);
+
+                return db.AddressRecord.Find(filterAddressData).FirstOrDefault();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        // Update the records of a particluar address     
+        public void UpdateAddress(Address address)
+        {
+            try
+            {
+                db.AddressRecord.ReplaceOne(filter: g => g.Id == address.Id, replacement: address);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        // Delete the record of a particular address     
+        public void DeleteAddress(string id)
+        {
+            try
+            {
+                FilterDefinition<Address> addressData = Builders<Address>.Filter.Eq("Id", id);
+                db.AddressRecord.DeleteOne(addressData);
             }
             catch
             {

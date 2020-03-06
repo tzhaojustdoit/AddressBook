@@ -11,50 +11,113 @@ using Microsoft.AspNetCore.Mvc;
 namespace AddressBook.Controllers
 {
     [Produces("application/json")]
-    [Route("api")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class ApiController : ControllerBase
+    public class AddressController : ControllerBase
     {
         AddressService _addressService = new AddressService();
 
+        #region CRUDi
         /// <summary>
-        /// Get the list of all addresses
+        /// Get the list of addresses
         /// </summary>
         /// <returns></returns>
         [HttpGet("index")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(200)]
         public ActionResult<List<Address>> Get() =>
             
             _addressService.GetAllAddresses();
 
         /// <summary>
-        /// Add a new address
+        /// Add address
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
-        [HttpPost("add")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost]
+        [ProducesResponseType(typeof(Address), 200)]
+        [ProducesResponseType(400)]
         public ActionResult<Address> Create([FromBody] Address address)
         {
+            // validation
+            // todo
+
             _addressService.CreateAddress(address);
-            return address;
+            return Ok(address);
         }
 
         /// <summary>
-        /// Add a new country format
+        /// Read address
         /// </summary>
-        /// <param name="country"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost("addcountryformat")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<CountryFormat> CreateCountryFormat([FromBody] CountryFormat country)
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Address), 200)]
+        [ProducesResponseType(404)]
+        public ActionResult<Address> Read(string id)
         {
-            _addressService.CreateCountryFormat(country);
-            return country;
+            Address res = _addressService.ReadAddress(id);
+
+            if (res != null)
+            {
+                return Ok(res);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
+        /// <summary>
+        /// Update address
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [ProducesResponseType(typeof(Address), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public ActionResult<Address> Update([FromBody] Address address)
+        {
+            Address addr = _addressService.ReadAddress(address.Id);
+
+            if (addr == null)
+            {
+                return NotFound();
+            }
+
+            // validation
+            // todo
+
+            _addressService.UpdateAddress(address);
+
+            return Ok(address);
+        }
+
+        /// <summary>
+        /// Delete address
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(Address), 200)]
+        [ProducesResponseType(404)]
+        public ActionResult<Address> Delete(string id)
+        {
+            Address addr = _addressService.ReadAddress(id);
+
+            if (addr == null)
+            {
+                return NotFound();
+            }
+
+            _addressService.DeleteAddress(id);
+
+            return Ok();
+        }
+
+        #endregion CRUDi
+
+        #region Search
         /// <summary>
         /// Search an address that matches exactly
         /// </summary>
@@ -94,6 +157,6 @@ namespace AddressBook.Controllers
             return SearchResult;
         }
 
-        
+        #endregion Search
     }
 }
