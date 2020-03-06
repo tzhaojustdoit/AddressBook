@@ -31,6 +31,14 @@
                     </select>
                 </div>
 
+                @if (otherCountry == true)
+                {
+                    <div class="form-group">
+                        <label for="Country" class="control-label">Country</label>
+                        <input for="Country" class="form-control" @bind="@objAddress.Country" />
+                    </div>
+                }
+
                 <div class="form-group">
                     <label for="AddressLine1" class="control-label">Address Line 1</label>
                     <input for="AddressLine1" class="form-control" @bind="@objAddress.AddressLine1" />
@@ -220,6 +228,7 @@
     bool FoundAddress = false;
     bool isWholeSearch = false;
     List<Address> resList;
+    bool otherCountry = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -254,20 +263,30 @@
     {
         SearchButtonClicked = false;
     }
+
     void Cancel()
     {
         NavigationManager.NavigateTo("/index");
     }
+
     void UpdateFormFormat(ChangeEventArgs e)
     {
+        objAddress = new Address(); // reset data
         var countryFormatId = e.Value.ToString();
         if (countryFormatId == "")
         {
             return;
         }
         selectedCountryFormat = objAddressService.GetCountryFormat(countryFormatId);
-        objAddress = new Address(); // reset the address data
-        objAddress.Country = selectedCountryFormat.Name;
+
+        if (selectedCountryFormat.Name == "Other")
+        {
+            otherCountry = true;
+        } else
+        {
+            otherCountry = false;
+            objAddress.Country = selectedCountryFormat.Name;
+        }
     }
 
     void OnCheckBoxChanged(ChangeEventArgs e)
