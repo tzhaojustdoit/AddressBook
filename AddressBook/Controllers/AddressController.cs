@@ -49,7 +49,7 @@ namespace AddressBook.Controllers
             {
                 return StatusCode(409, new EmptyAddrLineError() { });
             }
-            if (String.IsNullOrEmpty(address.Country))
+            if (String.IsNullOrEmpty(address.AdminArea))
             {
                 return StatusCode(409, new EmptyAdminAreaError() { });
             }
@@ -152,7 +152,7 @@ namespace AddressBook.Controllers
             {
                 return StatusCode(409, new EmptyAddrLineError() { });
             }
-            if (String.IsNullOrEmpty(address.Country))
+            if (String.IsNullOrEmpty(address.AdminArea))
             {
                 return StatusCode(409, new EmptyAdminAreaError() { });
             }
