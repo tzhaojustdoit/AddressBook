@@ -21,13 +21,13 @@
                 <select class="form-control" @onchange="@UpdateFormFormat">
                     <option value=""></option>
                     @if (countryFormatList != null)
+                    {
+                        foreach (var countryFormat in countryFormatList)
                         {
-                            foreach (var countryFormat in countryFormatList)
-                            {
                     <option value="@countryFormat.Id">@countryFormat.Name</option>
-                            }
-
                         }
+
+                    }
                 </select>
             </div>
 
@@ -44,21 +44,21 @@
             </div>
 
             @if (selectedCountryFormat.HasAddressLine3)
-                {
+            {
             <div class="form-group">
                 <label for="AddressLine3" class="control-label">Address Line 3</label>
                 <input for="AddressLine3" class="form-control" @bind="@objAddress.AddressLine3" />
             </div>
-                }
+            }
 
 
             @if (selectedCountryFormat.AdminAreas == null)
-                {
+            {
             <div class="form-group">
                 <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName</label>
                 <input for="AdminArea" class="form-control" @bind="@objAddress.AdminArea" />
             </div>
-                }
+            }
                 else
                 {
             <div class="form-group">
@@ -110,7 +110,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <input type="button" class="btn btn-primary" @onclick="@CreateAddress" value="Save" />
-                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                <input type="button" class="btn btn-primary" @onclick="@ClearAddress" value="Clear" />
             </div>
         </div>
     </div>
@@ -136,10 +136,12 @@
         NavigationManager.NavigateTo("/index");
     }
 
-    void Cancel()
+    void ClearAddress()
     {
-        NavigationManager.NavigateTo("/index");
+        objAddress = new Address();
+
     }
+
     void UpdateFormFormat(ChangeEventArgs e)
     {
         var countryFormatId = e.Value.ToString();
@@ -148,6 +150,7 @@
             return;
         }
         selectedCountryFormat = objAddressService.GetCountryFormat(countryFormatId);
+        objAddress = new Address(); // reset data
         objAddress.Country = selectedCountryFormat.Name;
     }
 
