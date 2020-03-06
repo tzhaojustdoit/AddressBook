@@ -352,11 +352,6 @@ namespace AddressBook.Data
 
             new CountryFormat
             {
-                Name = "Miscellaneous/Other"
-            },
-
-            new CountryFormat
-            {
                 Name = "Netherlands"
             },
 
@@ -479,6 +474,11 @@ namespace AddressBook.Data
             new CountryFormat
             {
                 Name = "Wales"
+            },
+
+            new CountryFormat
+            {
+                Name = "Other"
             },
 
         };
