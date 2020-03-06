@@ -12,94 +12,107 @@
         <div class="col-md-8">
             @if (selectedCountryFormat == null)
             {
-            <em>Loading...</em>
+                <em>Loading...</em>
             }
             else
             {
-            <div class="form-group">
-                <label for="Country" class="control-label">Country</label>
-                <select class="form-control" @onchange="@UpdateFormFormat">
-                    <option value=""></option>
-                    @if (countryFormatList != null)
-                    {
-                        foreach (var countryFormat in countryFormatList)
+                <div class="form-group">
+                    <label for="Country" class="control-label">Country</label>
+                    <select class="form-control" @onchange="@UpdateFormFormat">
+                        <option value=""></option>
+                        @if (countryFormatList != null)
                         {
-                    <option value="@countryFormat.Id">@countryFormat.Name</option>
+                            foreach (var countryFormat in countryFormatList)
+                            {
+                                <option value="@countryFormat.Id">@countryFormat.Name</option>
+                            }
+
                         }
+                    </select>
+                </div>
+                @if (otherCountry == true)
+                {
+                    <div class="form-group">
+                        <label for="Country" class="control-label">Country</label>
+                        <input for="Country" class="form-control" @bind="@objAddress.Country" />
+                    </div>
+                }
 
-                    }
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="AddressLine1" class="control-label">Address Line 1</label>
+                    <input for="AddressLine1" class="form-control" @bind="@objAddress.AddressLine1" />
+                    <label class="font-italic text-black-50">Street address, P.O. box, company name, c/o</label>
+                </div>
 
-            <div class="form-group">
-                <label for="AddressLine1" class="control-label">Address Line 1</label>
-                <input for="AddressLine1" class="form-control" @bind="@objAddress.AddressLine1" />
-                <label class="font-italic text-black-50">Street address, P.O. box, company name, c/o</label>
-            </div>
+                <div class="form-group">
+                    <label for="AddressLine1" class="control-label">Address Line 1</label>
+                    <input for="AddressLine1" class="form-control" @bind="@objAddress.AddressLine1" />
+                    <label class="font-italic text-black-50">Street address, P.O. box, company name, c/o</label>
+                </div>
 
-            <div class="form-group">
-                <label for="AddressLine2" class="control-label">Address Line 2</label>
-                <input for="AddressLine2" class="form-control" @bind="@objAddress.AddressLine2" />
-                <label class="font-italic text-black-50">Apartment, suite, unit, building, floor, etc.</label>
-            </div>
+                <div class="form-group">
+                    <label for="AddressLine2" class="control-label">Address Line 2</label>
+                    <input for="AddressLine2" class="form-control" @bind="@objAddress.AddressLine2" />
+                    <label class="font-italic text-black-50">Apartment, suite, unit, building, floor, etc.</label>
+                </div>
 
-            @if (selectedCountryFormat.HasAddressLine3)
-            {
-            <div class="form-group">
-                <label for="AddressLine3" class="control-label">Address Line 3</label>
-                <input for="AddressLine3" class="form-control" @bind="@objAddress.AddressLine3" />
-            </div>
-            }
+                @if (selectedCountryFormat.HasAddressLine3)
+                {
+                    <div class="form-group">
+                        <label for="AddressLine3" class="control-label">Address Line 3</label>
+                        <input for="AddressLine3" class="form-control" @bind="@objAddress.AddressLine3" />
+                    </div>
+                }
 
 
-            @if (selectedCountryFormat.AdminAreas == null)
-            {
-            <div class="form-group">
-                <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName</label>
-                <input for="AdminArea" class="form-control" @bind="@objAddress.AdminArea" />
-            </div>
-            }
+                @if (selectedCountryFormat.AdminAreas == null)
+                {
+                    <div class="form-group">
+                        <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName</label>
+                        <input for="AdminArea" class="form-control" @bind="@objAddress.AdminArea" />
+                    </div>
+                }
                 else
                 {
-            <div class="form-group">
-                <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName</label>
-                <select class="form-control" @bind="@objAddress.AdminArea">
-                    <option value=""></option>
-                    @foreach (var adminArea in selectedCountryFormat.AdminAreas)
+                    <div class="form-group">
+                        <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName</label>
+                        <select class="form-control" @bind="@objAddress.AdminArea">
+                            <option value=""></option>
+                            @foreach (var adminArea in selectedCountryFormat.AdminAreas)
                             {
-                    <option value="@adminArea">@adminArea</option>
+                                <option value="@adminArea">@adminArea</option>
                             }
-                </select>
-            </div>
+                        </select>
+                    </div>
                 }
 
-            @if (selectedCountryFormat.HasLocality)
+                @if (selectedCountryFormat.HasLocality)
                 {
-            <div class="form-group">
-                <label for="Locality" class="control-label">@selectedCountryFormat.LocalityDisplayName</label>
-                <input for="Locality" class="form-control" @bind="@objAddress.Locality" />
-            </div>
+                    <div class="form-group">
+                        <label for="Locality" class="control-label">@selectedCountryFormat.LocalityDisplayName</label>
+                        <input for="Locality" class="form-control" @bind="@objAddress.Locality" />
+                    </div>
                 }
 
-            @if (selectedCountryFormat.HasSublocality)
+                @if (selectedCountryFormat.HasSublocality)
                 {
-            <div class="form-group">
-                <label for="Sublocality" class="control-label">@selectedCountryFormat.SublocalityDisplayName</label>
-                <input for="Sublocality" class="form-control" @bind="@objAddress.Sublocality" />
-            </div>
+                    <div class="form-group">
+                        <label for="Sublocality" class="control-label">@selectedCountryFormat.SublocalityDisplayName</label>
+                        <input for="Sublocality" class="form-control" @bind="@objAddress.Sublocality" />
+                    </div>
                 }
 
-            <div class="form-group">
-                <label for="PostalCode" class="control-label">Postal Code</label>
-                <input for="PostalCode" class="form-control" @bind="@objAddress.PostalCode" />
-            </div>
+                <div class="form-group">
+                    <label for="PostalCode" class="control-label">Postal Code</label>
+                    <input for="PostalCode" class="form-control" @bind="@objAddress.PostalCode" />
+                </div>
 
-            @if (selectedCountryFormat.HasExtraData)
+                @if (selectedCountryFormat.HasExtraData)
                 {
-            <div class="form-group">
-                <label for="ExtraData" class="control-label">Extra Data</label>
-                <input for="ExtraData" class="form-control" @bind="@objAddress.ExtraData" />
-            </div>
+                    <div class="form-group">
+                        <label for="ExtraData" class="control-label">Extra Data</label>
+                        <input for="ExtraData" class="form-control" @bind="@objAddress.ExtraData" />
+                    </div>
                 }
             }
 
@@ -123,6 +136,7 @@
     Address objAddress = new Address();
     List<CountryFormat> countryFormatList;
     CountryFormat selectedCountryFormat;
+    bool otherCountry = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -144,14 +158,22 @@
 
     void UpdateFormFormat(ChangeEventArgs e)
     {
+        objAddress = new Address(); // reset data
         var countryFormatId = e.Value.ToString();
         if (countryFormatId == "")
         {
             return;
         }
         selectedCountryFormat = objAddressService.GetCountryFormat(countryFormatId);
-        objAddress = new Address(); // reset data
-        objAddress.Country = selectedCountryFormat.Name;
+
+        if (selectedCountryFormat.Name == "Other")
+        {
+            otherCountry = true;
+        } else
+        {
+            otherCountry = false;
+            objAddress.Country = selectedCountryFormat.Name;
+        }
     }
 
 }
