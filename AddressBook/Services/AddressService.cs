@@ -37,12 +37,28 @@ namespace AddressBook.Services
             }
         }
 
+        //To Get all address details      
+        public List<Address> GetRecentlyAddedAddresses()
+        {
+            try
+            {
+                return RecentlyAddedAddresses.RecentlyAddedAddressList.ToList();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         //To Add new address record      
         public void CreateAddress(Address address)
         {
             try
             {
                 db.AddressRecord.InsertOne(address);
+                var recent = RecentlyAddedAddresses.RecentlyAddedAddressList;
+                recent.AddFirst(address);
+                if (recent.Count > 5) recent.RemoveLast();
             }
             catch
             {
@@ -152,10 +168,7 @@ namespace AddressBook.Services
             try
             {
                 var addressList = DefaultData.GetDefaultAddressList();
-                foreach (var item in addressList)
-                {
-                    db.AddressRecord.InsertOne(item);
-                }
+                db.AddressRecord.InsertManyAsync(addressList);
             }
             catch
             {
