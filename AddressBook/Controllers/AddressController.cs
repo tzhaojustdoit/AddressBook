@@ -36,11 +36,23 @@ namespace AddressBook.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(Address), 200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(EmptyCountryError), 409)]
+        [ProducesResponseType(typeof(EmptyAdminAreaError), 409)]
+        [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         public ActionResult<Address> Create([FromBody] Address address)
         {
-            // validation
-            // todo
-
+            if(String.IsNullOrEmpty(address.Country))
+            {
+                return StatusCode(409, new EmptyCountryError() { });
+            }
+            if (String.IsNullOrEmpty(address.AddressLine1))
+            {
+                return StatusCode(409, new EmptyAddrLineError() { });
+            }
+            if (String.IsNullOrEmpty(address.Country))
+            {
+                return StatusCode(409, new EmptyAdminAreaError() { });
+            }
             _addressService.CreateAddress(address);
             return Ok(address);
         }
