@@ -173,8 +173,13 @@ namespace AddressBook.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         public ActionResult<List<Address>> PartialSearch([FromBody] Address address)
         {
+            if (String.IsNullOrEmpty(address.AddressLine1))
+            {
+                return StatusCode(409, new EmptyAddrLineError() { });
+            }
             var SearchResult = _addressService.GetAddressByPartialAddress(address);
 
             if (SearchResult.Count == 0)
