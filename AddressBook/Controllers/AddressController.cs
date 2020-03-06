@@ -139,8 +139,23 @@ namespace AddressBook.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(EmptyCountryError), 409)]
+        [ProducesResponseType(typeof(EmptyAdminAreaError), 409)]
+        [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         public ActionResult<Address> Search([FromBody] Address address)
         {
+            if (String.IsNullOrEmpty(address.Country))
+            {
+                return StatusCode(409, new EmptyCountryError() { });
+            }
+            if (String.IsNullOrEmpty(address.AddressLine1))
+            {
+                return StatusCode(409, new EmptyAddrLineError() { });
+            }
+            if (String.IsNullOrEmpty(address.Country))
+            {
+                return StatusCode(409, new EmptyAdminAreaError() { });
+            }
             var SearchResult = _addressService.GetAddressByWholeAddress(address);
             if(SearchResult.Count == 0)
             {
