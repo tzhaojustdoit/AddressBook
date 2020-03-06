@@ -167,13 +167,59 @@ namespace AddressBook.Data
             return db.AddressRecord.Find(allMatch).ToList();
         }
 
-        // Find all addresses mathing the given addressline1 and addressline2
-        public List<Address> GetAddressByPartialAddress(AddressLine data)
+        // Find all addresses that partially match
+        public List<Address> GetAddressByPartialAddress(Address data)
         {
-            FilterDefinition<Address> addrline1 = Builders<Address>.Filter.Eq(x => x.AddressLine1, data.AddressLine1);
-            FilterDefinition<Address> addrline2 = Builders<Address>.Filter.Eq(x => x.AddressLine2, data.AddressLine2);
-            FilterDefinition<Address> combineAddr = Builders<Address>.Filter.And(addrline1, addrline2);
-            return db.AddressRecord.Find(combineAddr).ToList();
+            FilterDefinition<Address> addrFilter = Builders<Address>.Filter.Eq(x => x.AddressLine1, data.AddressLine1); // line 1 is always required
+
+            // add filters for all non-empty fields
+
+            if (!string.IsNullOrEmpty(data.AddressLine2))
+            {
+                addrFilter &= Builders<Address>.Filter.Eq(x => x.AddressLine2, data.AddressLine2);
+            }
+
+            if (!string.IsNullOrEmpty(data.AddressLine3))
+            {
+                addrFilter &= Builders<Address>.Filter.Eq(x => x.AddressLine3, data.AddressLine3);
+            }
+
+            if (!string.IsNullOrEmpty(data.ExtraData))
+            {
+                addrFilter &= Builders<Address>.Filter.Eq(x => x.ExtraData, data.ExtraData);
+            }
+
+            if (!string.IsNullOrEmpty(data.AdminArea))
+            {
+                addrFilter &= Builders<Address>.Filter.Eq(x => x.AdminArea, data.AdminArea);
+            }
+
+            if (!string.IsNullOrEmpty(data.Locality))
+            {
+                addrFilter &= Builders<Address>.Filter.Eq(x => x.Locality, data.Locality);
+            }
+
+            if (!string.IsNullOrEmpty(data.Locality))
+            {
+                addrFilter &= Builders<Address>.Filter.Eq(x => x.Locality, data.Locality);
+            }
+
+            if (!string.IsNullOrEmpty(data.Sublocality))
+            {
+                addrFilter &= Builders<Address>.Filter.Eq(x => x.Sublocality, data.Sublocality);
+            }
+
+            if (!string.IsNullOrEmpty(data.PostalCode))
+            {
+                addrFilter &= Builders<Address>.Filter.Eq(x => x.PostalCode, data.PostalCode);
+            }
+
+            if (!string.IsNullOrEmpty(data.Country))
+            {
+                addrFilter &= Builders<Address>.Filter.Eq(x => x.Country, data.Country);
+            }
+
+            return db.AddressRecord.Find(addrFilter).ToList();
         }
     }
 }
