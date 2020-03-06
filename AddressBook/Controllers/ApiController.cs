@@ -76,20 +76,15 @@ namespace AddressBook.Controllers
         /// <summary>
         /// Search across countries to find addresses
         /// </summary>
-        /// <param name="addresslines"></param>
+        /// <param name="address"></param>
         /// <returns></returns>
         [HttpPost("partialsearch")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<List<Address>> PartialSearch([FromBody] AddressLine addresslines)
+        public ActionResult<List<Address>> PartialSearch([FromBody] Address address)
         {
-            if(String.IsNullOrEmpty(addresslines.AddressLine1))
-            {
-                return BadRequest();
-            }
-
-            var SearchResult = _addressService.GetAddressByPartialAddress(addresslines);
+            var SearchResult = _addressService.GetAddressByPartialAddress(address);
 
             if (SearchResult.Count == 0)
             {
