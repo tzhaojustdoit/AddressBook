@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AddressBook.Data;
+using AddressBook.Services;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;

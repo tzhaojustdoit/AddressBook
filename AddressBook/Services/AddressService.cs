@@ -1,9 +1,10 @@
-﻿using MongoDB.Driver;
+﻿using AddressBook.Data;
+using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
 
 
-namespace AddressBook.Data
+namespace AddressBook.Services
 {
     public class AddressService
     {
