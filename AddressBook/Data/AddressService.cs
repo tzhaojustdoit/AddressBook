@@ -1,8 +1,6 @@
 ﻿using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace AddressBook.Data
@@ -44,49 +42,6 @@ namespace AddressBook.Data
             try
             {
                 db.AddressRecord.InsertOne(address);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-
-        //Get the details of a particular address     
-        public Address ReadAddress(string id)
-        {
-            try
-            {
-                FilterDefinition<Address> filterAddressData = Builders<Address>.Filter.Eq("Id", id);
-
-                return db.AddressRecord.Find(filterAddressData).FirstOrDefault();
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        //To Update the records of a particluar address     
-        public void UpdateAddress(Address address)
-        {
-            try
-            {
-                db.AddressRecord.ReplaceOne(filter: g => g.Id == address.Id, replacement: address);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        //To Delete the record of a particular address     
-        public void DeleteAddress(string id)
-        {
-            try
-            {
-                FilterDefinition<Address> addressData = Builders<Address>.Filter.Eq("Id", id);
-                db.AddressRecord.DeleteOne(addressData);
             }
             catch
             {
@@ -213,10 +168,10 @@ namespace AddressBook.Data
         }
 
         // Find all addresses mathing the given addressline1 and addressline2
-        public List<Address> GetAddressByPartialAddress(string addressLine1, string addressLine2)
+        public List<Address> GetAddressByPartialAddress(AddressLine data)
         {
-            FilterDefinition<Address> addrline1 = Builders<Address>.Filter.Eq(x => x.AddressLine1, addressLine1);
-            FilterDefinition<Address> addrline2 = Builders<Address>.Filter.Eq(x => x.AddressLine2, addressLine2);
+            FilterDefinition<Address> addrline1 = Builders<Address>.Filter.Eq(x => x.AddressLine1, data.AddressLine1);
+            FilterDefinition<Address> addrline2 = Builders<Address>.Filter.Eq(x => x.AddressLine2, data.AddressLine2);
             FilterDefinition<Address> combineAddr = Builders<Address>.Filter.And(addrline1, addrline2);
             return db.AddressRecord.Find(combineAddr).ToList();
         }
