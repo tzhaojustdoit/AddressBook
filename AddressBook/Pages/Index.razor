@@ -26,6 +26,8 @@ else
                 <th>Sublocality</th>
                 <th>Postal Code</th>
                 <th>Extra Data</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -41,18 +43,17 @@ else
                     <td>@address.Sublocality</td>
                     <td>@address.PostalCode</td>
                     <td>@address.ExtraData</td>
-                    @*<td>
+                    <td>
+                        <a class="nav-link pb-0 pt-0" href="edit/@address.Id">
+                            <span class="oi oi-pencil" aria-hidden="true"></span>
+                        </a>
 
-                            <a class="nav-link" href="EditAddress/@address.Id">
-                                <span class="oi oi-pencil" aria-hidden="true"></span>Edit
-                            </a>
-
-                        </td>
-                        <td>
-                            <a class="nav-link" href="DeleteAddress/@address.Id">
-                                <span class="oi oi-trash" aria-hidden="true"></span>Delete
-                            </a>
-                        </td>*@
+                    </td>
+                    <td>
+                        <a class="nav-link pb-0 pt-0" href="delete/@address.Id">
+                            <span class="oi oi-trash" aria-hidden="true"></span>
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>
