@@ -101,6 +101,10 @@
                 <div class="form-group">
                     <label for="PostalCode" class="control-label">Postal Code</label>
                     <input for="PostalCode" class="form-control" @bind="@address.PostalCode" />
+                    @if (submitted && !postCodeValidation)
+                    {
+                        <p style="color:red">your post code is invalid</p>
+                    }
                 </div>
 
                 @if (selectedCountryFormat.HasExtraData)
@@ -135,6 +139,8 @@
     List<CountryFormat> countryFormatList;
     CountryFormat selectedCountryFormat;
     bool otherCountry = false;
+    bool postCodeValidation = true;
+    bool submitted = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -145,8 +151,14 @@
 
     protected void UpdateAddress()
     {
-        objAddressService.UpdateAddress(address);
-        NavigationManager.NavigateTo("/index");
+        submitted = true;
+        if (objAddressService.checkPostalCodePattern(address))
+        {
+            objAddressService.UpdateAddress(address);
+            NavigationManager.NavigateTo("/index");
+        }
+
+        postCodeValidation = false;  
     }
 
     void CancelUpdation()

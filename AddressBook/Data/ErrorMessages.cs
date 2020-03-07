@@ -36,4 +36,11 @@ namespace AddressBook.Data
         public string Message { get => "The postal code format is wrong"; }
     }
 
+    public class WrongAdminAreaError
+    {
+        public int ErrorCode { get => 104; }
+
+        public string Message { get => "The area is wrong"; }
+    }
+
 }

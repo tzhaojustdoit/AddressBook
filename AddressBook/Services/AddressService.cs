@@ -3,6 +3,8 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text.RegularExpressions;
+
 
 
 namespace AddressBook.Services
@@ -39,18 +41,45 @@ namespace AddressBook.Services
             }
         }
 
-        //To Add new address record      
+        //To Add new address record    
         public void CreateAddress(Address address)
         {
             try
-            {           
+            {    
                 db.AddressRecord.InsertOne(address);
+            
             }
             catch
             {
                 throw;
             }
         }
+
+        // check postal code pattern
+        public bool checkPostalCodePattern(Address address)
+        {
+            try
+            {    
+                FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, address.Country);
+
+                string pattern = db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
+
+                Console.WriteLine("pattern: ", pattern);
+                if (pattern != null)
+                {
+                    Match m = Regex.Match(address.PostalCode, pattern);
+                    Console.WriteLine("Success: ", m.Success);
+                    if (m.Success) 
+                        return true;
+                }
+                return false;        
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
 
         // Get the details of a particular address     
         public Address ReadAddress(string id)
@@ -212,17 +241,20 @@ namespace AddressBook.Services
             }
         }
 
-        // Get country postcode pattern by country name
-        public string GetPostalCodePattern(string countryName) 
+        // Get province/state list by country name
+        public List<string> GetProvinceList(string countryName)
         {
-            try
-            {
+            try{
                 FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, countryName);
-                string pattern = db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
-                if (pattern != null)
-                    return pattern;
-                return " ";
-            }
+
+                List<String> provinceList = new List<String>();
+
+                if (filterCountry != null) 
+                {
+                    provinceList = db.CountryRecord.Find(filterCountry).FirstOrDefault().AdminAreas;
+                }
+                return provinceList;
+            } 
             catch 
             {
                 throw;

@@ -7,7 +7,7 @@ using AddressBook.Data;
 using AddressBook.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
+
 
 namespace AddressBook.Controllers
 {
@@ -71,19 +71,27 @@ namespace AddressBook.Controllers
                 return StatusCode(409, new EmptyAdminAreaError() { });
             }
 
-            Match m = Regex.Match(address.PostalCode, _addressService.GetPostalCodePattern(address.Country));
-            
-            if (!m.Success) 
-            {
-               return StatusCode(409, new WrongPostalCodeFormat() { });
-            } 
             if (_addressService.CountrySpecificValidate(address) != 0)
             {
                 // todo add different errors
                 return StatusCode(409);
             }
 
+            List<String> areaList = _addressService.GetProvinceList(address.Country);
+
+            if (!areaList.Contains(address.AdminArea))
+            {
+                return StatusCode(409, new WrongAdminAreaError() { });
+            }
+
+            
+            if(!_addressService.checkPostalCodePattern(address)) 
+            {
+                return StatusCode(409, new WrongPostalCodeFormat() { });
+            }
+
             _addressService.CreateAddress(address);
+            
             return Ok(address);
 
         }
@@ -147,6 +155,10 @@ namespace AddressBook.Controllers
             {
                 // todo add different errors
                 return StatusCode(409);
+            }
+            if(!_addressService.checkPostalCodePattern(address)) 
+            {
+                return StatusCode(409, new WrongPostalCodeFormat() { });
             }
 
             _addressService.UpdateAddress(address);
