@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 
 namespace AddressBook.Services
@@ -139,8 +140,9 @@ namespace AddressBook.Services
             try
             {
                 FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, countryName);
-
-                return db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
+                Console.WriteLine(db.CountryRecord.Find(filterCountry).FirstOrDefault().Name);
+                Console.WriteLine(db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern);
+                return db.CountryRecord.Find(filterCountry).FirstOrDefault().AdminAreaDisplayName;
             }
             catch
             {

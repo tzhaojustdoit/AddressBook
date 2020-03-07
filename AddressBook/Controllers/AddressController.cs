@@ -55,11 +55,11 @@ namespace AddressBook.Controllers
                 return StatusCode(409, new EmptyAdminAreaError() { });
             }
 
-            Match m = Regex.Match(address.PostalCode, _addressService.GetPostalCodePattern(address.Country), RegexOptions.IgnoreCase);
+            Match m = Regex.Match(address.PostalCode, _addressService.GetPostalCodePattern(address.Country));
 
             if (!m.Success) 
             {
-                return StatusCode(409, new WrongPostalCodeFormat() { });
+               return StatusCode(409, new WrongPostalCodeFormat() { });
             }
             _addressService.CreateAddress(address);
             return Ok(address);

@@ -23,6 +23,7 @@ namespace AddressBook.Data
         public List<string> AdminAreas { get; set; }
 
 
+
         #region format
 
         public bool HasAddressLine3 { get; set; } = false;
@@ -43,7 +44,8 @@ namespace AddressBook.Data
 
         public bool PostalCodeOptional { get; set; } = false;
 
-        public string PostalCodePattern { get; set; } = "Postcode";
+        [BsonElement("PostalCodePattern")]        
+        public string PostalCodePattern { get; set; }
 
         #endregion format
     }
