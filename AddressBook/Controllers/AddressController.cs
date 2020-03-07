@@ -25,12 +25,28 @@ namespace AddressBook.Controllers
         [HttpGet("index")]
         [ProducesResponseType(200)]
         public ActionResult<List<Address>> Get() =>
-            
+
             _addressService.GetAllAddresses();
 
         /// <summary>
         /// Add address
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     {
+        ///        "country": "United States",
+        ///        "addressLine1": "901 12th Ave",
+        ///        "addressLine2": null,
+        ///        "addressLine3": null,
+        ///        "extraData": null,
+        ///        "adminArea": "WA",
+        ///        "locality": "Seattle",
+        ///        "sublocality": null,
+        ///        "postalCode": "98122"
+        ///     }
+        ///
+        /// </remarks>
         /// <param name="address"></param>
         /// <returns></returns>
         [HttpPost]
@@ -41,7 +57,7 @@ namespace AddressBook.Controllers
         [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         public ActionResult<Address> Create([FromBody] Address address)
         {
-            if(String.IsNullOrEmpty(address.Country))
+            if (String.IsNullOrEmpty(address.Country))
             {
                 return StatusCode(409, new EmptyCountryError() { });
             }
@@ -170,7 +186,7 @@ namespace AddressBook.Controllers
                 return StatusCode(409, new EmptyAdminAreaError() { });
             }
             var SearchResult = _addressService.GetAddressByWholeAddress(address);
-            if(SearchResult.Count == 0)
+            if (SearchResult.Count == 0)
             {
                 return NotFound();
             }
