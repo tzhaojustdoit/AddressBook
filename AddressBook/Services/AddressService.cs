@@ -218,9 +218,8 @@ namespace AddressBook.Services
             try
             {
                 FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, countryName);
-                Console.WriteLine(db.CountryRecord.Find(filterCountry).FirstOrDefault().Name);
-                Console.WriteLine(db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern);
-                return db.CountryRecord.Find(filterCountry).FirstOrDefault().AdminAreaDisplayName;
+                Console.WriteLine("pattern: " + db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern);
+                return db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
             }
             catch 
             {

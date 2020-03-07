@@ -56,11 +56,12 @@ namespace AddressBook.Controllers
             }
 
             Match m = Regex.Match(address.PostalCode, _addressService.GetPostalCodePattern(address.Country));
-
+            
             if (!m.Success) 
             {
                return StatusCode(409, new WrongPostalCodeFormat() { });
-            }
+            } 
+
             _addressService.CreateAddress(address);
             return Ok(address);
 

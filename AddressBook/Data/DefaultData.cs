@@ -82,7 +82,7 @@ namespace AddressBook.Data
                 .Cast<ArgentinaProvince>()
                 .Select(v => v.ToString())
                 .ToList(),
-                HasAdminArea = false
+                HasAdminArea = false,
             },
 
             new CountryFormat
@@ -99,13 +99,13 @@ namespace AddressBook.Data
             new CountryFormat
             {
                 Name = "Austria",
-                HasAdminArea = false
+                HasAdminArea = false,
             },
 
             new CountryFormat
             {
                 Name = "Belgium",
-                HasAdminArea = false
+                HasAdminArea = false,
             },
 
             new CountryFormat
@@ -115,7 +115,7 @@ namespace AddressBook.Data
                 AdminAreas = Enum.GetValues(typeof(BrazilProvince))
                 .Cast<BrazilProvince>()
                 .Select(v => v.ToString())
-                .ToList()
+                .ToList(),
             },
 
             // new CountryFormat
@@ -136,7 +136,7 @@ namespace AddressBook.Data
 
             new CountryFormat
             {
-                Name = "Channel Islands"
+                Name = "Channel Islands",
             },
 
             // use region code outside capital santiago
@@ -465,6 +465,7 @@ namespace AddressBook.Data
                 .Select(v => v.ToString())
                 .ToList(),
                 PostalCodePattern = @"\b\d\d\d\d\d\b",
+
             },
 
             new CountryFormat

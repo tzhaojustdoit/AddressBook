@@ -43,9 +43,8 @@ namespace AddressBook.Data
         public bool HasAdminArea { get; set; } = true;
 
         public bool PostalCodeOptional { get; set; } = false;
-
-        [BsonElement("PostalCodePattern")]        
-        public string PostalCodePattern { get; set; }
+      
+        public string PostalCodePattern { get; set; } = "";
 
         #endregion format
     }
