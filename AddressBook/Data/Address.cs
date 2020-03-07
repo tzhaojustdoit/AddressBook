@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -11,6 +11,9 @@ namespace AddressBook.Data
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime Date { get; set; } = DateTime.Now;
 
         // Country name.
         [BsonElement("country")]

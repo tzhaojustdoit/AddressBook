@@ -29,7 +29,7 @@ namespace AddressBook.Services
         {
             try
             {
-                return db.AddressRecord.Find(_ => true).Limit(1000).ToList(); // impossible to display 1 million addresses on a single page, limit to 1000 addresses
+                return db.AddressRecord.Find(_ => true).SortByDescending(a => a.Date).Limit(1000).ToList(); // impossible to display 1 million addresses on a single page, limit to 1000 addresses
             }
             catch
             {
