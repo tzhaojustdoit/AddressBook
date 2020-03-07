@@ -37,6 +37,9 @@ namespace AddressBook.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(Address), 200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(EmptyCountryError), 409)]
+        [ProducesResponseType(typeof(EmptyAdminAreaError), 409)]
+        [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         public ActionResult<Address> Create([FromBody] Address address)
         {
             if(String.IsNullOrEmpty(address.Country))
@@ -130,7 +133,7 @@ namespace AddressBook.Controllers
 
             _addressService.DeleteAddress(id);
 
-            return Ok();
+            return Ok(addr);
         }
 
         #endregion CRUDi
@@ -145,8 +148,23 @@ namespace AddressBook.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(EmptyCountryError), 409)]
+        [ProducesResponseType(typeof(EmptyAdminAreaError), 409)]
+        [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         public ActionResult<Address> Search([FromBody] Address address)
         {
+            if (String.IsNullOrEmpty(address.Country))
+            {
+                return StatusCode(409, new EmptyCountryError() { });
+            }
+            if (String.IsNullOrEmpty(address.AddressLine1))
+            {
+                return StatusCode(409, new EmptyAddrLineError() { });
+            }
+            if (String.IsNullOrEmpty(address.AdminArea))
+            {
+                return StatusCode(409, new EmptyAdminAreaError() { });
+            }
             var SearchResult = _addressService.GetAddressByWholeAddress(address);
             if(SearchResult.Count == 0)
             {
@@ -164,8 +182,13 @@ namespace AddressBook.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         public ActionResult<List<Address>> PartialSearch([FromBody] Address address)
         {
+            if (String.IsNullOrEmpty(address.AddressLine1))
+            {
+                return StatusCode(409, new EmptyAddrLineError() { });
+            }
             var SearchResult = _addressService.GetAddressByPartialAddress(address);
 
             if (SearchResult.Count == 0)

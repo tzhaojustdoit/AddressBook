@@ -29,20 +29,7 @@ namespace AddressBook.Services
         {
             try
             {
-                return db.AddressRecord.Find(_ => true).Limit(1000).ToList(); // impossible to display 1 million addresses on a single page, limit to 1000 addresses
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        //To Get all address details      
-        public List<Address> GetRecentlyAddedAddresses()
-        {
-            try
-            {
-                return RecentlyAddedAddresses.RecentlyAddedAddressList.ToList();
+                return db.AddressRecord.Find(_ => true).SortByDescending(a => a.Date).Limit(1000).ToList(); // impossible to display 1 million addresses on a single page, limit to 1000 addresses
             }
             catch
             {
@@ -56,9 +43,6 @@ namespace AddressBook.Services
             try
             {           
                 db.AddressRecord.InsertOne(address);
-                var recent = RecentlyAddedAddresses.RecentlyAddedAddressList;
-                recent.AddFirst(address);
-                if (recent.Count > 5) recent.RemoveLast();             
             }
             catch
             {

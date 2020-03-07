@@ -22,7 +22,7 @@ namespace AddressBook.Controllers
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
-        [HttpPost("addcountryformat")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<CountryFormat> CreateCountryFormat([FromBody] CountryFormat country)
