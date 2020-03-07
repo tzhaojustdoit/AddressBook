@@ -1,8 +1,70 @@
 ﻿@page "/delete/{id}"
+@using AddressBook.Data
+@using AddressBook.Services
+@inject AddressService objAddressService
+@inject NavigationManager NavigationManager
 
 <h3>Delete</h3>
+<hr />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Line1</th>
+                <th>Line2</th>
+                <th>Line3</th>
+                <th>Country</th>
+                <th>Administrative Area</th>
+                <th>Locality</th>
+                <th>Sublocality</th>
+                <th>Postal Code</th>
+                <th>Extra Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (address != null) {
+                <tr>
+                    <td>@address.AddressLine1</td>
+                    <td>@address.AddressLine2</td>
+                    <td>@address.AddressLine3</td>
+                    <td>@address.Country</td>
+                    <td>@address.AdminArea</td>
+                    <td>@address.Locality</td>
+                    <td>@address.Sublocality</td>
+                    <td>@address.PostalCode</td>
+                    <td>@address.ExtraData</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input style="margin-right:50px" type="button" class="btn btn-primary" @onclick="@DeleteAddress" value="Delete" />
+                <input type="button" class="btn btn-primary" @onclick="@CancelDeletion" value="Cancel" />
+            </div>
+        </div>
+    </div>
 
 @code {
+
+    Address address;
+
     [Parameter]
     public string id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        address = await Task.Run(() => objAddressService.ReadAddress(id));
+    }
+
+    protected void DeleteAddress()
+    {
+        objAddressService.DeleteAddress(id);
+        NavigationManager.NavigateTo("/index");
+    }
+
+    void CancelDeletion()
+    {
+        NavigationManager.NavigateTo("/index");
+    }
 }

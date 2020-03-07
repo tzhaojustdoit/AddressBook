@@ -219,7 +219,6 @@ namespace AddressBook.Services
             {
                 FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, countryName);
                 string pattern = db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
-                Console.WriteLine("pattern: " + pattern);
                 if (pattern != null)
                     return pattern;
                 return " ";
