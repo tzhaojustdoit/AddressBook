@@ -218,8 +218,11 @@ namespace AddressBook.Services
             try
             {
                 FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, countryName);
-                Console.WriteLine("pattern: " + db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern);
-                return db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
+                string pattern = db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
+                Console.WriteLine("pattern: " + pattern);
+                if (pattern != null)
+                    return pattern;
+                return " ";
             }
             catch 
             {

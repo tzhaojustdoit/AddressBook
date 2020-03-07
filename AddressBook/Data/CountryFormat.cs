@@ -44,7 +44,7 @@ namespace AddressBook.Data
 
         public bool PostalCodeOptional { get; set; } = false;
       
-        public string PostalCodePattern { get; set; } = "";
+        public string PostalCodePattern { get; set; } = @"\b\b";
 
         #endregion format
     }
