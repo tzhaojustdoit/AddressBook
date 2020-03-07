@@ -31,7 +31,7 @@ namespace AddressBook.Services
         {
             try
             {
-                return db.AddressRecord.Find(_ => true).SortByDescending(a => a.Date).Limit(1000).ToList(); // impossible to display 1 million addresses on a single page, limit to 1000 addresses
+                return db.AddressRecord.Find(_ => true).SortByDescending(a => a.Timestamp).Limit(100).ToList(); // impossible to display 1 million addresses on a single page, limit to 100 addresses
             }
             catch
             {
@@ -318,6 +318,19 @@ namespace AddressBook.Services
 
         #endregion WipeAndLoad
 
-       
+        #region Validation
+
+        // Country specific validation using country format information
+        // return an error code
+        public int CountrySpecificValidate(Address address)
+        {
+            // validate that the admin area is from the list
+            // todo
+
+            return 0;
+        }
+
+
+        #endregion Validation
     }
 }
