@@ -11,6 +11,7 @@ namespace AddressBook.Services
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
+        #region Address
 
         //To Get number of addresses     
         public long GetNumOfAddresses()
@@ -93,119 +94,6 @@ namespace AddressBook.Services
             }
         }
 
-        // To get the list of Countries 
-        public List<CountryFormat> GetAllCountryFormats()
-        {
-            try
-            {
-                return db.CountryRecord.Find(_ => true).ToList();
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        // To add a new country record
-        internal void CreateCountryFormat(CountryFormat country)
-        {
-            try
-            {
-                db.CountryRecord.InsertOne(country);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        // Get country by id
-        public CountryFormat GetCountryFormat(string id)
-        {
-            try
-            {
-                FilterDefinition<CountryFormat> filterCountryData = Builders<CountryFormat>.Filter.Eq("Id", id);
-
-                return db.CountryRecord.Find(filterCountryData).FirstOrDefault();
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        // Get country postcode pattern by country name
-        public string GetPostalCodePattern(string countryName) 
-        {
-            try
-            {
-                FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, countryName);
-                Console.WriteLine(db.CountryRecord.Find(filterCountry).FirstOrDefault().Name);
-                Console.WriteLine(db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern);
-                return db.CountryRecord.Find(filterCountry).FirstOrDefault().AdminAreaDisplayName;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        //To Delete all addresses
-        public void DeleteAllAddresses()
-        {
-            try
-            {
-                db.AddressRecord.DeleteManyAsync(_ => true);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        //To load all default addresses
-        public void LoadDefaultAddresses()
-        {
-            try
-            {
-                var addressList = DefaultData.GetDefaultAddressList();
-                db.AddressRecord.InsertManyAsync(addressList);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        //To Delete all Countries
-        public void DeleteAllCountryFormats()
-        {
-            try
-            {
-                db.CountryRecord.DeleteManyAsync(_ => true);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        //To load all default countries
-        public void LoadDefaultCountryFormats()
-        {
-            try
-            {
-                foreach (var item in DefaultData.DefaultCountryList)
-                {
-                    db.CountryRecord.InsertOne(item);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
         // Find if the given address exist in database
         public List<Address> GetAddressByWholeAddress(Address data)
         {
@@ -278,5 +166,156 @@ namespace AddressBook.Services
 
             return db.AddressRecord.Find(addrFilter).ToList();
         }
-    }    
+
+        #endregion Address
+
+        #region CountryFormat
+
+        // To get the list of Countries 
+        public List<CountryFormat> GetAllCountryFormats()
+        {
+            try
+            {
+                return db.CountryRecord.Find(_ => true).ToList();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        // To add a new country record
+        internal void CreateCountryFormat(CountryFormat country)
+        {
+            try
+            {
+                db.CountryRecord.InsertOne(country);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        // Get the details of a particular country format     
+        public CountryFormat ReadCountryFormat(string id)
+        {
+            try
+            {
+                FilterDefinition<CountryFormat> filterCountryData = Builders<CountryFormat>.Filter.Eq("Id", id);
+
+                return db.CountryRecord.Find(filterCountryData).FirstOrDefault();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        // Get country postcode pattern by country name
+        public string GetPostalCodePattern(string countryName) 
+        {
+            try
+            {
+                FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, countryName);
+                Console.WriteLine(db.CountryRecord.Find(filterCountry).FirstOrDefault().Name);
+                Console.WriteLine(db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern);
+                return db.CountryRecord.Find(filterCountry).FirstOrDefault().AdminAreaDisplayName;
+            }
+            catch 
+            {
+                throw;
+            }
+        }
+
+        // Update the records of a particluar country format     
+        public void UpdateCountryFormat(CountryFormat countryFormat)
+        {
+            try
+            {
+                db.CountryRecord.ReplaceOne(filter: g => g.Id == countryFormat.Id, replacement: countryFormat);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        // Delete the record of a particular country format          
+        public void DeleteCountryFormat(string id)
+        {
+            try
+            {
+                FilterDefinition<CountryFormat> countryFormatData = Builders<CountryFormat>.Filter.Eq("Id", id);
+                db.CountryRecord.DeleteOne(countryFormatData);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        #endregion CountryFormat
+
+        #region WipeAndLoad
+
+        //To Delete all addresses
+        public void DeleteAllAddresses()
+        {
+            try
+            {
+                db.AddressRecord.DeleteManyAsync(_ => true);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        //To load all default addresses
+        public void LoadDefaultAddresses()
+        {
+            try
+            {
+                var addressList = DefaultData.GetDefaultAddressList();
+                db.AddressRecord.InsertManyAsync(addressList);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        //To Delete all Countries
+        public void DeleteAllCountryFormats()
+        {
+            try
+            {
+                db.CountryRecord.DeleteManyAsync(_ => true);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        //To load all default countries
+        public void LoadDefaultCountryFormats()
+        {
+            try
+            {
+                foreach (var item in DefaultData.DefaultCountryList)
+                {
+                    db.CountryRecord.InsertOne(item);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        #endregion WipeAndLoad
+
+       
+    }
 }

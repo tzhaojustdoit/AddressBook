@@ -95,7 +95,9 @@ namespace AddressBook.Controllers
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(Address), 200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(EmptyCountryError), 409)]
+        [ProducesResponseType(typeof(EmptyAdminAreaError), 409)]
+        [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         [ProducesResponseType(404)]
         public ActionResult<Address> Update([FromBody] Address address)
         {
@@ -107,7 +109,18 @@ namespace AddressBook.Controllers
             }
 
             // validation
-            // todo
+            if (String.IsNullOrEmpty(address.Country))
+            {
+                return StatusCode(409, new EmptyCountryError() { });
+            }
+            if (String.IsNullOrEmpty(address.AddressLine1))
+            {
+                return StatusCode(409, new EmptyAddrLineError() { });
+            }
+            if (String.IsNullOrEmpty(address.AdminArea))
+            {
+                return StatusCode(409, new EmptyAdminAreaError() { });
+            }
 
             _addressService.UpdateAddress(address);
 
