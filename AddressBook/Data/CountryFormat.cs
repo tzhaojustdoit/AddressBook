@@ -43,6 +43,8 @@ namespace AddressBook.Data
 
         public bool PostalCodeOptional { get; set; } = false;
 
+        public string PostalCodePattern { get; set; } = "Postcode";
+
         #endregion format
     }
 }

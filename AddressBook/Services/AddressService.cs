@@ -54,11 +54,11 @@ namespace AddressBook.Services
         public void CreateAddress(Address address)
         {
             try
-            {
+            {           
                 db.AddressRecord.InsertOne(address);
                 var recent = RecentlyAddedAddresses.RecentlyAddedAddressList;
                 recent.AddFirst(address);
-                if (recent.Count > 5) recent.RemoveLast();
+                if (recent.Count > 5) recent.RemoveLast();             
             }
             catch
             {
@@ -142,6 +142,21 @@ namespace AddressBook.Services
                 FilterDefinition<CountryFormat> filterCountryData = Builders<CountryFormat>.Filter.Eq("Id", id);
 
                 return db.CountryRecord.Find(filterCountryData).FirstOrDefault();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        // Get country postcode pattern by country name
+        public string GetPostalCodePattern(string countryName) 
+        {
+            try
+            {
+                FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, countryName);
+
+                return db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
             }
             catch
             {
@@ -277,5 +292,5 @@ namespace AddressBook.Services
 
             return db.AddressRecord.Find(addrFilter).ToList();
         }
-    }
+    }    
 }

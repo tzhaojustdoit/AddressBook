@@ -7,6 +7,7 @@ using AddressBook.Data;
 using AddressBook.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace AddressBook.Controllers
 {
@@ -38,11 +39,28 @@ namespace AddressBook.Controllers
         [ProducesResponseType(400)]
         public ActionResult<Address> Create([FromBody] Address address)
         {
-            // validation
-            // todo
+            if(String.IsNullOrEmpty(address.Country))
+            {
+                return StatusCode(409, new EmptyCountryError() { });
+            }
+            if (String.IsNullOrEmpty(address.AddressLine1))
+            {
+                return StatusCode(409, new EmptyAddrLineError() { });
+            }
+            if (String.IsNullOrEmpty(address.AdminArea))
+            {
+                return StatusCode(409, new EmptyAdminAreaError() { });
+            }
 
+            Match m = Regex.Match(address.PostalCode, _addressService.GetPostalCodePattern(address.Country), RegexOptions.IgnoreCase);
+
+            if (!m.Success) 
+            {
+                return StatusCode(409);
+            }
             _addressService.CreateAddress(address);
             return Ok(address);
+
         }
 
         /// <summary>
