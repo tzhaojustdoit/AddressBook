@@ -14,7 +14,6 @@ namespace AddressBook.Data
 
         // Country name.
         [BsonElement("country")]
-        [Required]
         public string Country { get; set; }
 
         // The address lines represent the most specific part of any address.
@@ -36,7 +35,6 @@ namespace AddressBook.Data
 
         // Top-level administrative subdivision of this country.
         [BsonElement("adminArea")]
-        [Required]
         public string AdminArea { get; set; }
 
         // Generally refers to the city/town portion of an address.
