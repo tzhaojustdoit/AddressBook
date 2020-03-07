@@ -59,7 +59,7 @@ namespace AddressBook.Controllers
 
             if (!m.Success) 
             {
-                return StatusCode(409);
+                return StatusCode(409, new WrongPostalCodeFormat() { });
             }
             _addressService.CreateAddress(address);
             return Ok(address);

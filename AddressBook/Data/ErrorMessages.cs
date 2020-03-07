@@ -29,4 +29,11 @@ namespace AddressBook.Data
         public string Message { get => "AdminArea is empty"; }
     }
 
+    public class WrongPostalCodeFormat
+    {
+        public int ErrorCode { get => 103; }
+
+        public string Message { get => "The postal code format is wrong"; }
+    }
+
 }
