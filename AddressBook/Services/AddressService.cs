@@ -299,6 +299,19 @@ namespace AddressBook.Services
 
         #endregion WipeAndLoad
 
-       
+        #region Validation
+
+        // Country specific validation using country format information
+        // return an error code
+        public int CountrySpecificValidate(Address address)
+        {
+            // validate that the admin area is from the list
+            // todo
+
+            return 0;
+        }
+
+
+        #endregion Validation
     }
 }

@@ -69,6 +69,12 @@ namespace AddressBook.Controllers
             {
                 return StatusCode(409, new EmptyAdminAreaError() { });
             }
+            if (_addressService.CountrySpecificValidate(address) != 0)
+            {
+                // todo add different errors
+                return StatusCode(409);
+            }
+
             _addressService.CreateAddress(address);
             return Ok(address);
         }
@@ -127,6 +133,11 @@ namespace AddressBook.Controllers
             if (String.IsNullOrEmpty(address.AdminArea))
             {
                 return StatusCode(409, new EmptyAdminAreaError() { });
+            }
+            if (_addressService.CountrySpecificValidate(address) != 0)
+            {
+                // todo add different errors
+                return StatusCode(409);
             }
 
             _addressService.UpdateAddress(address);
