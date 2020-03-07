@@ -112,7 +112,7 @@ namespace AddressBook.Controllers
 
             _addressService.DeleteAddress(id);
 
-            return Ok();
+            return Ok(addr);
         }
 
         #endregion CRUDi
