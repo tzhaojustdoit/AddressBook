@@ -13,7 +13,8 @@ namespace AddressBook.Data
         public string Id { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime Date { get; set; } = DateTime.Now;
+        [BsonElement("timestamp")]
+        public DateTime Timestamp { get; set; } = DateTime.Now;
 
         // Country name.
         [BsonElement("country")]
