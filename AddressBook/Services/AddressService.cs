@@ -375,7 +375,7 @@ namespace AddressBook.Services
             {
                 List<String> areaList = GetProvinceList(address.Country);
 
-                if (!areaList.Contains(address.AdminArea))
+                if (areaList.Contains(address.AdminArea))
                 {
                     return true;
                 }
