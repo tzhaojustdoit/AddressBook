@@ -168,7 +168,7 @@
 
         adminAreaValidation = !String.IsNullOrEmpty(objAddress.AdminArea);
 
-        postCodeValidation = !objAddressService.PostalCodeValidator(objAddress);
+        postCodeValidation = objAddressService.PostalCodeValidator(objAddress);
 
         if (countryValidation && line1Validation && adminAreaValidation && postCodeValidation)
         {
