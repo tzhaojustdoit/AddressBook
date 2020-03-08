@@ -1,18 +1,11 @@
-﻿@page "/Index"
+﻿@page "/delete/{id}"
 @using AddressBook.Data
 @using AddressBook.Services
 @inject AddressService objAddressService
+@inject NavigationManager NavigationManager
 
-<h2>Address Index</h2>
+<h3>Delete</h3>
 <hr />
-@if (objAddresses == null)
-{
-    <p><em>Loading....</em></p>
-}
-else
-{
-    <p>Found @numAddresses Addresses in the Database. Showing Only the Most Recently Added @objAddresses.Count Addresses</p>
-
     <table class="table table-striped">
         <thead>
             <tr>
@@ -25,13 +18,10 @@ else
                 <th>Sublocality</th>
                 <th>Postal Code</th>
                 <th>Extra Data</th>
-                <th>Edit</th>
-                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var address in objAddresses)
-            {
+            @if (address != null) {
                 <tr>
                     <td>@address.AddressLine1</td>
                     <td>@address.AddressLine2</td>
@@ -42,30 +32,39 @@ else
                     <td>@address.Sublocality</td>
                     <td>@address.PostalCode</td>
                     <td>@address.ExtraData</td>
-                    <td>
-                        <a class="nav-link pb-0 pt-0" href="update/@address.Id">
-                            <span class="oi oi-pencil" aria-hidden="true"></span>
-                        </a>
-
-                    </td>
-                    <td>
-                        <a class="nav-link pb-0 pt-0" href="delete/@address.Id">
-                            <span class="oi oi-trash" aria-hidden="true"></span>
-                        </a>
-                    </td>
                 </tr>
             }
         </tbody>
     </table>
-
-}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input style="margin-right:50px" type="button" class="btn btn-primary" @onclick="@DeleteAddress" value="Delete" />
+                <input type="button" class="btn btn-primary" @onclick="@CancelDeletion" value="Cancel" />
+            </div>
+        </div>
+    </div>
 
 @code {
-    List<Address> objAddresses;
-    long numAddresses;
+
+    Address address;
+
+    [Parameter]
+    public string id { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
-        objAddresses = await Task.Run(() => objAddressService.GetAllAddresses());
-        numAddresses = await Task.Run(() => objAddressService.GetNumOfAddresses());
+        address = await Task.Run(() => objAddressService.ReadAddress(id));
+    }
+
+    protected void DeleteAddress()
+    {
+        objAddressService.DeleteAddress(id);
+        NavigationManager.NavigateTo("/index");
+    }
+
+    void CancelDeletion()
+    {
+        NavigationManager.NavigateTo("/index");
     }
 }

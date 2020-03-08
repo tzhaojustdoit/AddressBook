@@ -1,4 +1,5 @@
 ﻿@page "/Search"
+@using AddressBook.Services
 @using AddressBook.Data
 @inject AddressService objAddressService
 @inject NavigationManager NavigationManager
@@ -30,10 +31,26 @@
                     </select>
                 </div>
 
+                @if (otherCountry == true)
+                {
+                    <div class="form-group">
+                        <label for="Country" class="control-label">Country</label>
+                        <input for="Country" class="form-control" @bind="@objAddress.Country" />
+                    </div>
+                }
+                @if (isWholeSearch && !countryValidation)
+                {
+                    <p style="color:red">Country is required </p>
+                }
+
                 <div class="form-group">
                     <label for="AddressLine1" class="control-label">Address Line 1</label>
                     <input for="AddressLine1" class="form-control" @bind="@objAddress.AddressLine1" />
                     <label class="font-italic text-black-50">Street address, P.O. box, company name, c/o</label>
+                    @if (!line1Validation)
+                    {
+                        <p style="color:red">Line 1 is required </p>
+                    }
                 </div>
 
                 <div class="form-group">
@@ -71,6 +88,10 @@
                         </select>
                     </div>
                 }
+                @if (isWholeSearch && !adminAreaValidation)
+                {
+                    <p style="color:red">@selectedCountryFormat.AdminAreaDisplayName is required</p>
+                }
 
                 @if (selectedCountryFormat.HasLocality)
                 {
@@ -91,6 +112,10 @@
                 <div class="form-group">
                     <label for="PostalCode" class="control-label">Postal Code</label>
                     <input for="PostalCode" class="form-control" @bind="@objAddress.PostalCode" />
+                    @if (isWholeSearch && !postCodeValidation)
+                    {
+                        <p style="color:red"> Post code is invalid </p>
+                    }
                 </div>
 
                 @if (selectedCountryFormat.HasExtraData)
@@ -100,82 +125,102 @@
                         <input for="ExtraData" class="form-control" @bind="@objAddress.ExtraData" />
                     </div>
                 }
+
             }
 
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <input type="button" class="btn btn-primary" @onclick="@SearchAddress" value="Search" />
-                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
-            </div>
-        </div>
+    <div style="padding-bottom:15px">
+        <input name="checkBox"
+               type="checkbox"
+               @onchange="@OnCheckBoxChanged"
+               value="true" />Only show exact matches
+    </div>
+
+    <div class="form-group">
+        <input type="button" class="btn btn-primary" @onclick="@SearchAddress" value="Search" />
     </div>
 
     @if (SearchButtonClicked)
     {
         @if (FoundAddress)
         {
-            <div class="form-group">
-                <label for="AddressLine1" class="control-label">Address Line 1: </label>
-                <label for="AddressLine1" class="control-label">@resAddress.AddressLine1</label>
-            </div>
 
-            <div class="form-group">
-                <label for="AddressLine2" class="control-label">Address Line 2: </label>
-                <label for="AddressLine2" class="control-label">@resAddress.AddressLine2</label>
-            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@OKClicked" value="Clear Output" />
+                    </div>
+                    <ul class="list-group">
+                        @foreach (var resAddress in @resList)
+                        {
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label for="AddressLine1" class="control-label">Address Line 1: </label>
+                                    <label for="AddressLine1" class="control-label">@resAddress.AddressLine1</label>
+                                </div>
 
-            @if (selectedCountryFormat.HasAddressLine3)
-            {
-                <div class="form-group">
-                    <label for="AddressLine3" class="control-label">Address Line 3</label>
-                    <label for="AddressLine3" class="control-label">"@resAddress.AddressLine3" </label>
+                                <div class="form-group">
+                                    <label for="AddressLine2" class="control-label">Address Line 2: </label>
+                                    <label for="AddressLine2" class="control-label">@resAddress.AddressLine2</label>
+                                </div>
+
+                                @if (selectedCountryFormat.HasAddressLine3)
+                                {
+                                    <div class="form-group">
+                                        <label for="AddressLine3" class="control-label">Address Line 3</label>
+                                        <label for="AddressLine3" class="control-label">"@resAddress.AddressLine3" </label>
+                                    </div>
+                                }
+
+                                <div class="form-group">
+                                    <label for="Country" class="control-label">Country: </label>
+                                    <label for="AdminArea" class="control-label">@resAddress.Country</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName: </label>
+                                    <label for="AdminArea" class="control-label">@resAddress.AdminArea</label>
+                                </div>
+
+
+
+                                @if (selectedCountryFormat.HasLocality)
+                                {
+                                    <div class="form-group">
+                                        <label for="Locality" class="control-label">@selectedCountryFormat.LocalityDisplayName: </label>
+                                        <label for="Locality" class="control-label">@resAddress.Locality</label>
+                                    </div>
+                                }
+
+                                @if (selectedCountryFormat.HasSublocality)
+                                {
+                                    <div class="form-group">
+                                        <label for="Sublocality" class="control-label">@selectedCountryFormat.SublocalityDisplayName: </label>
+                                        <label for="Sublocality" class="control-label" @bind="@resAddress.Sublocality" />
+                                    </div>
+                                }
+
+                                <div class="form-group">
+                                    <label for="PostalCode" class="control-label">Postal Code: </label>
+                                    <label for="PostalCode" class="control-label">@resAddress.PostalCode</label>
+                                </div>
+
+                                @if (selectedCountryFormat.HasExtraData)
+                                {
+                                    <div class="form-group">
+                                        <label for="ExtraData" class="control-label">Extra Data: </label>
+                                        <label for="ExtraData" class="control-label">@resAddress.ExtraData</label>
+                                    </div>
+                                }
+                            </li>
+                        }
+                    </ul>
                 </div>
-            }
-
-            <div class="form-group">
-                <label for="Country" class="control-label">Country: </label>
-                <label for="AdminArea" class="control-label">@resAddress.Country</label>
-            </div>
-
-            <div class="form-group">
-                <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName: </label>
-                <label for="AdminArea" class="control-label">@resAddress.AdminArea</label>
             </div>
 
 
-
-            @if (selectedCountryFormat.HasLocality)
-            {
-                <div class="form-group">
-                    <label for="Locality" class="control-label">@selectedCountryFormat.LocalityDisplayName: </label>
-                    <label for="Locality" class="control-label">@resAddress.Locality</label>
-                </div>
-            }
-
-            @if (selectedCountryFormat.HasSublocality)
-            {
-                <div class="form-group">
-                    <label for="Sublocality" class="control-label">@selectedCountryFormat.SublocalityDisplayName: </label>
-                    <label for="Sublocality" class="control-label" @bind="@resAddress.Sublocality" />
-                </div>
-            }
-
-            <div class="form-group">
-                <label for="PostalCode" class="control-label">Postal Code: </label>
-                <label for="PostalCode" class="control-label">@resAddress.PostalCode</label>
-            </div>
-
-            @if (selectedCountryFormat.HasExtraData)
-            {
-                <div class="form-group">
-                    <label for="ExtraData" class="control-label">Extra Data: </label>
-                    <label for="ExtraData" class="control-label">@resAddress.ExtraData</label>
-                </div>
-            }
         }
         else
         {
@@ -183,13 +228,7 @@
                 <label for="NotFound" class="control-label">Address Not Found</label>
             </div>
         }
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <input type="button" class="btn btn-primary" @onclick="@OKClicked" value="OK" />
-                </div>
-            </div>
-        </div>
+
     }
 
 
@@ -199,11 +238,17 @@
 
 @code {
     Address objAddress = new Address();
-    Address resAddress = new Address();
     List<CountryFormat> countryFormatList;
     CountryFormat selectedCountryFormat;
     bool SearchButtonClicked = false;
     bool FoundAddress = false;
+    bool isWholeSearch = false;
+    List<Address> resList;
+    bool postCodeValidation = true;
+    bool countryValidation = true;
+    bool line1Validation = true;
+    bool adminAreaValidation = true;
+    bool otherCountry = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -213,35 +258,75 @@
 
     protected void SearchAddress()
     {
-        var resList = objAddressService.GetAddressByWholeAddress(objAddress);
-        if(resList.Count != 0)
+        // validation
+        countryValidation = !String.IsNullOrEmpty(objAddress.Country);
+
+        line1Validation = !String.IsNullOrEmpty(objAddress.AddressLine1);
+
+        adminAreaValidation = !String.IsNullOrEmpty(objAddress.AdminArea);
+
+        postCodeValidation = objAddressService.PostalCodeValidator(objAddress);
+
+        if (isWholeSearch && countryValidation && line1Validation && adminAreaValidation && postCodeValidation) // whole search validation
+        {
+            resList = objAddressService.GetAddressByWholeAddress(objAddress);
+        }
+        else if (!isWholeSearch && line1Validation) // partial search validation
+        {
+            resList = objAddressService.GetAddressByPartialAddress(objAddress);
+        }
+        else // invalid input
+        {
+            SearchButtonClicked = false;
+            return;
+        }
+
+        if (resList.Count != 0)
         {
             FoundAddress = true;
-            resAddress = resList[0];
-        } else
+        }
+        else
         {
             FoundAddress = false;
         }
 
         SearchButtonClicked = true;
+
     }
 
     void OKClicked()
     {
-        NavigationManager.NavigateTo("/index");
+        SearchButtonClicked = false;
     }
+
     void Cancel()
     {
         NavigationManager.NavigateTo("/index");
     }
+
     void UpdateFormFormat(ChangeEventArgs e)
     {
+        objAddress = new Address(); // reset data
         var countryFormatId = e.Value.ToString();
         if (countryFormatId == "")
         {
             return;
         }
-        selectedCountryFormat = objAddressService.GetCountryFormat(countryFormatId);
-        objAddress.Country = selectedCountryFormat.Name;
+        selectedCountryFormat = objAddressService.ReadCountryFormat(countryFormatId);
+
+        if (selectedCountryFormat.Name == "Other")
+        {
+            otherCountry = true;
+        }
+        else
+        {
+            otherCountry = false;
+            objAddress.Country = selectedCountryFormat.Name;
+        }
+    }
+
+    void OnCheckBoxChanged(ChangeEventArgs e)
+    {
+        isWholeSearch = (bool)e.Value;
     }
 }

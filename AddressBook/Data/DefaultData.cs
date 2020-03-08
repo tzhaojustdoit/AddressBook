@@ -82,7 +82,7 @@ namespace AddressBook.Data
                 .Cast<ArgentinaProvince>()
                 .Select(v => v.ToString())
                 .ToList(),
-                HasAdminArea = false
+                HasAdminArea = false,
             },
 
             new CountryFormat
@@ -92,19 +92,20 @@ namespace AddressBook.Data
                 AdminAreas = Enum.GetValues(typeof(AustraliaState))
                 .Cast<AustraliaState>()
                 .Select(v => v.ToString())
-                .ToList()
+                .ToList(),
+                PostalCodePattern = @"\b\d\d\d\d\b",
             },
 
             new CountryFormat
             {
                 Name = "Austria",
-                HasAdminArea = false
+                HasAdminArea = false,
             },
 
             new CountryFormat
             {
                 Name = "Belgium",
-                HasAdminArea = false
+                HasAdminArea = false,
             },
 
             new CountryFormat
@@ -114,7 +115,7 @@ namespace AddressBook.Data
                 AdminAreas = Enum.GetValues(typeof(BrazilProvince))
                 .Cast<BrazilProvince>()
                 .Select(v => v.ToString())
-                .ToList()
+                .ToList(),
             },
 
             // new CountryFormat
@@ -129,12 +130,13 @@ namespace AddressBook.Data
                 AdminAreas = Enum.GetValues(typeof(CanadaProvince))
                 .Cast<CanadaProvince>()
                 .Select(v => v.ToString())
-                .ToList()
+                .ToList(),
+                PostalCodePattern = @"\b[A-z]\d[A-Z]\s\d[A-Z]\d\b",
             },
 
             new CountryFormat
             {
-                Name = "Channel Islands"
+                Name = "Channel Islands",
             },
 
             // use region code outside capital santiago
@@ -158,6 +160,7 @@ namespace AddressBook.Data
                 .Cast<ChinaProvince>()
                 .Select(v => v.ToString())
                 .ToList(),
+                PostalCodePattern = "000000",
             },
 
             new CountryFormat
@@ -302,7 +305,8 @@ namespace AddressBook.Data
                 .Cast<ItalyProvince>()
                 .Select(v => v.ToString())
                 .ToList(),
-                AdminAreaDisplayName = "Province"
+                AdminAreaDisplayName = "Province",
+                PostalCodePattern = @"\b\d\d\d\d\d\b",
             },
 
             new CountryFormat
@@ -315,7 +319,8 @@ namespace AddressBook.Data
                 .ToList(),
                 LocalityDisplayName = "City/Village/City ward",
                 HasSublocality = true,
-                SublocalityDisplayName = "Subarea"
+                SublocalityDisplayName = "Subarea",
+                PostalCodePattern = @"\b\d\d\d-\d\d\d\b",
             },
 
             new CountryFormat
@@ -327,7 +332,8 @@ namespace AddressBook.Data
                 .Select(v => v.ToString())
                 .ToList(),
                 HasSublocality = true,
-                SublocalityDisplayName = "Subdivision/Precinct"
+                SublocalityDisplayName = "Subdivision/Precinct",
+                PostalCodePattern = @"\b\d\d\d\d\d\b",
             },
 
             new CountryFormat
@@ -357,11 +363,6 @@ namespace AddressBook.Data
             new CountryFormat
             {
                 Name = "Mexico"
-            },
-
-            new CountryFormat
-            {
-                Name = "Miscellaneous/Other"
             },
 
             new CountryFormat
@@ -472,7 +473,8 @@ namespace AddressBook.Data
                 .Cast<UsState>()
                 .Select(v => v.ToString())
                 .ToList(),
-               
+                PostalCodePattern = @"\b\d\d\d\d\d\b",
+
             },
 
             new CountryFormat
@@ -488,6 +490,11 @@ namespace AddressBook.Data
             new CountryFormat
             {
                 Name = "Wales"
+            },
+
+            new CountryFormat
+            {
+                Name = "Other"
             },
 
         };

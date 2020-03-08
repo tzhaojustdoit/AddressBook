@@ -1,40 +1,43 @@
-﻿@page "/Create"
+﻿@page "/update/{id}"
 @using AddressBook.Data
 @using AddressBook.Services
 @inject AddressService objAddressService
 @inject NavigationManager NavigationManager
 
-<h2>Add Address</h2>
+<h3>Update</h3>
 <hr />
 @*Dynamic Form*@
 <form>
     <div class="row">
         <div class="col-md-8">
-            @if (selectedCountryFormat == null)
+            @if (address != null)
             {
-                <em>Loading...</em>
-            }
-            else
-            {
-                <div class="form-group">
-                    <label for="Country" class="control-label">Country</label>
-                    <select class="form-control" @onchange="@UpdateFormFormat">
-                        <option value=""></option>
-                        @if (countryFormatList != null)
-                        {
-                            foreach (var countryFormat in countryFormatList)
+                @if (selectedCountryFormat == null)
+                {
+                    <em>Loading...</em>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label for="Country" class="control-label">Country</label>
+                        <select class="form-control" @onchange="@UpdateFormFormat">
+                            <option value=""></option>
+                            @if (countryFormatList != null)
                             {
-                                <option value="@countryFormat.Id">@countryFormat.Name</option>
-                            }
+                                foreach (var countryFormat in countryFormatList)
+                                {
+                                    <option value="@countryFormat.Id">@countryFormat.Name</option>
+                                }
 
-                        }
-                    </select>
-                </div>
+                            }
+                        </select>
+                    </div>
+                }
                 @if (otherCountry == true)
                 {
                     <div class="form-group">
                         <label for="Country" class="control-label">Country</label>
-                        <input for="Country" class="form-control" @bind="@objAddress.Country" />
+                        <input for="Country" class="form-control" @bind="@address.Country" />
                     </div>
                 }
                 @if (!countryValidation)
@@ -44,7 +47,7 @@
 
                 <div class="form-group">
                     <label for="AddressLine1" class="control-label">Address Line 1</label>
-                    <input for="AddressLine1" class="form-control" @bind="@objAddress.AddressLine1" />
+                    <input for="AddressLine1" class="form-control" @bind="@address.AddressLine1" />
                     <label class="font-italic text-black-50">Street address, P.O. box, company name, c/o</label>
                     @if (!line1Validation)
                     {
@@ -54,7 +57,7 @@
 
                 <div class="form-group">
                     <label for="AddressLine2" class="control-label">Address Line 2</label>
-                    <input for="AddressLine2" class="form-control" @bind="@objAddress.AddressLine2" />
+                    <input for="AddressLine2" class="form-control" @bind="@address.AddressLine2" />
                     <label class="font-italic text-black-50">Apartment, suite, unit, building, floor, etc.</label>
                 </div>
 
@@ -62,7 +65,7 @@
                 {
                     <div class="form-group">
                         <label for="AddressLine3" class="control-label">Address Line 3</label>
-                        <input for="AddressLine3" class="form-control" @bind="@objAddress.AddressLine3" />
+                        <input for="AddressLine3" class="form-control" @bind="@address.AddressLine3" />
                     </div>
                 }
 
@@ -71,14 +74,14 @@
                 {
                     <div class="form-group">
                         <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName</label>
-                        <input for="AdminArea" class="form-control" @bind="@objAddress.AdminArea" />
+                        <input for="AdminArea" class="form-control" @bind="@address.AdminArea" />
                     </div>
                 }
                 else
                 {
                     <div class="form-group">
                         <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName</label>
-                        <select class="form-control" @bind="@objAddress.AdminArea">
+                        <select class="form-control" @bind="@address.AdminArea">
                             <option value=""></option>
                             @foreach (var adminArea in selectedCountryFormat.AdminAreas)
                             {
@@ -96,7 +99,7 @@
                 {
                     <div class="form-group">
                         <label for="Locality" class="control-label">@selectedCountryFormat.LocalityDisplayName</label>
-                        <input for="Locality" class="form-control" @bind="@objAddress.Locality" />
+                        <input for="Locality" class="form-control" @bind="@address.Locality" />
                     </div>
                 }
 
@@ -104,16 +107,16 @@
                 {
                     <div class="form-group">
                         <label for="Sublocality" class="control-label">@selectedCountryFormat.SublocalityDisplayName</label>
-                        <input for="Sublocality" class="form-control" @bind="@objAddress.Sublocality" />
+                        <input for="Sublocality" class="form-control" @bind="@address.Sublocality" />
                     </div>
                 }
 
                 <div class="form-group">
                     <label for="PostalCode" class="control-label">Postal Code</label>
-                    <input for="PostalCode" class="form-control" @bind="@objAddress.PostalCode" />
+                    <input for="PostalCode" class="form-control" @bind="@address.PostalCode" />
                     @if (!postCodeValidation)
                     {
-                        <p style="color:red"> Post code is invalid </p>
+                        <p style="color:red">Post code is invalid</p>
                     }
                 </div>
 
@@ -121,7 +124,7 @@
                 {
                     <div class="form-group">
                         <label for="ExtraData" class="control-label">Extra Data</label>
-                        <input for="ExtraData" class="form-control" @bind="@objAddress.ExtraData" />
+                        <input for="ExtraData" class="form-control" @bind="@address.ExtraData" />
                     </div>
                 }
             }
@@ -132,18 +135,20 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input style="margin-right:50px" type="button" class="btn btn-primary" @onclick="@CreateAddress" value="Save" />
-                <input type="button" class="btn btn-primary" @onclick="@ClearAddress" value="Clear" />
+                <input style="margin-right:50px" type="button" class="btn btn-primary" @onclick="@UpdateAddress" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@CancelUpdation" value="Cancel" />
             </div>
         </div>
     </div>
 
 </form>
 
-<hr />
-
 @code {
-    Address objAddress = new Address();
+
+    Address address;
+
+    [Parameter]
+    public string id { get; set; }
     List<CountryFormat> countryFormatList;
     CountryFormat selectedCountryFormat;
     bool postCodeValidation = true;
@@ -156,36 +161,35 @@
     {
         countryFormatList = await Task.Run(() => objAddressService.GetAllCountryFormats());
         selectedCountryFormat = new CountryFormat();
+        address = await Task.Run(() => objAddressService.ReadAddress(id));
     }
 
-    protected void CreateAddress()
+    protected void UpdateAddress()
     {
         // validation
 
-        countryValidation = !String.IsNullOrEmpty(objAddress.Country);
+        countryValidation = !String.IsNullOrEmpty(address.Country);
 
-        line1Validation = !String.IsNullOrEmpty(objAddress.AddressLine1);
+        line1Validation = !String.IsNullOrEmpty(address.AddressLine1);
 
-        adminAreaValidation = !String.IsNullOrEmpty(objAddress.AdminArea);
+        adminAreaValidation = !String.IsNullOrEmpty(address.AdminArea);
 
-        postCodeValidation = objAddressService.PostalCodeValidator(objAddress);
+        postCodeValidation = objAddressService.PostalCodeValidator(address);
 
         if (countryValidation && line1Validation && adminAreaValidation && postCodeValidation)
         {
-            objAddressService.CreateAddress(objAddress);
+            objAddressService.UpdateAddress(address);
             NavigationManager.NavigateTo("/index");
         }
     }
 
-    void ClearAddress()
+    void CancelUpdation()
     {
-        objAddress = new Address();
-
+        NavigationManager.NavigateTo("/index");
     }
 
     void UpdateFormFormat(ChangeEventArgs e)
     {
-        objAddress = new Address(); // reset data
         var countryFormatId = e.Value.ToString();
         if (countryFormatId == "")
         {
@@ -200,10 +204,8 @@
         else
         {
             otherCountry = false;
-            objAddress.Country = selectedCountryFormat.Name;
+            address.Country = selectedCountryFormat.Name;
         }
     }
 
 }
-
-
