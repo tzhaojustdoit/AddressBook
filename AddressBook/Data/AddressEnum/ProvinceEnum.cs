@@ -71,6 +71,15 @@ namespace AddressBook.Data.AddressEnum
     {
         Chungbuk, Chungnam, Gangwon, Gyeonggi, Gyeongbuk, Gyeongnam, Jeonbuk, Jeonnam, Jeju
     }
+
+    public enum MalaysiaState
+    {
+        JHR, KDH, KTN, MLK, NSN, PHG, PNG, PRK, PLS, SBH, SWK, SGR, TRG
+    }
+    /* This part is for mocking addresses usage
+    */
+    // public List<string> UnitedStatesCities = {"Seattle“, NewYork, Portland, Santiago}
+
 }
 
 

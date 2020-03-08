@@ -332,17 +332,26 @@ namespace AddressBook.Data
 
             new CountryFormat
             {
-                Name = "Latvia"
+                Name = "Latvia",
+                HasAdminArea = false,
+                LocalityDisplayName = "City" 
             },
 
             new CountryFormat
             {
-                Name = "Luxembourg"
+                Name = "Luxembourg",
+                HasAdminArea = false,
+                LocalityDisplayName = "City/Locality" 
             },
 
             new CountryFormat
             {
-                Name = "Malaysia"
+                Name = "Malaysia",
+                AdminAreaDisplayName = "State",
+                AdminAreas = Enum.GetValues(typeof(MalaysiaState))
+                .Cast<MalaysiaState>()
+                .Select(v => v.ToString())
+                .ToList()
             },
 
             new CountryFormat
@@ -365,10 +374,10 @@ namespace AddressBook.Data
                 Name = "New Zealand"
             },
 
-            new CountryFormat
-            {
-                Name = "Northern Ireland"
-            },
+            // new CountryFormat
+            // {
+            //     Name = "Northern Ireland"
+            // },
 
             new CountryFormat
             {
@@ -445,10 +454,10 @@ namespace AddressBook.Data
                 Name = "Switzerland"
             },
 
-            new CountryFormat
-            {
-                Name = "United Kingdom"
-            },
+            // new CountryFormat
+            // {
+            //     Name = "United Kingdom"
+            // },
 
             new CountryFormat
             {
