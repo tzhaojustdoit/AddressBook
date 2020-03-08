@@ -354,11 +354,6 @@ namespace AddressBook.Services
 
                 if (pattern == null) return true;
 
-                if (String.IsNullOrEmpty(address.PostalCode))
-                {
-                    return true;  // validation of non-empty or not is handled by PostalCodeOptional method
-                }
-
                 Match m = Regex.Match(address.PostalCode, pattern);
 
                 Console.WriteLine("Success: ", m.Success);
