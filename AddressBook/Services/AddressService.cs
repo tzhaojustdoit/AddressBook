@@ -339,11 +339,25 @@ namespace AddressBook.Services
                     return true; // if country name is a custom input, then no validation is needed, return true
                 }
 
+                if (String.IsNullOrEmpty(address.PostalCode))
+                {
+                    if (countryFormat.PostalCodeOptional == true)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+
                 string pattern = countryFormat.PostalCodePattern;
 
                 Console.WriteLine("pattern: ", pattern);
 
                 if (pattern == null) return true;
+
+                if (String.IsNullOrEmpty(address.PostalCode))
+                {
+                    return true;  // validation of non-empty or not is handled by PostalCodeOptional method
+                }
 
                 Match m = Regex.Match(address.PostalCode, pattern);
 
