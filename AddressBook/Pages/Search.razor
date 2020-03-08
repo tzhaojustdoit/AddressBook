@@ -152,71 +152,50 @@
                     <div class="form-group">
                         <input type="button" class="btn btn-primary" @onclick="@OKClicked" value="Clear Output" />
                     </div>
-                    <ul class="list-group">
-                        @foreach (var resAddress in @resList)
-                        {
-                            <li class="list-group-item">
-                                <div class="form-group">
-                                    <label for="AddressLine1" class="control-label">Address Line 1: </label>
-                                    <label for="AddressLine1" class="control-label">@resAddress.AddressLine1</label>
-                                </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Line1</th>
+                                <th>Line2</th>
+                                <th>Line3</th>
+                                <th>Country</th>
+                                <th>Administrative Area</th>
+                                <th>Locality</th>
+                                <th>Sublocality</th>
+                                <th>Postal Code</th>
+                                <th>Extra Data</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var address in resList)
+                            {
+                                <tr>
+                                    <td>@address.AddressLine1</td>
+                                    <td>@address.AddressLine2</td>
+                                    <td>@address.AddressLine3</td>
+                                    <td>@address.Country</td>
+                                    <td>@address.AdminArea</td>
+                                    <td>@address.Locality</td>
+                                    <td>@address.Sublocality</td>
+                                    <td>@address.PostalCode</td>
+                                    <td>@address.ExtraData</td>
+                                    <td>
+                                        <a class="nav-link pb-0 pt-0" href="update/@address.Id">
+                                            <span class="oi oi-pencil" aria-hidden="true"></span>
+                                        </a>
 
-                                <div class="form-group">
-                                    <label for="AddressLine2" class="control-label">Address Line 2: </label>
-                                    <label for="AddressLine2" class="control-label">@resAddress.AddressLine2</label>
-                                </div>
-
-                                @if (selectedCountryFormat.HasAddressLine3)
-                                {
-                                    <div class="form-group">
-                                        <label for="AddressLine3" class="control-label">Address Line 3</label>
-                                        <label for="AddressLine3" class="control-label">"@resAddress.AddressLine3" </label>
-                                    </div>
-                                }
-
-                                <div class="form-group">
-                                    <label for="Country" class="control-label">Country: </label>
-                                    <label for="AdminArea" class="control-label">@resAddress.Country</label>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="AdminArea" class="control-label">@selectedCountryFormat.AdminAreaDisplayName: </label>
-                                    <label for="AdminArea" class="control-label">@resAddress.AdminArea</label>
-                                </div>
-
-
-
-                                @if (selectedCountryFormat.HasLocality)
-                                {
-                                    <div class="form-group">
-                                        <label for="Locality" class="control-label">@selectedCountryFormat.LocalityDisplayName: </label>
-                                        <label for="Locality" class="control-label">@resAddress.Locality</label>
-                                    </div>
-                                }
-
-                                @if (selectedCountryFormat.HasSublocality)
-                                {
-                                    <div class="form-group">
-                                        <label for="Sublocality" class="control-label">@selectedCountryFormat.SublocalityDisplayName: </label>
-                                        <label for="Sublocality" class="control-label" @bind="@resAddress.Sublocality" />
-                                    </div>
-                                }
-
-                                <div class="form-group">
-                                    <label for="PostalCode" class="control-label">Postal Code: </label>
-                                    <label for="PostalCode" class="control-label">@resAddress.PostalCode</label>
-                                </div>
-
-                                @if (selectedCountryFormat.HasExtraData)
-                                {
-                                    <div class="form-group">
-                                        <label for="ExtraData" class="control-label">Extra Data: </label>
-                                        <label for="ExtraData" class="control-label">@resAddress.ExtraData</label>
-                                    </div>
-                                }
-                            </li>
-                        }
-                    </ul>
+                                    </td>
+                                    <td>
+                                        <a class="nav-link pb-0 pt-0" href="delete/@address.Id">
+                                            <span class="oi oi-trash" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
