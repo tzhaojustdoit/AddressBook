@@ -15,5 +15,3 @@ Steps to Run:
 * Create a Countries collection using following command: db.createCollection('Countries')
 * Open the project in Visual Studio and run.
 
-Swagger Access: https://localhost:44319/swagger/index.html
-
