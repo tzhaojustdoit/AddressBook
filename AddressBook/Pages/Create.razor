@@ -149,7 +149,7 @@
     {
         submitted = true;
 
-        if (objAddressService.checkPostalCodePattern(objAddress))
+        if (objAddressService.PostalCodeValidator(objAddress))
         {
             objAddressService.CreateAddress(objAddress);
             NavigationManager.NavigateTo("/index");

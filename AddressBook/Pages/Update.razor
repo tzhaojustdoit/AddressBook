@@ -152,7 +152,7 @@
     protected void UpdateAddress()
     {
         submitted = true;
-        if (objAddressService.checkPostalCodePattern(address))
+        if (objAddressService.PostalCodeValidator(address))
         {
             objAddressService.UpdateAddress(address);
             NavigationManager.NavigateTo("/index");
