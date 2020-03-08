@@ -40,7 +40,7 @@ namespace AddressBook.Data
     {
         public int ErrorCode { get => 104; }
 
-        public string Message { get => "The Administrative Area is wrong"; }
+        public string Message { get => "The administrative area is wrong"; }
     }
 
 }
