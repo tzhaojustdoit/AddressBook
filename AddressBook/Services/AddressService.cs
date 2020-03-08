@@ -332,7 +332,14 @@ namespace AddressBook.Services
             {
                 FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, address.Country);
 
-                string pattern = db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
+                CountryFormat countryFormat = db.CountryRecord.Find(filterCountry).FirstOrDefault();
+
+                if (countryFormat == null)
+                {
+                    return true; // if country name is a custom input, then no validation is needed, return true
+                }
+
+                string pattern = countryFormat.PostalCodePattern;
 
                 Console.WriteLine("pattern: ", pattern);
 
