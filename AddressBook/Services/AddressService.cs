@@ -55,32 +55,6 @@ namespace AddressBook.Services
             }
         }
 
-        // check postal code pattern
-        public bool checkPostalCodePattern(Address address)
-        {
-            try
-            {    
-                FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, address.Country);
-
-                string pattern = db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
-
-                Console.WriteLine("pattern: ", pattern);
-                if (pattern != null)
-                {
-                    Match m = Regex.Match(address.PostalCode, pattern);
-                    Console.WriteLine("Success: ", m.Success);
-                    if (m.Success) 
-                        return true;
-                }
-                return false;        
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-
         // Get the details of a particular address     
         public Address ReadAddress(string id)
         {
@@ -351,16 +325,52 @@ namespace AddressBook.Services
 
         #region Validation
 
-        // Country specific validation using country format information
-        // return an error code
-        public int CountrySpecificValidate(Address address)
+        // validate postal code format
+        public bool PostalCodeValidator(Address address)
         {
-            // validate that the admin area is from the list
-            // todo
+            try
+            {
+                FilterDefinition<CountryFormat> filterCountry = Builders<CountryFormat>.Filter.Eq(x => x.Name, address.Country);
 
-            return 0;
+                string pattern = db.CountryRecord.Find(filterCountry).FirstOrDefault().PostalCodePattern;
+
+                Console.WriteLine("pattern: ", pattern);
+
+                if (pattern == null) return true;
+
+                Match m = Regex.Match(address.PostalCode, pattern);
+
+                Console.WriteLine("Success: ", m.Success);
+
+                if (m.Success) return true;
+
+                return false;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
+        // validate admin area
+        public bool AdminAreaValidator(Address address)
+        {
+            try
+            {
+                List<String> areaList = GetProvinceList(address.Country);
+
+                if (!areaList.Contains(address.AdminArea))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         #endregion Validation
     }

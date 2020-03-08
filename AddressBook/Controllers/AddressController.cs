@@ -70,22 +70,11 @@ namespace AddressBook.Controllers
             {
                 return StatusCode(409, new EmptyAdminAreaError() { });
             }
-
-            if (_addressService.CountrySpecificValidate(address) != 0)
-            {
-                // todo add different errors
-                return StatusCode(409);
-            }
-
-            List<String> areaList = _addressService.GetProvinceList(address.Country);
-
-            if (!areaList.Contains(address.AdminArea))
+            if (!_addressService.AdminAreaValidator(address))
             {
                 return StatusCode(409, new WrongAdminAreaError() { });
-            }
-
-            
-            if(!_addressService.checkPostalCodePattern(address)) 
+            }       
+            if(!_addressService.PostalCodeValidator(address)) 
             {
                 return StatusCode(409, new WrongPostalCodeFormat() { });
             }
@@ -151,12 +140,11 @@ namespace AddressBook.Controllers
             {
                 return StatusCode(409, new EmptyAdminAreaError() { });
             }
-            if (_addressService.CountrySpecificValidate(address) != 0)
+            if (!_addressService.AdminAreaValidator(address))
             {
-                // todo add different errors
-                return StatusCode(409);
+                return StatusCode(409, new WrongAdminAreaError() { });
             }
-            if(!_addressService.checkPostalCodePattern(address)) 
+            if (!_addressService.PostalCodeValidator(address))
             {
                 return StatusCode(409, new WrongPostalCodeFormat() { });
             }
