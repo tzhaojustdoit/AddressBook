@@ -12,10 +12,10 @@ namespace AddressBook.Data
     public static class DefaultData
     {
         private static Random rand = new Random();
-        private static readonly string[] fileLocation = {"H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USNYSTATE.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USSF.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USMASTATE.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\Australia.txt"};
+        // private static readonly string[] fileLocation = {"/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/USNYSTATE.txt",
+        //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/USSF.txt",
+        //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/USMASTATE.txt",
+        //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/Australia.txt"};
         // Default address list
         public static List<Address> GetDefaultAddressList()
         {
