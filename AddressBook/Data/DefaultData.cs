@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AddressBook.Data.AddressEnum;
-
+using System.Text.RegularExpressions;
 namespace AddressBook.Data
 {
 
@@ -12,10 +11,17 @@ namespace AddressBook.Data
     public static class DefaultData
     {
         private static Random rand = new Random();
+        //check if the string is numeric
+        private static readonly Regex regex = new Regex(@"^\d+$");
+        //file path
         private static readonly string[] fileLocation = {"H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USNYSTATE.txt",
                                                         "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USSF.txt",
                                                         "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USMASTATE.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\Australia.txt"};
+                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\Australia.txt",
+                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\CAMEDICINEHAT.txt",
+                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\CAFREDERICTON.txt",
+                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\NewYorkCity.txt"
+                                                        };
         // Default address list
         public static List<Address> GetDefaultAddressList()
         {
@@ -37,7 +43,11 @@ namespace AddressBook.Data
                 address.AdminArea = "NY";
                 address.Locality = tempLine[5];
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
-                if(tempLine[4] != null) address.AddressLine2 = tempLine[4];
+                if(tempLine[4] != null)
+                {
+                    if(regex.IsMatch(tempLine[4])) address.AddressLine2 = "Apartment " + tempLine[4];
+                    else address.AddressLine2 = tempLine[4];
+                }
                 address.PostalCode = tempLine[8];
                 datalist.Add(address);
             }
@@ -60,7 +70,11 @@ namespace AddressBook.Data
                 address.Locality = "San Francisco";
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
                 address.PostalCode = tempLine[8];
-                if(tempLine[4] != null) address.AddressLine2 = tempLine[4];
+                if(tempLine[4] != null)
+                {
+                    if(regex.IsMatch(tempLine[4])) address.AddressLine2 = "Apartment " + tempLine[4];
+                    else address.AddressLine2 = tempLine[4];
+                }
                 datalist.Add(address);
             }
             file.Close();
@@ -82,11 +96,16 @@ namespace AddressBook.Data
                 address.Locality = tempLine[5];
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
                 address.PostalCode = tempLine[8];
-                if(tempLine[4] != null) address.AddressLine2 = tempLine[4];
+                if(tempLine[4] != null)
+                {
+                    if(regex.IsMatch(tempLine[4])) address.AddressLine2 = "Apartment " + tempLine[4];
+                    else address.AddressLine2 = tempLine[4];
+                }
                 datalist.Add(address);
             }
             file.Close();
 
+            //add australia address
             file = new System.IO.StreamReader(@fileLocation[3]);
             counter = 0;
             while((line = file.ReadLine()) != null)
@@ -105,59 +124,79 @@ namespace AddressBook.Data
                 address.PostalCode = tempLine[8];
                 if(tempLine[4] != null) address.AddressLine2 = tempLine[4];
                 datalist.Add(address);
-                if(counter == 300000) break;
             }
             file.Close();
 
+            //add canada medicine hat address
+            file = new System.IO.StreamReader(@fileLocation[4]);
+            counter = 0;
+            while((line = file.ReadLine()) != null)
+            {
+                counter++;
+                //skip first line
+                if(counter == 1) continue;
+                var tempLine = line.Split('\t');
+                //if the line format is invalid, skip
+                if(tempLine.Length < 8) continue;
+                Address address = new Address();
+                address.Country = "Canada";
+                address.AdminArea = "AB";
+                address.Locality = "Medicine Hat";
+                address.AddressLine1 = tempLine[2] + " " + tempLine[3];
+                address.PostalCode = tempLine[8];
+                if(tempLine[4] != null && tempLine[4].Length > 0) address.AddressLine2 = "Unit " + tempLine[4];
+                datalist.Add(address);
+            }
+            file.Close();
 
+            //add canada fredericton address
+            file = new System.IO.StreamReader(@fileLocation[5]);
+            counter = 0;
+            while((line = file.ReadLine()) != null)
+            {
+                counter++;
+                //skip first line
+                if(counter == 1) continue;
+                var tempLine = line.Split('\t');
+                //if the line format is invalid, skip
+                if(tempLine.Length < 8) continue;
+                Address address = new Address();
+                address.Country = "Canada";
+                address.AdminArea = "NB";
+                address.Locality = tempLine[5];
+                address.AddressLine1 = tempLine[2] + " " + tempLine[3];
+                address.PostalCode = tempLine[8];
+                if(tempLine[4] != null && tempLine[4].Length > 0) address.AddressLine2 = "Unit " + tempLine[4];
+                datalist.Add(address);
+            }
+            file.Close();
 
-
+            //read US New York City address
+            file = new System.IO.StreamReader(@fileLocation[6]);
+            counter = 0;
+            while((line = file.ReadLine()) != null)
+            {
+                counter++;
+                //skip first line
+                if(counter == 1) continue;
+                var tempLine = line.Split('\t');
+                //if the line format is invalid, skip
+                if(tempLine.Length < 8) continue;
+                Address address = new Address();
+                address.Country = "United States";
+                address.AdminArea = "NY";
+                address.Locality = "New York City";
+                address.AddressLine1 = tempLine[2] + " " + tempLine[3];
+                address.PostalCode = tempLine[8];
+                if(tempLine[4] != null)
+                {
+                    if(regex.IsMatch(tempLine[4])) address.AddressLine2 = "Apartment " + tempLine[4];
+                    else address.AddressLine2 = tempLine[4];
+                }
+                datalist.Add(address);
+            }
+            file.Close();
             return datalist;
-        }
-
-
-        private static Address GetRandomAddress()
-        {
-            Address res = new Address();
-
-            var country = DefaultCountryList[rand.Next(0, DefaultCountryList.Count)];
-
-            res.Country = country.Name;
-
-            res.AddressLine1 = rand.Next(1, 9999).ToString();
-
-            res.AddressLine2 = rand.Next(1, 9999).ToString();
-
-            if (country.HasAddressLine3)
-            {
-                res.AddressLine3 = rand.Next(1, 9999).ToString();
-            }
-
-            if (country.AdminAreas == null)
-            {
-                res.AdminArea = rand.Next(1, 9999).ToString();
-            }
-            else
-            {
-                res.AdminArea = country.AdminAreas[rand.Next(0, country.AdminAreas.Count)];
-            }
-
-            if (country.HasLocality)
-            {
-                res.Locality = rand.Next(1, 9999).ToString();
-            }
-
-            if (country.HasSublocality)
-            {
-                res.Sublocality = rand.Next(1, 9999).ToString();
-            }
-
-            if (country.HasExtraData)
-            {
-                res.ExtraData = rand.Next(1, 9999).ToString();
-            }
-
-            return res;
         }
 
         // Default Argentina address data
@@ -207,11 +246,6 @@ namespace AddressBook.Data
                 .Select(v => v.ToString())
                 .ToList(),
             },
-
-            // new CountryFormat
-            // {
-            //     Name = "Britain"
-            // },
 
             new CountryFormat
             {
@@ -465,11 +499,6 @@ namespace AddressBook.Data
                 Name = "New Zealand"
             },
 
-            // new CountryFormat
-            // {
-            //     Name = "Northern Ireland"
-            // },
-
             new CountryFormat
             {
                 Name = "Norway"
@@ -544,11 +573,6 @@ namespace AddressBook.Data
             {
                 Name = "Switzerland"
             },
-
-            // new CountryFormat
-            // {
-            //     Name = "United Kingdom"
-            // },
 
             new CountryFormat
             {

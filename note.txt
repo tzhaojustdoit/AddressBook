@@ -40,6 +40,30 @@ Cremia:
 
 
 
+Stress test
+
+1 million fake addresses
+
+When creating, if the address is duplicate, do not create
+
+get api for getting country format by country name
+
+UI: show the pattern of postal code
+
+UI: hasAdminArea
+
+UI: Update state drop-down is not shown
+
+Fix japan china postcode etc
+
+Designed to assist users in form filling
+
+API exception when id length is wrong
+
+UI: Pagination for Index
+
+Home page and about page
+
 
 
 
