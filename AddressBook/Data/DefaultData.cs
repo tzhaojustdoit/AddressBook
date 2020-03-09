@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AddressBook.Data.AddressEnum;
@@ -16,14 +17,22 @@ namespace AddressBook.Data
         //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/USSF.txt",
         //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/USMASTATE.txt",
         //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/Australia.txt"};
+
+        private static readonly string[] fileLocation = {"/Dataset/USNYSTATE.txt",
+                                                        "/Dataset/USSF.txt",
+                                                        "/Dataset/USMASTATE.txt",
+                                                        "/Dataset/Australia.txt"};
         // Default address list
         public static List<Address> GetDefaultAddressList()
         {
             var datalist = new List<Address>();
             int counter = 0;
             string line;
+
+            string startupPath = Environment.CurrentDirectory;
+
             //read US New York State address
-            System.IO.StreamReader file = new System.IO.StreamReader(@fileLocation[0]);
+            StreamReader file = new StreamReader(@startupPath + fileLocation[0]);
             while((line = file.ReadLine()) != null)
             {
                 counter++;
@@ -44,7 +53,7 @@ namespace AddressBook.Data
             file.Close();
 
             //read US California address
-            file = new System.IO.StreamReader(@fileLocation[1]);
+            file = new System.IO.StreamReader(@startupPath + fileLocation[1]);
             counter = 0;
             while((line = file.ReadLine()) != null)
             {
@@ -66,7 +75,7 @@ namespace AddressBook.Data
             file.Close();
 
             //read US MA State address
-            file = new System.IO.StreamReader(@fileLocation[2]);
+            file = new System.IO.StreamReader(@startupPath + fileLocation[2]);
             counter = 0;
             while((line = file.ReadLine()) != null)
             {
@@ -87,7 +96,7 @@ namespace AddressBook.Data
             }
             file.Close();
 
-            file = new System.IO.StreamReader(@fileLocation[3]);
+            file = new System.IO.StreamReader(@startupPath + fileLocation[3]);
             counter = 0;
             while((line = file.ReadLine()) != null)
             {
