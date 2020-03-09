@@ -12,19 +12,109 @@ namespace AddressBook.Data
     public static class DefaultData
     {
         private static Random rand = new Random();
-
+        private static readonly string[] fileLocation = {"H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USNYSTATE.txt",
+                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USSF.txt",
+                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USMASTATE.txt",
+                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\Australia.txt"};
         // Default address list
         public static List<Address> GetDefaultAddressList()
         {
             var datalist = new List<Address>();
-
-            for (int i = 0; i < 1000000; i++)
+            int counter = 0;
+            string line;
+            //read US New York State address
+            System.IO.StreamReader file = new System.IO.StreamReader(@fileLocation[0]);
+            while((line = file.ReadLine()) != null)
             {
-                datalist.Add(GetRandomAddress());
+                counter++;
+                // //skip first line
+                if(counter == 1) continue;
+                var tempLine = line.Split('\t');
+                //if the line format is invalid, skip
+                if(tempLine.Length < 8) continue;
+                Address address = new Address();
+                address.Country = "United States";
+                address.AdminArea = "NY";
+                address.Locality = tempLine[5];
+                address.AddressLine1 = tempLine[2] + " " + tempLine[3];
+                if(tempLine[4] != null) address.AddressLine2 = tempLine[4];
+                address.PostalCode = tempLine[8];
+                datalist.Add(address);
             }
+            file.Close();
+
+            //read US California address
+            file = new System.IO.StreamReader(@fileLocation[1]);
+            counter = 0;
+            while((line = file.ReadLine()) != null)
+            {
+                counter++;
+                //skip first line
+                if(counter == 1) continue;
+                var tempLine = line.Split('\t');
+                //if the line format is invalid, skip
+                if(tempLine.Length < 8) continue;
+                Address address = new Address();
+                address.Country = "United States";
+                address.AdminArea = "CA";
+                address.Locality = "San Francisco";
+                address.AddressLine1 = tempLine[2] + " " + tempLine[3];
+                address.PostalCode = tempLine[8];
+                if(tempLine[4] != null) address.AddressLine2 = tempLine[4];
+                datalist.Add(address);
+            }
+            file.Close();
+
+            //read US MA State address
+            file = new System.IO.StreamReader(@fileLocation[2]);
+            counter = 0;
+            while((line = file.ReadLine()) != null)
+            {
+                counter++;
+                //skip first line
+                if(counter == 1) continue;
+                var tempLine = line.Split('\t');
+                //if the line format is invalid, skip
+                if(tempLine.Length < 8) continue;
+                Address address = new Address();
+                address.Country = "United States";
+                address.AdminArea = "MA";
+                address.Locality = tempLine[5];
+                address.AddressLine1 = tempLine[2] + " " + tempLine[3];
+                address.PostalCode = tempLine[8];
+                if(tempLine[4] != null) address.AddressLine2 = tempLine[4];
+                datalist.Add(address);
+            }
+            file.Close();
+
+            file = new System.IO.StreamReader(@fileLocation[3]);
+            counter = 0;
+            while((line = file.ReadLine()) != null)
+            {
+                counter++;
+                //skip first line
+                if(counter == 1) continue;
+                var tempLine = line.Split('\t');
+                //if the line format is invalid, skip
+                if(tempLine.Length < 8) continue;
+                Address address = new Address();
+                address.Country = "Australia";
+                address.AdminArea = tempLine[7];
+                address.Locality = tempLine[5];
+                address.AddressLine1 = tempLine[2] + " " + tempLine[3];
+                address.PostalCode = tempLine[8];
+                if(tempLine[4] != null) address.AddressLine2 = tempLine[4];
+                datalist.Add(address);
+                if(counter == 300000) break;
+            }
+            file.Close();
+
+
+
 
             return datalist;
         }
+
 
         private static Address GetRandomAddress()
         {
