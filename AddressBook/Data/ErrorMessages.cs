@@ -43,4 +43,10 @@ namespace AddressBook.Data
         public string Message { get => "The administrative area is wrong"; }
     }
 
+    public class AddressIsAlreadyExist
+    {
+        public int ErrorCode { get => 105; }
+        public string Message { get => "The address is already exist"; }
+    }
+
 }

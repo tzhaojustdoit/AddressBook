@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using AddressBook.Data.AddressEnum;
 using System.Text.RegularExpressions;
@@ -14,13 +15,13 @@ namespace AddressBook.Data
         //check if the string is numeric
         private static readonly Regex regex = new Regex(@"^\d+$");
         //file path
-        private static readonly string[] fileLocation = {"H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USNYSTATE.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USSF.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\USMASTATE.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\Australia.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\CAMEDICINEHAT.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\CAFREDERICTON.txt",
-                                                        "H:\\Study\\CPSC5200AddressSearch\\AddressBook\\Dataset\\NewYorkCity.txt"
+        private static readonly string[] fileLocation = {"\\Dataset\\USNYSTATE.txt",
+                                                        "\\Dataset\\USSF.txt",
+                                                        "\\Dataset\\USMASTATE.txt",
+                                                        "\\Dataset\\Australia.txt",
+                                                        "\\Dataset\\CAMEDICINEHAT.txt",
+                                                        "\\Dataset\\CAFREDERICTON.txt",
+                                                        "\\Dataset\\NewYorkCity.txt"
                                                         };
         // Default address list
         public static List<Address> GetDefaultAddressList()
@@ -28,8 +29,11 @@ namespace AddressBook.Data
             var datalist = new List<Address>();
             int counter = 0;
             string line;
+
+            string startupPath = Environment.CurrentDirectory;
+
             //read US New York State address
-            System.IO.StreamReader file = new System.IO.StreamReader(@fileLocation[0]);
+            StreamReader file = new StreamReader(@startupPath + fileLocation[0]);
             while((line = file.ReadLine()) != null)
             {
                 counter++;
@@ -54,7 +58,7 @@ namespace AddressBook.Data
             file.Close();
 
             //read US California address
-            file = new System.IO.StreamReader(@fileLocation[1]);
+            file = new System.IO.StreamReader(@startupPath + fileLocation[1]);
             counter = 0;
             while((line = file.ReadLine()) != null)
             {
@@ -80,7 +84,7 @@ namespace AddressBook.Data
             file.Close();
 
             //read US MA State address
-            file = new System.IO.StreamReader(@fileLocation[2]);
+            file = new System.IO.StreamReader(@startupPath + fileLocation[2]);
             counter = 0;
             while((line = file.ReadLine()) != null)
             {
@@ -105,8 +109,7 @@ namespace AddressBook.Data
             }
             file.Close();
 
-            //add australia address
-            file = new System.IO.StreamReader(@fileLocation[3]);
+            file = new System.IO.StreamReader(@startupPath + fileLocation[3]);
             counter = 0;
             while((line = file.ReadLine()) != null)
             {
@@ -128,7 +131,7 @@ namespace AddressBook.Data
             file.Close();
 
             //add canada medicine hat address
-            file = new System.IO.StreamReader(@fileLocation[4]);
+            file = new System.IO.StreamReader(@startupPath + fileLocation[4]);
             counter = 0;
             while((line = file.ReadLine()) != null)
             {
@@ -150,7 +153,7 @@ namespace AddressBook.Data
             file.Close();
 
             //add canada fredericton address
-            file = new System.IO.StreamReader(@fileLocation[5]);
+            file = new System.IO.StreamReader(@startupPath + fileLocation[5]);
             counter = 0;
             while((line = file.ReadLine()) != null)
             {
@@ -172,7 +175,7 @@ namespace AddressBook.Data
             file.Close();
 
             //read US New York City address
-            file = new System.IO.StreamReader(@fileLocation[6]);
+            file = new System.IO.StreamReader(@startupPath + fileLocation[6]);
             counter = 0;
             while((line = file.ReadLine()) != null)
             {

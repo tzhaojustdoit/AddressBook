@@ -74,9 +74,14 @@ namespace AddressBook.Controllers
             {
                 return StatusCode(409, new WrongAdminAreaError() { });
             }       
-            if(!_addressService.PostalCodeValidator(address)) 
+            if (!_addressService.PostalCodeValidator(address)) 
             {
                 return StatusCode(409, new WrongPostalCodeFormat() { });
+            }
+
+            if (_addressService.GetAddressByWholeAddress(address).Capacity != 0)
+            {
+                return StatusCode(409, new AddressIsAlreadyExist() { });
             }
 
             _addressService.CreateAddress(address);
