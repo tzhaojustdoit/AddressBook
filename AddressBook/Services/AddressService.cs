@@ -350,13 +350,9 @@ namespace AddressBook.Services
 
                 string pattern = countryFormat.PostalCodePattern;
 
-                Console.WriteLine("pattern: ", pattern);
-
                 if (pattern == null) return true;
 
                 Match m = Regex.Match(address.PostalCode, pattern);
-
-                Console.WriteLine("Success: ", m.Success);
 
                 if (m.Success) return true;
 
