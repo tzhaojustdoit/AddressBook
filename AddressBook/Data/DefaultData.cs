@@ -386,28 +386,28 @@ namespace AddressBook.Data
             {
                 Name = "Iceland",
                 HasAdminArea = false,
-                LocalityDisplayName = "Locality"              
+                LocalityDisplayName = "Locality"
             },
 
             new CountryFormat
             {
                 Name = "India",
                 HasAdminArea = false,
-                LocalityDisplayName = "City/Town/Locality"   
+                LocalityDisplayName = "City/Town/Locality"
             },
 
             new CountryFormat
             {
                 Name = "Indonesia",
                 HasAdminArea = false,
-                LocalityDisplayName = "City/Town/Locality" 
+                LocalityDisplayName = "City/Town/Locality"
             },
 
             new CountryFormat
             {
                 Name = "Ireland",
                 HasAdminArea = false,
-                LocalityDisplayName = "City/Town" 
+                LocalityDisplayName = "City/Town"
             },
 
             new CountryFormat
@@ -467,14 +467,14 @@ namespace AddressBook.Data
             {
                 Name = "Latvia",
                 HasAdminArea = false,
-                LocalityDisplayName = "City" 
+                LocalityDisplayName = "City"
             },
 
             new CountryFormat
             {
                 Name = "Luxembourg",
                 HasAdminArea = false,
-                LocalityDisplayName = "City/Locality" 
+                LocalityDisplayName = "City/Locality"
             },
 
             new CountryFormat
@@ -611,7 +611,8 @@ namespace AddressBook.Data
 
             new CountryFormat
             {
-                Name = "Other"
+                Name = "Other",
+                PostalCodeOptional = true
             },
 
         };
