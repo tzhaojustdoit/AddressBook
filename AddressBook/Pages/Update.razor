@@ -136,11 +136,11 @@
         <div class="col-md-4">
             <div class="form-group">
                 <input style="margin-right:50px" type="button" class="btn btn-primary" @onclick="@UpdateAddress" value="Update" />
-                @if (submitted && isUpdated && validation)
+                @if (submitted && isUpdated && addressExistenceValidation)
                 {
                     <p> your address has been added </p>
                 }
-                else if (submitted && !isUpdated && validation)
+                else if (submitted && !isUpdated && !addressExistenceValidation)
                 {
                     <p> your address is already existed </p>
                 }
@@ -165,7 +165,6 @@
     bool adminAreaValidation = true;
     bool otherCountry = false;
     bool addressExistenceValidation = false;
-     bool validation = false;
     bool isUpdated = false;
     bool submitted = false;
 
@@ -193,17 +192,13 @@
 
         addressExistenceValidation = objAddressService.GetAddressByWholeAddress(address).Count == 0;
 
-        if (postCodeValidation) 
+
+        if (countryValidation && line1Validation && adminAreaValidation && addressExistenceValidation && postCodeValidation)
         {
-            validation = true;
-            if (countryValidation && line1Validation && adminAreaValidation && addressExistenceValidation)
-            {
-                objAddressService.UpdateAddress(address);
-                isUpdated = true;
-                NavigationManager.NavigateTo("/index");
-            }
+            objAddressService.UpdateAddress(address);
+            isUpdated = true;
+            NavigationManager.NavigateTo("/index");
         }
-        
     }
 
     void CancelUpdation()

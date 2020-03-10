@@ -292,6 +292,11 @@ namespace AddressBook.Services
                 var key = Builders<Address>.IndexKeys;
                 var indexModel = new CreateIndexModel<Address>(key.Ascending(x => x.HashCode));
                 db.AddressRecord.Indexes.CreateOne(indexModel);
+
+                //create index for addressline1
+                var key2 = Builders<Address>.IndexKeys;
+                var indexModel2 = new CreateIndexModel<Address>(key.Ascending(x => x.AddressLine1));
+                db.AddressRecord.Indexes.CreateOne(indexModel2);
             }
             catch
             {
