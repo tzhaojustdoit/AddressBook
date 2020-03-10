@@ -114,7 +114,7 @@
                 <div class="form-group">
                     <label for="PostalCode" class="control-label">Postal Code</label>
                     <input for="PostalCode" class="form-control" @bind="@address.PostalCode" />
-                    @if (!postCodeValidation)
+                    @if (submitted && !postCodeValidation)
                     {
                         <p style="color:red">Post code is invalid</p>
                     }
@@ -191,13 +191,17 @@
 
         addressExistenceValidation = objAddressService.GetAddressByWholeAddress(address).Count == 0;
 
-        if (countryValidation && line1Validation && adminAreaValidation && postCodeValidation && addressExistenceValidation)
+        if (postCodeValidation) 
         {
-            objAddressService.UpdateAddress(address);
             validation = true;
-            isUpdated = true;
-            NavigationManager.NavigateTo("/index");
+            if (countryValidation && line1Validation && adminAreaValidation && addressExistenceValidation)
+            {
+                objAddressService.UpdateAddress(address);
+                isUpdated = true;
+                NavigationManager.NavigateTo("/index");
+            }
         }
+        
     }
 
     void CancelUpdation()

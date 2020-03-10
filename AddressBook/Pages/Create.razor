@@ -111,7 +111,7 @@
                 <div class="form-group">
                     <label for="PostalCode" class="control-label">Postal Code</label>
                     <input for="PostalCode" class="form-control" @bind="@objAddress.PostalCode" />
-                    @if (!postCodeValidation)
+                    @if (submitted && !postCodeValidation)
                     {
                         <p style="color:red"> Post code is invalid </p>
                     }
@@ -164,6 +164,7 @@
     bool submitted = false;
     bool validation = false; 
 
+
     protected override async Task OnInitializedAsync()
     {
         countryFormatList = await Task.Run(() => objAddressService.GetAllCountryFormats());
@@ -185,13 +186,16 @@
 
         addressExistenceValidation = objAddressService.GetAddressByWholeAddress(objAddress).Count == 0;
 
-        if (countryValidation && line1Validation && adminAreaValidation && postCodeValidation && addressExistenceValidation)
-        {
-            objAddressService.CreateAddress(objAddress);
-            isCreated = true;
+        if (postCodeValidation) {
             validation = true;
-            NavigationManager.NavigateTo("/index");
-        } 
+            if (countryValidation && line1Validation && adminAreaValidation && addressExistenceValidation)
+            {
+                objAddressService.CreateAddress(objAddress);
+                isCreated = true;           
+                NavigationManager.NavigateTo("/index");
+            } 
+        }
+        
     }
 
     void ClearAddress()
