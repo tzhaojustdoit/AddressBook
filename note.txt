@@ -65,6 +65,8 @@ UI: Pagination for Index
 Home page and about page
 
 
+Todo:
+Add hashcode for creating new address.
 
 
 

@@ -100,19 +100,28 @@ namespace AddressBook.Services
         // Find if the given address exist in database
         public List<Address> GetAddressByWholeAddress(Address data)
         {
-            FilterDefinition<Address> addrline1 = Builders<Address>.Filter.Eq(x => x.AddressLine1, data.AddressLine1);
-            FilterDefinition<Address> addrline2 = Builders<Address>.Filter.Eq(x => x.AddressLine2, data.AddressLine2);
-            FilterDefinition<Address> addrline3 = Builders<Address>.Filter.Eq(x => x.AddressLine3, data.AddressLine3);
-            FilterDefinition<Address> extradata = Builders<Address>.Filter.Eq(x => x.ExtraData, data.ExtraData);
-            FilterDefinition<Address> combineAddr = Builders<Address>.Filter.And(addrline1, addrline2, addrline3, extradata);
-            FilterDefinition<Address> country = Builders<Address>.Filter.Eq(x => x.Country, data.Country);
-            FilterDefinition<Address> adminArea = Builders<Address>.Filter.Eq(x => x.AdminArea, data.AdminArea);
-            FilterDefinition<Address> city = Builders<Address>.Filter.Eq(x => x.Locality, data.Locality);
-            FilterDefinition<Address> town = Builders<Address>.Filter.Eq(x => x.Sublocality, data.Sublocality);
-            FilterDefinition<Address> region = Builders<Address>.Filter.And(country, adminArea, city, town);
-            FilterDefinition<Address> postcode = Builders<Address>.Filter.Eq(x => x.PostalCode, data.PostalCode);
-            FilterDefinition<Address> allMatch = Builders<Address>.Filter.And(combineAddr, region, postcode);
-            return db.AddressRecord.Find(allMatch).ToList();
+            // FilterDefinition<Address> addrline1 = Builders<Address>.Filter.Eq(x => x.AddressLine1, data.AddressLine1);
+            // FilterDefinition<Address> addrline2 = Builders<Address>.Filter.Eq(x => x.AddressLine2, data.AddressLine2);
+            // FilterDefinition<Address> addrline3 = Builders<Address>.Filter.Eq(x => x.AddressLine3, data.AddressLine3);
+            // FilterDefinition<Address> extradata = Builders<Address>.Filter.Eq(x => x.ExtraData, data.ExtraData);
+            // FilterDefinition<Address> combineAddr = Builders<Address>.Filter.And(addrline1, addrline2, addrline3, extradata);
+            // FilterDefinition<Address> country = Builders<Address>.Filter.Eq(x => x.Country, data.Country);
+            // FilterDefinition<Address> adminArea = Builders<Address>.Filter.Eq(x => x.AdminArea, data.AdminArea);
+            // FilterDefinition<Address> city = Builders<Address>.Filter.Eq(x => x.Locality, data.Locality);
+            // FilterDefinition<Address> town = Builders<Address>.Filter.Eq(x => x.Sublocality, data.Sublocality);
+            // FilterDefinition<Address> region = Builders<Address>.Filter.And(country, adminArea, city, town);
+            // FilterDefinition<Address> postcode = Builders<Address>.Filter.Eq(x => x.PostalCode, data.PostalCode);
+            // FilterDefinition<Address> allMatch = Builders<Address>.Filter.And(combineAddr, region, postcode);
+            // return db.AddressRecord.Find(allMatch).ToList();
+            if(!String.IsNullOrEmpty(data.AddressLine2))
+            {
+                data.HashCode = HashCode.Combine(data.Country, data.AdminArea, data.Locality, data.AddressLine1, data.AddressLine2, data.PostalCode);
+            }else{
+                data.HashCode = HashCode.Combine(data.Country, data.AdminArea, data.Locality, data.AddressLine1, data.PostalCode);
+            }
+            Console.WriteLine("inside service get whole address function" + data.HashCode);
+            FilterDefinition<Address> addrFilter = Builders<Address>.Filter.Eq(x => x.HashCode, data.HashCode);
+            return db.AddressRecord.Find(addrFilter).ToList();
         }
 
         // Find all addresses that partially match
@@ -283,7 +292,9 @@ namespace AddressBook.Services
         {
             try
             {
+
                 var addressList = DefaultData.GetDefaultAddressList();
+
                 db.AddressRecord.InsertManyAsync(addressList);
             }
             catch

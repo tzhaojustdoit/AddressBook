@@ -52,5 +52,9 @@ namespace AddressBook.Data
         // Values are frequently alphanumeric.
         [BsonElement("postalCode")]
         public string PostalCode { get; set; }
+
+        // HashCode of the address
+        [BsonElement("hashCode")]
+        public int HashCode { get; set; }
     }
 }

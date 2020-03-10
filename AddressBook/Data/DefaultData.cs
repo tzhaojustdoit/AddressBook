@@ -47,12 +47,19 @@ namespace AddressBook.Data
                 address.AdminArea = "NY";
                 address.Locality = tempLine[5];
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
-                if(tempLine[4] != null)
+                if(!String.IsNullOrEmpty(tempLine[4]))
                 {
                     if(regex.IsMatch(tempLine[4])) address.AddressLine2 = "Apartment " + tempLine[4];
                     else address.AddressLine2 = tempLine[4];
                 }
                 address.PostalCode = tempLine[8];
+                if(!String.IsNullOrEmpty(address.AddressLine2))
+                {
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.AddressLine2, address.PostalCode);
+                }else{
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.PostalCode);
+                }
+                
                 datalist.Add(address);
             }
             file.Close();
@@ -74,10 +81,16 @@ namespace AddressBook.Data
                 address.Locality = "San Francisco";
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
                 address.PostalCode = tempLine[8];
-                if(tempLine[4] != null)
+                if(!String.IsNullOrEmpty(tempLine[4]))
                 {
                     if(regex.IsMatch(tempLine[4])) address.AddressLine2 = "Apartment " + tempLine[4];
                     else address.AddressLine2 = tempLine[4];
+                }
+                if(!String.IsNullOrEmpty(address.AddressLine2))
+                {
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.AddressLine2, address.PostalCode);
+                }else{
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.PostalCode);
                 }
                 datalist.Add(address);
             }
@@ -100,15 +113,22 @@ namespace AddressBook.Data
                 address.Locality = tempLine[5];
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
                 address.PostalCode = tempLine[8];
-                if(tempLine[4] != null)
+                if(!String.IsNullOrEmpty(tempLine[4]))
                 {
                     if(regex.IsMatch(tempLine[4])) address.AddressLine2 = "Apartment " + tempLine[4];
                     else address.AddressLine2 = tempLine[4];
+                }
+                if(!String.IsNullOrEmpty(address.AddressLine2))
+                {
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.AddressLine2, address.PostalCode);
+                }else{
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.PostalCode);
                 }
                 datalist.Add(address);
             }
             file.Close();
 
+            //read AU addresses
             file = new System.IO.StreamReader(@startupPath + fileLocation[3]);
             counter = 0;
             while((line = file.ReadLine()) != null)
@@ -125,7 +145,13 @@ namespace AddressBook.Data
                 address.Locality = tempLine[5];
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
                 address.PostalCode = tempLine[8];
-                if(tempLine[4] != null) address.AddressLine2 = tempLine[4];
+                if(!String.IsNullOrEmpty(tempLine[4])) address.AddressLine2 = tempLine[4];
+                if(!String.IsNullOrEmpty(address.AddressLine2))
+                {
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.AddressLine2, address.PostalCode);
+                }else{
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.PostalCode);
+                }
                 datalist.Add(address);
             }
             file.Close();
@@ -147,7 +173,13 @@ namespace AddressBook.Data
                 address.Locality = "Medicine Hat";
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
                 address.PostalCode = tempLine[8];
-                if(tempLine[4] != null && tempLine[4].Length > 0) address.AddressLine2 = "Unit " + tempLine[4];
+                if(!String.IsNullOrEmpty(tempLine[4]) && tempLine[4].Length > 0) address.AddressLine2 = "Unit " + tempLine[4];
+                if(!String.IsNullOrEmpty(address.AddressLine2))
+                {
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.AddressLine2, address.PostalCode);
+                }else{
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.PostalCode);
+                }
                 datalist.Add(address);
             }
             file.Close();
@@ -169,7 +201,13 @@ namespace AddressBook.Data
                 address.Locality = tempLine[5];
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
                 address.PostalCode = tempLine[8];
-                if(tempLine[4] != null && tempLine[4].Length > 0) address.AddressLine2 = "Unit " + tempLine[4];
+                if(!String.IsNullOrEmpty(tempLine[4]) && tempLine[4].Length > 0) address.AddressLine2 = "Unit " + tempLine[4];
+                if(!String.IsNullOrEmpty(address.AddressLine2))
+                {
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.AddressLine2, address.PostalCode);
+                }else{
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.PostalCode);
+                }
                 datalist.Add(address);
             }
             file.Close();
@@ -191,10 +229,16 @@ namespace AddressBook.Data
                 address.Locality = "New York City";
                 address.AddressLine1 = tempLine[2] + " " + tempLine[3];
                 address.PostalCode = tempLine[8];
-                if(tempLine[4] != null)
+                if(!String.IsNullOrEmpty(tempLine[4]))
                 {
                     if(regex.IsMatch(tempLine[4])) address.AddressLine2 = "Apartment " + tempLine[4];
                     else address.AddressLine2 = tempLine[4];
+                }
+                if(!String.IsNullOrEmpty(address.AddressLine2))
+                {
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.AddressLine2, address.PostalCode);
+                }else{
+                    address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.PostalCode);
                 }
                 datalist.Add(address);
             }
@@ -617,4 +661,9 @@ namespace AddressBook.Data
         };
 
     }
+
+    // private static string HashAddresses(string entireAddress)
+    // {
+        
+    // }
 }

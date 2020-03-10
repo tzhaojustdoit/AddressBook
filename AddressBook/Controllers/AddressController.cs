@@ -210,6 +210,15 @@ namespace AddressBook.Controllers
             {
                 return StatusCode(409, new EmptyAdminAreaError() { });
             }
+
+            if(!String.IsNullOrEmpty(address.AddressLine2))
+            {
+                address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.AddressLine2, address.PostalCode);
+            }else{
+                address.HashCode = HashCode.Combine(address.Country, address.AdminArea, address.Locality, address.AddressLine1, address.PostalCode);
+            }
+            
+            Console.WriteLine("inside controller's search function " + address.HashCode);
             var SearchResult = _addressService.GetAddressByWholeAddress(address);
             if (SearchResult.Count == 0)
             {
