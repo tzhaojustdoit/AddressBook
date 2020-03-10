@@ -79,6 +79,7 @@ namespace AddressBook.Controllers
                 return StatusCode(409, new WrongPostalCodeFormat() { });
             }
 
+            // Parse Address
             address = _addressService.parseAddress(address);
 
             if (_addressService.GetAddressByWholeAddress(address).Count != 0)
@@ -155,6 +156,10 @@ namespace AddressBook.Controllers
             {
                 return StatusCode(409, new WrongPostalCodeFormat() { });
             }
+
+            // Parse Address
+            address = _addressService.parseAddress(address);
+
             if (_addressService.GetAddressByWholeAddress(address).Count != 0)
             {
                 return StatusCode(409, new AddressIsAlreadyExist() { });
@@ -204,6 +209,9 @@ namespace AddressBook.Controllers
         [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         public ActionResult<Address> Search([FromBody] Address address)
         {
+            // Parse Address
+            address = _addressService.parseAddress(address);
+
             if (String.IsNullOrEmpty(address.Country))
             {
                 return StatusCode(409, new EmptyCountryError() { });
@@ -225,6 +233,7 @@ namespace AddressBook.Controllers
             }
             //for debugging
             // Console.WriteLine("inside controller's search function " + address.HashCode);
+
             var SearchResult = _addressService.GetAddressByWholeAddress(address);
             if (SearchResult.Count == 0)
             {
@@ -245,6 +254,9 @@ namespace AddressBook.Controllers
         [ProducesResponseType(typeof(EmptyAddrLineError), 409)]
         public ActionResult<List<Address>> PartialSearch([FromBody] Address address)
         {
+            // Parse Address
+            address = _addressService.parseAddress(address);
+
             if (String.IsNullOrEmpty(address.AddressLine1))
             {
                 return StatusCode(409, new EmptyAddrLineError() { });
