@@ -34,9 +34,6 @@ namespace AddressBook.Services
             try
             {
                 return db.AddressRecord.Find(_ => true).SortByDescending(a => a.Timestamp).Limit(100).ToList(); // impossible to display 1 million addresses on a single page, limit to 100 addresses
-                // return db.AddressRecord.Find
-                // FilterDefinition<Address> addrFilter = Builders<Address>.Filter.Eq(a => a.Timestamp);
-                // return db.AddressRecord.Find(addrFilter).ToList();
             }
             catch
             {
@@ -297,6 +294,11 @@ namespace AddressBook.Services
                 var key2 = Builders<Address>.IndexKeys;
                 var indexModel2 = new CreateIndexModel<Address>(key.Ascending(x => x.AddressLine1));
                 db.AddressRecord.Indexes.CreateOne(indexModel2);
+
+                //create index for timestamp
+                var key3 = Builders<Address>.IndexKeys;
+                var indexModel3 = new CreateIndexModel<Address>(key.Descending(x => x.Timestamp));
+                db.AddressRecord.Indexes.CreateOne(indexModel3);
             }
             catch
             {
