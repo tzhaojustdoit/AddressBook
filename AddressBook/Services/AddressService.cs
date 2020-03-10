@@ -267,7 +267,8 @@ namespace AddressBook.Services
         {
             try
             {
-                db.AddressRecord.DeleteManyAsync(_ => true);
+                // db.AddressRecord.DeleteManyAsync(_ => true);
+                db.DeleteAddressCollection();
             }
             catch
             {

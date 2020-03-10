@@ -32,5 +32,10 @@ namespace AddressBook.Data
                 return _mongoDatabase.GetCollection<CountryFormat>("Countries");
             }
         }
+
+        public void DeleteAddressCollection()
+        {
+            _mongoDatabase.DropCollection("Addresses");
+        }
     }
 }
