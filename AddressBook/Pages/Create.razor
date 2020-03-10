@@ -181,7 +181,8 @@
         adminAreaValidation = !String.IsNullOrEmpty(objAddress.AdminArea);
 
         postCodeValidation = objAddressService.PostalCodeValidator(objAddress);
-
+        
+        //inside this validation, the new address has been hashcoded
         addressExistenceValidation = objAddressService.GetAddressByWholeAddress(objAddress).Capacity == 0;
 
 
