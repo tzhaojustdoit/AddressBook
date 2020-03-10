@@ -133,11 +133,11 @@
         <div class="col-md-4">
             <div class="form-group">
                 <input style="margin-right:50px" type="button" class="btn btn-primary" @onclick="@CreateAddress" value="Save" />
-                @if (submitted && isCreated && validation)
+                @if (submitted && isCreated && addressExistenceValidation)
                 {
                     <p> your address has been added </p>
                 }
-                else if (submitted && !isCreated && validation)
+                else if (submitted && !isCreated && !addressExistenceValidation)
                 {
                     <p> your address is already existed </p>
                 }
