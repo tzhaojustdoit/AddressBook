@@ -287,17 +287,19 @@ namespace AddressBook.Services
                 
                 //create index hashCode
                 var key = Builders<Address>.IndexKeys;
-                var indexModel = new CreateIndexModel<Address>(key.Ascending(x => x.HashCode));
+                var indexOptions = new CreateIndexOptions();
+                indexOptions.Background = true;
+                var indexModel = new CreateIndexModel<Address>(key.Ascending(x => x.HashCode), indexOptions);
                 db.AddressRecord.Indexes.CreateOne(indexModel);
 
                 //create index for addressline1
                 var key2 = Builders<Address>.IndexKeys;
-                var indexModel2 = new CreateIndexModel<Address>(key.Ascending(x => x.AddressLine1));
+                var indexModel2 = new CreateIndexModel<Address>(key2.Ascending(x => x.AddressLine1), indexOptions);
                 db.AddressRecord.Indexes.CreateOne(indexModel2);
 
                 //create index for timestamp
                 var key3 = Builders<Address>.IndexKeys;
-                var indexModel3 = new CreateIndexModel<Address>(key.Descending(x => x.Timestamp));
+                var indexModel3 = new CreateIndexModel<Address>(key3.Descending(x => x.Timestamp), indexOptions);
                 db.AddressRecord.Indexes.CreateOne(indexModel3);
             }
             catch
