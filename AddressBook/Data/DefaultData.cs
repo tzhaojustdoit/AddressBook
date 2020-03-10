@@ -12,10 +12,6 @@ namespace AddressBook.Data
     public static class DefaultData
     {
         private static Random rand = new Random();
-        // private static readonly string[] fileLocation = {"/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/USNYSTATE.txt",
-        //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/USSF.txt",
-        //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/USMASTATE.txt",
-        //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/Australia.txt"};
 
         //check if the string is numeric
         private static readonly Regex regex = new Regex(@"^\d+$");
@@ -27,16 +23,6 @@ namespace AddressBook.Data
                                                         "/Dataset/CAFREDERICTON.txt",
                                                         "/Dataset/NewYorkCity.txt"};
 
-        //file path
-        // private static readonly string[] fileLocation = {"\\Dataset\\USNYSTATE.txt",
-        //                                                 "\\Dataset\\USSF.txt",
-        //                                                 "\\Dataset\\USMASTATE.txt",
-        //                                                 "\\Dataset\\Australia.txt",
-        //                                                 "\\Dataset\\CAMEDICINEHAT.txt",
-        //                                                 "\\Dataset\\CAFREDERICTON.txt",
-        //                                                 "\\Dataset\\NewYorkCity.txt"
-        //                                                 };
-        // Default address list
         public static List<Address> GetDefaultAddressList()
         {
             var datalist = new List<Address>();
