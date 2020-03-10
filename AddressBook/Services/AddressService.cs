@@ -48,9 +48,8 @@ namespace AddressBook.Services
         public void CreateAddress(Address address)
         {
             try
-            {    
+            {
                 db.AddressRecord.InsertOne(address);
-            
             }
             catch
             {
@@ -398,5 +397,46 @@ namespace AddressBook.Services
         }
 
         #endregion Validation
+
+        #region ParseAddress
+        public Address parseAddress(Address address)
+        {
+            address.AddressLine1 = parseAddressLine(address.AddressLine1);
+            address.AddressLine2 = parseAddressLine(address.AddressLine2);
+            address.AddressLine3 = parseAddressLine(address.AddressLine3);
+
+            return address;
+        }
+
+        private string parseAddressLine(string line)
+        {
+            if(string.IsNullOrEmpty(line))
+            {
+                return line;
+            }
+            line = line.Trim();
+            int spaceCount = 0;
+            int index = 0;
+            char[] result = new char[line.Length];
+            for (int i = 0; i < line.Length; i++)
+            {
+                if (line[i] != ' ')
+                {
+                    result[index++] = line[i];
+                    spaceCount = 0;
+                }
+                if(line[i] == ' ')
+                {
+                    if(spaceCount == 0)
+                    {
+                        result[index++] = line[i];
+                        spaceCount = 1;
+                    }
+                }
+            }
+            return new string(result, 0, index);
+        }
+
+        #endregion ParseAddrress
     }
 }

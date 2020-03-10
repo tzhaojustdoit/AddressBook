@@ -175,6 +175,8 @@
         // validation
         submitted = true;
 
+        objAddress = objAddressService.parseAddress(objAddress);
+
         countryValidation = !String.IsNullOrEmpty(objAddress.Country);
 
         line1Validation = !String.IsNullOrEmpty(objAddress.AddressLine1);
