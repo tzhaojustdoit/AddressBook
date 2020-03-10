@@ -111,7 +111,7 @@
                 <div class="form-group">
                     <label for="PostalCode" class="control-label">Postal Code</label>
                     <input for="PostalCode" class="form-control" @bind="@objAddress.PostalCode" />
-                    @if (!postCodeValidation)
+                    @if (submitted && !postCodeValidation)
                     {
                         <p style="color:red"> Post code is invalid </p>
                     }
@@ -133,11 +133,11 @@
         <div class="col-md-4">
             <div class="form-group">
                 <input style="margin-right:50px" type="button" class="btn btn-primary" @onclick="@CreateAddress" value="Save" />
-                @if (submitted && isCreated)
+                @if (submitted && isCreated && addressExistenceValidation)
                 {
                     <p> your address has been added </p>
                 }
-                else if (submitted && !isCreated)
+                else if (submitted && !isCreated && !addressExistenceValidation)
                 {
                     <p> your address is already existed </p>
                 }
@@ -159,9 +159,11 @@
     bool line1Validation = true;
     bool adminAreaValidation = true;
     bool otherCountry = false;
-    bool addressExistenceValidation = false;
+    bool addressExistenceValidation = true;
     bool isCreated = false;
     bool submitted = false;
+    bool validation = false; 
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -181,17 +183,19 @@
         adminAreaValidation = !String.IsNullOrEmpty(objAddress.AdminArea);
 
         postCodeValidation = objAddressService.PostalCodeValidator(objAddress);
-        
         //inside this validation, the new address has been hashcoded
-        addressExistenceValidation = objAddressService.GetAddressByWholeAddress(objAddress).Capacity == 0;
+        addressExistenceValidation = objAddressService.GetAddressByWholeAddress(objAddress).Count == 0;
 
-
-        if (countryValidation && line1Validation && adminAreaValidation && postCodeValidation && addressExistenceValidation)
-        {
-            objAddressService.CreateAddress(objAddress);
-            isCreated = true;
-            NavigationManager.NavigateTo("/index");
+        if (postCodeValidation) {
+            validation = true;
+            if (countryValidation && line1Validation && adminAreaValidation && addressExistenceValidation)
+            {
+                objAddressService.CreateAddress(objAddress);
+                isCreated = true;           
+                NavigationManager.NavigateTo("/index");
+            } 
         }
+        
     }
 
     void ClearAddress()
