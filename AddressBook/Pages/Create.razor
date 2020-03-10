@@ -133,11 +133,11 @@
         <div class="col-md-4">
             <div class="form-group">
                 <input style="margin-right:50px" type="button" class="btn btn-primary" @onclick="@CreateAddress" value="Save" />
-                @if (submitted && isCreated)
+                @if (submitted && isCreated && validation)
                 {
                     <p> your address has been added </p>
                 }
-                else if (submitted && !isCreated)
+                else if (submitted && !isCreated && validation)
                 {
                     <p> your address is already existed </p>
                 }
@@ -159,9 +159,10 @@
     bool line1Validation = true;
     bool adminAreaValidation = true;
     bool otherCountry = false;
-    bool addressExistenceValidation = false;
+    bool addressExistenceValidation = true;
     bool isCreated = false;
     bool submitted = false;
+    bool validation = false; 
 
     protected override async Task OnInitializedAsync()
     {
@@ -182,15 +183,15 @@
 
         postCodeValidation = objAddressService.PostalCodeValidator(objAddress);
 
-        addressExistenceValidation = objAddressService.GetAddressByWholeAddress(objAddress).Capacity == 0;
-
+        addressExistenceValidation = objAddressService.GetAddressByWholeAddress(objAddress).Count == 0;
 
         if (countryValidation && line1Validation && adminAreaValidation && postCodeValidation && addressExistenceValidation)
         {
             objAddressService.CreateAddress(objAddress);
             isCreated = true;
+            validation = true;
             NavigationManager.NavigateTo("/index");
-        }
+        } 
     }
 
     void ClearAddress()

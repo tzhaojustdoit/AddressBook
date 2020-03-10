@@ -79,7 +79,7 @@ namespace AddressBook.Controllers
                 return StatusCode(409, new WrongPostalCodeFormat() { });
             }
 
-            if (_addressService.GetAddressByWholeAddress(address).Capacity != 0)
+            if (_addressService.GetAddressByWholeAddress(address).Count != 0)
             {
                 return StatusCode(409, new AddressIsAlreadyExist() { });
             }
@@ -152,6 +152,10 @@ namespace AddressBook.Controllers
             if (!_addressService.PostalCodeValidator(address))
             {
                 return StatusCode(409, new WrongPostalCodeFormat() { });
+            }
+            if (_addressService.GetAddressByWholeAddress(address).Count != 0)
+            {
+                return StatusCode(409, new AddressIsAlreadyExist() { });
             }
 
             _addressService.UpdateAddress(address);

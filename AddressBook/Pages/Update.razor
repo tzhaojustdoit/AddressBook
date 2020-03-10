@@ -136,6 +136,14 @@
         <div class="col-md-4">
             <div class="form-group">
                 <input style="margin-right:50px" type="button" class="btn btn-primary" @onclick="@UpdateAddress" value="Update" />
+                @if (submitted && isUpdated && validation)
+                {
+                    <p> your address has been added </p>
+                }
+                else if (submitted && !isUpdated && validation)
+                {
+                    <p> your address is already existed </p>
+                }
                 <input type="button" class="btn btn-primary" @onclick="@CancelUpdation" value="Cancel" />
             </div>
         </div>
@@ -156,6 +164,10 @@
     bool line1Validation = true;
     bool adminAreaValidation = true;
     bool otherCountry = false;
+    bool addressExistenceValidation = false;
+     bool validation = false;
+    bool isUpdated = false;
+    bool submitted = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -167,6 +179,7 @@
     protected void UpdateAddress()
     {
         // validation
+        submitted = true;
 
         countryValidation = !String.IsNullOrEmpty(address.Country);
 
@@ -176,9 +189,13 @@
 
         postCodeValidation = objAddressService.PostalCodeValidator(address);
 
-        if (countryValidation && line1Validation && adminAreaValidation && postCodeValidation)
+        addressExistenceValidation = objAddressService.GetAddressByWholeAddress(address).Count == 0;
+
+        if (countryValidation && line1Validation && adminAreaValidation && postCodeValidation && addressExistenceValidation)
         {
             objAddressService.UpdateAddress(address);
+            validation = true;
+            isUpdated = true;
             NavigationManager.NavigateTo("/index");
         }
     }

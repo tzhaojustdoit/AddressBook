@@ -17,21 +17,25 @@ namespace AddressBook.Data
         //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/USMASTATE.txt",
         //                                                 "/Users/helenawang/Documents/homework/seattleU/10_2020_Winter/project/AddressBook/AddressBook/Dataset/Australia.txt"};
 
-        // private static readonly string[] fileLocation = {"/Dataset/USNYSTATE.txt",
-        //                                                 "/Dataset/USSF.txt",
-        //                                                 "/Dataset/USMASTATE.txt",
-        //                                                 "/Dataset/Australia.txt"};
         //check if the string is numeric
         private static readonly Regex regex = new Regex(@"^\d+$");
+        private static readonly string[] fileLocation = {"/Dataset/USNYSTATE.txt",
+                                                        "/Dataset/USSF.txt",
+                                                        "/Dataset/USMASTATE.txt",
+                                                        "/Dataset/Australia.txt",
+                                                        "/Dataset/CAMEDICINEHAT.txt",
+                                                        "/Dataset/CAFREDERICTON.txt",
+                                                        "/Dataset/NewYorkCity.txt"};
+
         //file path
-        private static readonly string[] fileLocation = {"\\Dataset\\USNYSTATE.txt",
-                                                        "\\Dataset\\USSF.txt",
-                                                        "\\Dataset\\USMASTATE.txt",
-                                                        "\\Dataset\\Australia.txt",
-                                                        "\\Dataset\\CAMEDICINEHAT.txt",
-                                                        "\\Dataset\\CAFREDERICTON.txt",
-                                                        "\\Dataset\\NewYorkCity.txt"
-                                                        };
+        // private static readonly string[] fileLocation = {"\\Dataset\\USNYSTATE.txt",
+        //                                                 "\\Dataset\\USSF.txt",
+        //                                                 "\\Dataset\\USMASTATE.txt",
+        //                                                 "\\Dataset\\Australia.txt",
+        //                                                 "\\Dataset\\CAMEDICINEHAT.txt",
+        //                                                 "\\Dataset\\CAFREDERICTON.txt",
+        //                                                 "\\Dataset\\NewYorkCity.txt"
+        //                                                 };
         // Default address list
         public static List<Address> GetDefaultAddressList()
         {
