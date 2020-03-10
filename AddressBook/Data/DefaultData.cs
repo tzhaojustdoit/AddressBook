@@ -330,7 +330,7 @@ namespace AddressBook.Data
                 .Cast<ChinaProvince>()
                 .Select(v => v.ToString())
                 .ToList(),
-                PostalCodePattern = "000000",
+                // PostalCodePattern = "000000",
             },
 
             new CountryFormat
