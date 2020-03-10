@@ -162,7 +162,6 @@
     bool addressExistenceValidation = true;
     bool isCreated = false;
     bool submitted = false;
-    bool validation = false; 
 
 
     protected override async Task OnInitializedAsync()
@@ -186,15 +185,13 @@
         //inside this validation, the new address has been hashcoded
         addressExistenceValidation = objAddressService.GetAddressByWholeAddress(objAddress).Count == 0;
 
-        if (postCodeValidation) {
-            validation = true;
-            if (countryValidation && line1Validation && adminAreaValidation && addressExistenceValidation)
-            {
-                objAddressService.CreateAddress(objAddress);
-                isCreated = true;           
-                NavigationManager.NavigateTo("/index");
-            } 
-        }
+        if (countryValidation && line1Validation && adminAreaValidation && addressExistenceValidation && postCodeValidation)
+        {
+            objAddressService.CreateAddress(objAddress);
+            isCreated = true;           
+            NavigationManager.NavigateTo("/index");
+        } 
+        
         
     }
 
