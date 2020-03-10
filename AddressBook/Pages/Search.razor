@@ -237,8 +237,9 @@
 
     protected void SearchAddress()
     {
-
+        // Parse Address
         objAddress = objAddressService.parseAddress(objAddress);
+        
         // validation
         countryValidation = !String.IsNullOrEmpty(objAddress.Country);
 

@@ -79,11 +79,13 @@ namespace AddressBook.Controllers
                 return StatusCode(409, new WrongPostalCodeFormat() { });
             }
 
+            address = _addressService.parseAddress(address);
+
             if (_addressService.GetAddressByWholeAddress(address).Count != 0)
             {
                 return StatusCode(409, new AddressIsAlreadyExist() { });
             }
-
+            
             _addressService.CreateAddress(address);
             
             return Ok(address);
