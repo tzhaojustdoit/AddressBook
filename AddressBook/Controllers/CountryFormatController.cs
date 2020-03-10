@@ -31,6 +31,20 @@ namespace AddressBook.Controllers
         /// <summary>
         /// Add country format
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     {
+        ///        "Name": "Cat Nation",
+        ///        "AdminAreas": ["Cat State 1", "Cat State 2", "Cat State 3"],
+        ///        "HasAddressLine3": true,
+        ///        "AdminAreaDisplayName": "Cat States",
+        ///        "LocalityDisplayName": "Cat City",
+        ///        "HasSublocality": true,
+        ///        "SublocalityDisplayName": "Cat District"
+        ///     }
+        ///
+        /// </remarks>
         /// <param name="countryFormat"></param>
         /// <returns></returns>
         [HttpPost]
